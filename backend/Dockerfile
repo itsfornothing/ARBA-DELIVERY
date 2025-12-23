@@ -9,6 +9,7 @@ ENV PYTHONUNBUFFERED=1
 RUN apt-get update && apt-get install -y \
     build-essential \
     default-libmysqlclient-dev \
+    libmariadb-dev \
     pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
@@ -30,6 +31,7 @@ ENV DJANGO_SETTINGS_MODULE=delivery_platform.settings
 # Install system dependencies for production
 RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
+    libmariadb3 \
     && rm -rf /var/lib/apt/lists/*
 
 # Create non-root user
