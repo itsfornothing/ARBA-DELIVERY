@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/delivery_platform/middleware.py
+# hypothesis_version: 6.148.7
+
+[0.6, 200, 404, '$', '(?P<id>[^/.]+)', '(?P<pk>[^/.]+)', ',', '/', '404_details', 'Anonymous', 'HTTP_ACCEPT', 'HTTP_ACCEPT_ENCODING', 'HTTP_ACCEPT_LANGUAGE', 'HTTP_CACHE_CONTROL', 'HTTP_CONNECTION', 'HTTP_CONTENT_TYPE', 'HTTP_DATE', 'HTTP_HOST', 'HTTP_REFERER', 'HTTP_USER_AGENT', 'HTTP_X_FORWARDED_FOR', 'POST', 'REMOTE_ADDR', 'Unknown', '[FILTERED]', '\\/', '^', 'application/json', 'auth', 'authorization', 'content', 'credential', 'exception', 'full_path', 'headers', 'id', 'ignore', 'is_staff', 'key', 'method', 'password', 'path', 'post_data', 'private', 'query_params', 'remote_addr', 'request_method', 'request_path', 'response_preview', 'response_status', 'role', 'secret', 'similar_patterns', 'timestamp', 'token', 'url_patterns', 'user', 'user_agent', 'user_id', 'username', 'utf-8', '{id}']

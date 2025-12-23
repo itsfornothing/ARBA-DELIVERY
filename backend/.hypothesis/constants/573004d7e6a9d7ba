@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/orders/admin.py
+# hypothesis_version: 6.148.7
+
+['assigned_at', 'assigned_courier', 'base_fee', 'courier', 'courier__username', 'created_at', 'created_by', 'current_orders_count', 'customer', 'customer__username', 'delivered_at', 'delivery_address', 'id', 'in_transit_at', 'is_active', 'is_available', 'last_activity', 'per_km_rate', 'picked_up_at', 'pickup_address', 'price', 'status']

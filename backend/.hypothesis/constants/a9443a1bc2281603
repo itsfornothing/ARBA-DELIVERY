@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/accounts/models.py
+# hypothesis_version: 6.148.7
+
+[200, 'ADMIN', 'Admin', 'COURIER', 'CUSTOMER', 'Courier', 'Courier Statuses', 'Customer', 'courier_status', 'role']

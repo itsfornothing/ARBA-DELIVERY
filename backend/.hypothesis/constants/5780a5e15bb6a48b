@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/accounts/migrations/0002_courierstatus.py
+# hypothesis_version: 6.148.7
+
+[200, '0001_initial', 'COURIER', 'Courier Statuses', 'CourierStatus', 'ID', 'accounts', 'courier', 'courier_status', 'current_orders_count', 'id', 'is_available', 'last_activity', 'location_description', 'role', 'verbose_name_plural']

@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/orders/services.py
+# hypothesis_version: 6.148.7
+
+[100, '-created_at', '0.01', '1.0', '10.0', '10.00', '100.00', '1000.00', '200.00', '25.0', '5.0', '5.00', '50.00', 'ADMIN', 'ASSIGNED', 'COURIER', 'CREATED', 'PRICING_UPDATE', 'admin_user_id', 'admin_username', 'base_fee', 'change_amount', 'change_percent', 'change_type', 'created_at', 'created_by', 'current_orders_count', 'distance_km', 'errors', 'id', 'is_active', 'is_available', 'is_valid', 'name', 'new_config', 'new_price', 'old_config', 'old_price', 'per_km_rate', 'sample_impacts', 'timestamp', 'username', 'warnings']

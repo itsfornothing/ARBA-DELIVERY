@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/delivery_platform/settings.py
+# hypothesis_version: 6.148.7
+
+[',', '/media/', 'ALGORITHM', 'ALLOWED_HOSTS', 'APP_DIRS', 'AUTH_HEADER_NAME', 'AUTH_HEADER_TYPES', 'AUTH_TOKEN_CLASSES', 'BACKEND', 'Bearer', 'CONFIG', 'CORS_ALLOWED_ORIGINS', 'DATABASE_URL', 'DEBUG', 'DIRS', 'HS256', 'HTTP_AUTHORIZATION', 'NAME', 'OPTIONS', 'PAGE_SIZE', 'REDIS_URL', 'SECRET_KEY', 'SIGNING_KEY', 'TOKEN_TYPE_CLAIM', 'UPDATE_LAST_LOGIN', 'USER_ID_CLAIM', 'USER_ID_FIELD', 'UTC', 'VERIFYING_KEY', 'accounts', 'accounts.User', 'analytics', 'channels', 'context_processors', 'corsheaders', 'default', 'django.contrib.admin', 'django.contrib.auth', 'en-us', 'hosts', 'id', 'media', 'notifications', 'orders', 'rest_framework', 'static/', 'token_type', 'user_id']

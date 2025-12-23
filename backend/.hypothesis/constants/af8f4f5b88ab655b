@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/accounts/urls.py
+# hypothesis_version: 6.148.7
+
+['accounts', 'admin/users/', 'admin_courier_create', 'admin_dashboard', 'admin_user_detail', 'admin_user_list', 'api/', 'available_couriers', 'courier_dashboard', 'customer_dashboard', 'dashboard/admin/', 'dashboard/courier/', 'dashboard/customer/', 'login/', 'logout', 'logout/', 'profile', 'profile/', 'refresh/', 'register', 'register/', 'token_obtain_pair', 'token_refresh']

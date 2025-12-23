@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/delivery_platform/urls.py
+# hypothesis_version: 6.148.7
+
+['accounts.urls', 'admin/', 'analytics.urls', 'analytics/', 'auth/', 'notifications.urls', 'notifications/', 'orders.urls', 'orders/']

@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/orders/migrations/0002_create_default_pricing.py
+# hypothesis_version: 6.148.7
+
+['0001_initial', '20.00', '50.00', 'ADMIN', 'Admin', 'PricingConfig', 'System', 'User', 'accounts', 'orders', 'system_admin', 'temp_password_123']

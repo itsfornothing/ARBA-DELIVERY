@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/analytics/views.py
+# hypothesis_version: 6.148.7
+
+[365, 'ADMIN', 'Available', 'Avg Delivery Time', 'Avg Distance', 'Avg Price', 'Content-Disposition', 'Courier Name', 'Date', 'End Date', 'GET', 'Metric', 'Order Count', 'Report Type', 'Revenue', 'Start Date', 'Total Orders', 'Total Revenue', 'Value', 'avg_distance', 'avg_price', 'courier_name', 'courier_performance', 'couriers', 'daily_trends', 'data', 'date', 'days', 'dispatch', 'end_date', 'error', 'generated_at', 'is_available', 'metrics', 'order_count', 'performance', 'performance_summary', 'period_days', 'report_type', 'revenue', 'revenue_summary', 'start_date', 'success', 'summary', 'text/csv', 'total_couriers', 'total_orders', 'total_revenue', 'trends', 'type']

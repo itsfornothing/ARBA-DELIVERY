@@ -1,0 +1,142 @@
+[
+  {
+    "test": "URL Pattern Correctness",
+    "success": true,
+    "message": "No duplicate resource names found in URL patterns",
+    "timestamp": "2025-12-20T13:17:32.285102",
+    "details": {}
+  },
+  {
+    "test": "Unauthenticated Access",
+    "success": true,
+    "message": "Expected 401, got 401",
+    "timestamp": "2025-12-20T13:17:32.470822",
+    "details": {}
+  },
+  {
+    "test": "Invalid Token Access",
+    "success": true,
+    "message": "Expected 401, got 401",
+    "timestamp": "2025-12-20T13:17:32.496969",
+    "details": {}
+  },
+  {
+    "test": "Notifications Unread Count",
+    "success": true,
+    "message": "Endpoint accessible, returned unread_count: 0",
+    "timestamp": "2025-12-20T13:17:32.594810",
+    "details": {}
+  },
+  {
+    "test": "Notifications List",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-12-20T13:17:32.603530",
+    "details": {}
+  },
+  {
+    "test": "Notifications Unread List",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-12-20T13:17:32.620850",
+    "details": {}
+  },
+  {
+    "test": "Orders List",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-12-20T13:17:32.643051",
+    "details": {}
+  },
+  {
+    "test": "Orders Real-time Updates",
+    "success": true,
+    "message": "Endpoint accessible with all required fields",
+    "timestamp": "2025-12-20T13:17:32.653997",
+    "details": {}
+  },
+  {
+    "test": "Non-existent Order Tracking",
+    "success": true,
+    "message": "Expected 404, got 404",
+    "timestamp": "2025-12-20T13:17:32.666443",
+    "details": {}
+  },
+  {
+    "test": "Invalid Timestamp Parameter",
+    "success": true,
+    "message": "Expected 400, got 400",
+    "timestamp": "2025-12-20T13:17:32.673857",
+    "details": {}
+  },
+  {
+    "test": "Notifications Unread Count",
+    "success": true,
+    "message": "Endpoint accessible, returned unread_count: 0",
+    "timestamp": "2025-12-20T13:17:32.680516",
+    "details": {}
+  },
+  {
+    "test": "Notifications List",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-12-20T13:17:32.689374",
+    "details": {}
+  },
+  {
+    "test": "Notifications Unread List",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-12-20T13:17:32.694858",
+    "details": {}
+  },
+  {
+    "test": "Orders List",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-12-20T13:17:32.704485",
+    "details": {}
+  },
+  {
+    "test": "Orders Real-time Updates",
+    "success": true,
+    "message": "Endpoint accessible with all required fields",
+    "timestamp": "2025-12-20T13:17:32.713079",
+    "details": {}
+  },
+  {
+    "test": "Notifications Unread Count",
+    "success": true,
+    "message": "Endpoint accessible, returned unread_count: 0",
+    "timestamp": "2025-12-20T13:17:32.717820",
+    "details": {}
+  },
+  {
+    "test": "Notifications List",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-12-20T13:17:32.727204",
+    "details": {}
+  },
+  {
+    "test": "Notifications Unread List",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-12-20T13:17:32.731612",
+    "details": {}
+  },
+  {
+    "test": "Orders List",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-12-20T13:17:32.737251",
+    "details": {}
+  },
+  {
+    "test": "Orders Real-time Updates",
+    "success": true,
+    "message": "Endpoint accessible with all required fields",
+    "timestamp": "2025-12-20T13:17:32.744581",
+    "details": {}
+  }
+]

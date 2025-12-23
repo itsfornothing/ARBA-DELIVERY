@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/delivery_platform/health.py
+# hypothesis_version: 6.148.7
+
+[200, 503, 'SELECT 1', 'alive', 'checks', 'database', 'error', 'health_check', 'healthy', 'not_ready', 'ok', 'ready', 'redis', 'status', 'timestamp', 'unhealthy']

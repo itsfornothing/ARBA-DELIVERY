@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/analytics/migrations/0001_initial.py
+# hypothesis_version: 6.148.7
+
+['AnalyticsMetric', 'COURIER_PERFORMANCE', 'CUSTOMER_ACTIVITY', 'Courier Performance', 'Customer Activity', 'DAILY_ORDERS', 'DAILY_REVENUE', 'Daily Orders', 'Daily Revenue', 'ID', 'created_at', 'date', 'id', 'metadata', 'metric_type', 'metric_value', 'related_user', 'unique_together']

@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/notifications/models.py
+# hypothesis_version: 6.148.7
+
+[200, '-created_at', 'orders.Order']

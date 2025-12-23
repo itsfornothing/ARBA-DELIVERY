@@ -1,0 +1,102 @@
+[
+  {
+    "test": "Server Health Check",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-12-20T13:27:15.264382",
+    "details": {
+      "response": null
+    }
+  },
+  {
+    "test": "Network Disconnection Simulation",
+    "success": true,
+    "message": "Connection error properly raised",
+    "timestamp": "2025-12-20T13:27:15.266492",
+    "details": {}
+  },
+  {
+    "test": "No Authentication",
+    "success": true,
+    "message": "Status: 401 (Expected: 401)",
+    "timestamp": "2025-12-20T13:27:15.279541",
+    "details": {
+      "response": null
+    }
+  },
+  {
+    "test": "Invalid Token",
+    "success": true,
+    "message": "Status: 401 (Expected: 401)",
+    "timestamp": "2025-12-20T13:27:15.295120",
+    "details": {
+      "response": null
+    }
+  },
+  {
+    "test": "Malformed Token",
+    "success": true,
+    "message": "Status: 401 (Expected: 401)",
+    "timestamp": "2025-12-20T13:27:15.298572",
+    "details": {
+      "response": null
+    }
+  },
+  {
+    "test": "Expired Token",
+    "success": true,
+    "message": "Status: 401 (Expected: 401)",
+    "timestamp": "2025-12-20T13:27:15.424304",
+    "details": {
+      "response": null
+    }
+  },
+  {
+    "test": "User-Friendly Error Messages",
+    "success": true,
+    "message": "Message is user-friendly: True",
+    "timestamp": "2025-12-20T13:27:15.425592",
+    "details": {}
+  },
+  {
+    "test": "Non-existent Order Tracking",
+    "success": true,
+    "message": "Status: 404 (Expected: 404)",
+    "timestamp": "2025-12-20T13:27:15.440141",
+    "details": {
+      "response": null
+    }
+  },
+  {
+    "test": "Invalid Timestamp Parameter",
+    "success": true,
+    "message": "Status: 400 (Expected: 400)",
+    "timestamp": "2025-12-20T13:27:15.445135",
+    "details": {
+      "response": null
+    }
+  },
+  {
+    "test": "Invalid Order ID Format",
+    "success": true,
+    "message": "Status: 404 (Expected: 404)",
+    "timestamp": "2025-12-20T13:27:15.456224",
+    "details": {
+      "response": null
+    }
+  },
+  {
+    "test": "404 Error Response Format",
+    "success": true,
+    "message": "Has error field: True",
+    "timestamp": "2025-12-20T13:27:15.464164",
+    "details": {}
+  },
+  {
+    "test": "400 Error Response Format",
+    "success": true,
+    "message": "Has error field: True",
+    "timestamp": "2025-12-20T13:27:15.469108",
+    "details": {}
+  }
+]

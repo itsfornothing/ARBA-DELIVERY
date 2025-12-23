@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/accounts/views.py
+# hypothesis_version: 6.148.7
+
+['-created_at', 'ASSIGNED', 'COURIER', 'CREATED', 'CUSTOMER', 'DELIVERED', 'IN_TRANSIT', 'Invalid token', 'PICKED_UP', 'User not found', 'access', 'activated', 'active_users', 'assigned_orders', 'available_orders', 'courier', 'courier_status', 'current_orders_count', 'current_workload', 'customer', 'dashboard_data', 'deactivated', 'email', 'error', 'first_name', 'id', 'is_active', 'is_available', 'last_name', 'message', 'order_count', 'pending_orders', 'phone_number', 'recent_orders', 'refresh', 'refresh_token', 'request', 'role', 'search', 'tokens', 'total_couriers', 'total_customers', 'total_orders', 'total_users', 'true', 'user', 'username']

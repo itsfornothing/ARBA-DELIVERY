@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/orders/serializers.py
+# hypothesis_version: 6.148.7
+
+['0.01', 'ASSIGNED', 'CANCELLED', 'COURIER', 'CREATED', 'Courier not found', 'DELIVERED', 'IN_TRANSIT', 'PICKED_UP', 'assigned_at', 'assigned_courier', 'base_fee', 'courier', 'courier.email', 'courier_email', 'courier_name', 'created_at', 'created_by', 'current_orders_count', 'customer', 'customer.email', 'customer_email', 'customer_name', 'delivered_at', 'delivery_address', 'distance_km', 'has_updates', 'id', 'in_transit_at', 'is_active', 'is_available', 'last_activity', 'location_description', 'notifications', 'orders', 'per_km_rate', 'picked_up_at', 'pickup_address', 'price', 'request', 'status', 'timestamp']

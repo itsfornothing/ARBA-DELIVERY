@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/delivery_platform/exceptions.py
+# hypothesis_version: 6.148.7
+
+[400, 500, 'context', 'detail', 'details', 'error', 'message_dict', 'non_field_errors', 'path', 'request', 'status', 'status_code', 'user']

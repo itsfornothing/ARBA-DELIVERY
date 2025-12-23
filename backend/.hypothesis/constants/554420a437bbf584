@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/accounts/admin.py
+# hypothesis_version: 6.148.7
+
+['Additional Info', 'created_at', 'email', 'fields', 'is_active', 'phone_number', 'role', 'username']

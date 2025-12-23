@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/accounts/permissions.py
+# hypothesis_version: 6.148.7
+
+['ADMIN', 'COURIER', 'CUSTOMER', 'allowed_roles', 'assigned_courier', 'customer', 'id', 'user']

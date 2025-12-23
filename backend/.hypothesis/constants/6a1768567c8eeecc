@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/accounts/migrations/0001_initial.py
+# hypothesis_version: 6.148.7
+
+[128, 150, 254, 'ADMIN', 'Admin', 'COURIER', 'CUSTOMER', 'Courier', 'Customer', 'ID', 'User', 'abstract', 'active', 'auth', 'auth.group', 'auth.permission', 'created_at', 'date joined', 'date_joined', 'email', 'email address', 'first name', 'first_name', 'groups', 'id', 'is_active', 'is_staff', 'is_superuser', 'last login', 'last name', 'last_login', 'last_name', 'objects', 'password', 'phone_number', 'role', 'staff status', 'superuser status', 'unique', 'updated_at', 'user', 'user permissions', 'user_permissions', 'user_set', 'username', 'users', 'verbose_name', 'verbose_name_plural']

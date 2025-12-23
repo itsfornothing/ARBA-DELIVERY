@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/accounts/serializers.py
+# hypothesis_version: 6.148.7
+
+['ADMIN', 'COURIER', 'created_at', 'date_joined', 'email', 'first_name', 'id', 'is_active', 'last_name', 'password', 'password_confirm', 'phone_number', 'request', 'required', 'role', 'updated_at', 'user', 'username']

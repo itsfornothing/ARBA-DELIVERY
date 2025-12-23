@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/accounts/middleware.py
+# hypothesis_version: 6.148.7
+
+[401, 403, '/auth/', '/auth/admin/', 'ADMIN', 'COURIER', 'CUSTOMER', 'TOKEN_INVALID', 'code', 'data', 'detail', 'error', 'message', 'required_roles', 'role', 'token', 'user_role']

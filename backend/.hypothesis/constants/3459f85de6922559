@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/analytics/admin.py
+# hypothesis_version: 6.148.7
+
+['created_at', 'date', 'metric_type', 'metric_value', 'related_user']

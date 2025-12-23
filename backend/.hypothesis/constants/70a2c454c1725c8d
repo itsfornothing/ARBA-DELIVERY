@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/analytics/services.py
+# hypothesis_version: 6.148.7
+
+[0.0, 100, 2020, '0.00', 'ASSIGNED', 'COURIER', 'CREATED', 'CUSTOMER', 'DELIVERED', 'IN_TRANSIT', 'PICKED_UP', 'active_couriers', 'avg_distance', 'avg_price', 'completed_orders', 'courier_id', 'courier_name', 'courier_performance', 'courierstatus', 'created_at', 'daily_trends', 'date', 'delivered_at', 'distance_km', 'end_date', 'generated_at', 'id', 'is_available', 'monthly_revenue', 'order_count', 'pending_orders', 'performance', 'performance_summary', 'price', 'report_type', 'revenue', 'revenue_summary', 'start_date', 'summary', 'total', 'total_couriers', 'total_customers', 'total_orders', 'total_revenue', 'weekly_revenue']

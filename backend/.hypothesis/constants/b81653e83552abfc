@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/notifications/views.py
+# hypothesis_version: 6.148.7
+
+['create', 'delete', 'deleted_count', 'error', 'get', 'mark_as_read', 'message', 'notification_ids', 'order_id', 'patch', 'post', 'related_order', 'request', 'unread_count', 'updated_count']

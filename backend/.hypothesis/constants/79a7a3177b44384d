@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/analytics/models.py
+# hypothesis_version: 6.148.7
+
+[20.0, 50.0, '-created_at', 'COURIER_PERFORMANCE', 'CUSTOMER_ACTIVITY', 'Courier Performance', 'Customer Activity', 'DAILY_ORDERS', 'DAILY_REVENUE', 'Daily Orders', 'Daily Revenue', 'date', 'metric_type', 'related_user']

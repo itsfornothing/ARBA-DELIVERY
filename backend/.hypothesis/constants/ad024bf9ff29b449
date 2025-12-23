@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/notifications/serializers.py
+# hypothesis_version: 6.148.7
+
+['Message is required', 'Title is required', 'created_at', 'id', 'is_read', 'message', 'order_details', 'related_order', 'request', 'title', 'unread_count']

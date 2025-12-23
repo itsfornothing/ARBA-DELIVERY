@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/orders/views.py
+# hypothesis_version: 6.148.7
+
+['ADMIN', 'ASSIGNED', 'CANCELLED', 'COURIER', 'CREATED', 'CUSTOMER', 'DELIVERED', 'IN_TRANSIT', 'PICKED_UP', 'Permission denied', 'assign_courier', 'assigned_courier', 'assigned_orders', 'available_couriers', 'average_workload', 'avg_workload', 'completed_orders', 'courier', 'courier_details', 'courier_id', 'courier_statistics', 'courier_status', 'create', 'current_orders', 'current_orders_count', 'customer', 'destroy', 'error', 'get', 'in_progress_orders', 'is_available', 'list', 'location_description', 'message', 'order', 'order_statistics', 'partial_update', 'patch', 'pending_orders', 'post', 'profile', 'retrieve', 'statistics', 'total_couriers', 'total_orders', 'update', 'update_status']

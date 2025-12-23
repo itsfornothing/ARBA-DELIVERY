@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/orders/apps.py
+# hypothesis_version: 6.148.7
+
+['Available orders', 'Orders list', 'Real-time updates', 'migrate', 'orders', 'orders:order-list', 'test']

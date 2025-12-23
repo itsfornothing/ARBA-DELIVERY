@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/analytics/urls.py
+# hypothesis_version: 6.148.7
+
+['analytics', 'courier-performance/', 'daily-stats/', 'daily_stats_api', 'dashboard', 'dashboard/', 'export-csv/', 'export_report_csv', 'generate-report/', 'generate_report_api', 'revenue-trends/', 'revenue_trends_api']

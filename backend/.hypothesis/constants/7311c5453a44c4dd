@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/orders/models.py
+# hypothesis_version: 6.148.7
+
+[20.0, 50.0, 200, 'ASSIGNED', 'Assigned', 'CANCELLED', 'CREATED', 'Cancelled', 'Created', 'DELIVERED', 'Delivered', 'IN_TRANSIT', 'In Transit', 'PICKED_UP', 'Picked Up', 'courier_orders', 'customer_orders']

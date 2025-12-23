@@ -1,0 +1,4 @@
+# file: /Users/user/Desktop/fiver_project/Mohamedo/backend/notifications/services.py
+# hypothesis_version: 6.148.7
+
+['ADMIN', 'ASSIGNED', 'CANCELLED', 'CREATED', 'DELIVERED', 'IN_TRANSIT', 'PICKED_UP', 'order_related_count', 'recent_count', 'total_notifications', 'unread_count']
