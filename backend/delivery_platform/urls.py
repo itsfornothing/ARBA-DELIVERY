@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .health import health_check, readiness_check, liveness_check
+from .health_views import health_check, readiness_check, liveness_check
 
 urlpatterns = [
     path("admin/", admin.site.urls),
