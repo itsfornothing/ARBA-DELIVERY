@@ -32,69 +32,69 @@ class Command(BaseCommand):
         # Define required endpoints based on the specification
         required_endpoints = {
             # Notifications endpoints
-            'notification-list': {
+            'notifications:notification-list': {
                 'url_pattern': '/api/notifications/',
                 'methods': ['GET', 'POST'],
                 'description': 'Notifications list endpoint'
             },
-            'notification-unread-count': {
+            'notifications:notification-unread-count': {
                 'url_pattern': '/api/notifications/unread_count/',
                 'methods': ['GET'],
                 'description': 'Unread notifications count endpoint'
             },
-            'notification-unread': {
+            'notifications:notification-unread': {
                 'url_pattern': '/api/notifications/unread/',
                 'methods': ['GET'],
                 'description': 'Unread notifications list endpoint'
             },
-            'notification-mark-read': {
+            'notifications:notification-mark-read': {
                 'url_pattern': '/api/notifications/{id}/mark_read/',
                 'methods': ['PATCH'],
                 'description': 'Mark single notification as read endpoint'
             },
-            'notification-mark-as-read': {
+            'notifications:notification-mark-as-read': {
                 'url_pattern': '/api/notifications/mark_as_read/',
                 'methods': ['POST'],
                 'description': 'Mark multiple notifications as read endpoint'
             },
-            'notification-mark-all-read': {
+            'notifications:notification-mark-all-read': {
                 'url_pattern': '/api/notifications/mark_all_read/',
                 'methods': ['POST'],
                 'description': 'Mark all notifications as read endpoint'
             },
             
             # Orders endpoints
-            'order-list': {
+            'orders:order-list': {
                 'url_pattern': '/api/orders/',
                 'methods': ['GET', 'POST'],
                 'description': 'Orders list endpoint'
             },
-            'order-real-time-updates': {
+            'orders:order-real-time-updates': {
                 'url_pattern': '/api/orders/real_time_updates/',
                 'methods': ['GET'],
                 'description': 'Real-time updates endpoint'
             },
-            'order-tracking-info': {
+            'orders:order-tracking-info': {
                 'url_pattern': '/api/orders/{id}/tracking_info/',
                 'methods': ['GET'],
                 'description': 'Order tracking info endpoint'
             },
-            'order-update-status': {
+            'orders:order-update-status': {
                 'url_pattern': '/api/orders/{id}/update_status/',
                 'methods': ['PATCH'],
                 'description': 'Order status update endpoint'
             },
-            'order-assign-courier': {
+            'orders:order-assign-courier': {
                 'url_pattern': '/api/orders/{id}/assign_courier/',
                 'methods': ['POST'],
                 'description': 'Assign courier to order endpoint'
             },
-            'order-accept-order': {
+            'orders:order-accept-order': {
                 'url_pattern': '/api/orders/{id}/accept_order/',
                 'methods': ['POST'],
                 'description': 'Accept order endpoint'
             },
-            'order-available-orders': {
+            'orders:order-available-orders': {
                 'url_pattern': '/api/orders/available_orders/',
                 'methods': ['GET'],
                 'description': 'Available orders endpoint'
