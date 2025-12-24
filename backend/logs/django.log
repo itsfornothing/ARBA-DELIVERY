@@ -2028,3 +2028,11 @@ INFO 2025-12-23 17:17:17,771 basehttp 98445 6160871424 "OPTIONS /api/orders/real
 INFO 2025-12-23 17:17:17,786 basehttp 98445 6160871424 "GET /api/orders/real_time_updates/?since=2025-12-23T17%3A17%3A08.984844Z HTTP/1.1" 200 94
 INFO 2025-12-23 17:17:23,353 basehttp 98445 6160871424 "OPTIONS /api/orders/real_time_updates/?since=2025-12-23T17%3A17%3A17.785883Z HTTP/1.1" 200 0
 INFO 2025-12-23 17:17:23,364 basehttp 98445 6160871424 "GET /api/orders/real_time_updates/?since=2025-12-23T17%3A17%3A17.785883Z HTTP/1.1" 200 94
+INFO 2025-12-24 08:42:35,620 apps 91417 8352997504 ✓ Endpoint validated: orders:order-list
+INFO 2025-12-24 08:42:35,620 apps 91417 8352997504 ✓ Endpoint validated: orders:order-real-time-updates
+INFO 2025-12-24 08:42:35,620 apps 91417 8352997504 ✓ Endpoint validated: orders:order-available-orders
+INFO 2025-12-24 08:42:35,620 apps 91417 8352997504 All critical order endpoints are properly registered
+INFO 2025-12-24 08:42:35,622 apps 91417 8352997504 ✓ Endpoint validated: notifications:notification-list
+INFO 2025-12-24 08:42:35,622 apps 91417 8352997504 ✓ Endpoint validated: notifications:notification-unread-count
+INFO 2025-12-24 08:42:35,623 apps 91417 8352997504 ✓ Endpoint validated: notifications:notification-unread
+INFO 2025-12-24 08:42:35,623 apps 91417 8352997504 All critical notification endpoints are properly registered

@@ -8,8 +8,8 @@ ENV PYTHONUNBUFFERED=1
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
+    libpq-dev \
     default-libmysqlclient-dev \
-    libmariadb-dev \
     pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
@@ -26,12 +26,12 @@ FROM python:3.11-slim as production
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV DJANGO_SETTINGS_MODULE=delivery_platform.settings
+ENV DJANGO_SETTINGS_MODULE=delivery_platform.settings_render
 
 # Install system dependencies for production
 RUN apt-get update && apt-get install -y \
+    libpq5 \
     default-libmysqlclient-dev \
-    libmariadb3 \
     && rm -rf /var/lib/apt/lists/*
 
 # Create non-root user
