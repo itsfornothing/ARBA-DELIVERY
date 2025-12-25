@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-12-24T16:10:10.527Z",
+  "results": {
+    "unitTests": {
+      "status": true,
+      "output": "\n> arba-delivery-frontend@0.1.0 test\n> jest --testPathPattern=deployment.*test\n\n"
+    },
+    "integrationTests": {
+      "status": true,
+      "output": "\n> arba-delivery-frontend@0.1.0 test\n> jest --testPathPattern=deployment-pipeline-integration\n\n"
+    },
+    "deploymentValidation": {
+      "status": false,
+      "output": "🚀 Starting Comprehensive Deployment Pipeline Validation...\n\nFrontend URL: http://localhost:3000\nBackend URL: http://localhost:8000\n\n🔍 Validating Build Process...\n  ✅ Build process completed successfully\n🔍 Validating Health Check Endpoints...\n  ✅ Frontend health check passed\n  ❌ Health check validation failed: \n🔍 Validating Static Assets...\n  ❌ Static assets validation failed\n🔍 Validating API Connectivity...\n  ❌ API connectivity validation failed: \n🔍 Validating Interface Rendering...\n  ✅ Interface rendering validation passed\n🔍 Validating Environment Configuration...\n  ✅ Environment configuration validation passed\n🔍 Validating Performance...\n  ✅ Performance validation completed\n🔍 Validating Security...\n  ⚠️ Security validation completed (score: 2/5)\n\n📊 Comprehensive Deployment Validation Report\n==================================================\n\nBuild Validation: ✅ PASS\n  • Application responding correctly\n  • Build artifact check: /favicon.ico - OK\n\nHealth Checks: ❌ FAIL\n  • Frontend health check: PASS\n  ❌ \n\nStatic Assets: ❌ FAIL\n  • Asset /favicon.ico: LOADED\n  ❌ Only 1 out of 3 assets loaded\n\nApi Connectivity: ❌ FAIL\n  ❌ \n\nInterface Rendering: ✅ PASS\n  • DOCTYPE: PASS\n  • HTML tag: PASS\n  • Title tag: PASS\n  • Main content: FAIL\n  • Static assets: PASS\n\nEnvironment Config: ✅ PASS\n  • NODE_ENV: PASS (production)\n  • API_URL: PASS (http://localhost:8000)\n  • WS_URL: PASS (ws://localhost:8000)\n\nPerformance Checks: ✅ PASS\n  • Response time: 4ms - GOOD\n  • Response size: 10225 bytes\n  • Compression: DISABLED\n\nSecurity Checks: ❌ FAIL\n  • x-frame-options: PRESENT\n  • x-content-type-options: PRESENT\n  • x-xss-protection: MISSING\n  • strict-transport-security: MISSING\n  • HTTPS: DISABLED\n\n📄 Detailed report saved to: /Users/user/Desktop/fiver_project/Mohamedo/scripts/deployment-validation-report.json\n\n❌ Some deployment pipeline validation tests failed.\n🔧 Please review the errors and fix before proceeding.\n"
+    },
+    "errors": [
+      "Deployment validation: 🚀 Starting Comprehensive Deployment Pipeline Validation...\n\nFrontend URL: http://localhost:3000\nBackend URL: http://localhost:8000\n\n🔍 Validating Build Process...\n  ✅ Build process completed successfully\n🔍 Validating Health Check Endpoints...\n  ✅ Frontend health check passed\n  ❌ Health check validation failed: \n🔍 Validating Static Assets...\n  ❌ Static assets validation failed\n🔍 Validating API Connectivity...\n  ❌ API connectivity validation failed: \n🔍 Validating Interface Rendering...\n  ✅ Interface rendering validation passed\n🔍 Validating Environment Configuration...\n  ✅ Environment configuration validation passed\n🔍 Validating Performance...\n  ✅ Performance validation completed\n🔍 Validating Security...\n  ⚠️ Security validation completed (score: 2/5)\n\n📊 Comprehensive Deployment Validation Report\n==================================================\n\nBuild Validation: ✅ PASS\n  • Application responding correctly\n  • Build artifact check: /favicon.ico - OK\n\nHealth Checks: ❌ FAIL\n  • Frontend health check: PASS\n  ❌ \n\nStatic Assets: ❌ FAIL\n  • Asset /favicon.ico: LOADED\n  ❌ Only 1 out of 3 assets loaded\n\nApi Connectivity: ❌ FAIL\n  ❌ \n\nInterface Rendering: ✅ PASS\n  • DOCTYPE: PASS\n  • HTML tag: PASS\n  • Title tag: PASS\n  • Main content: FAIL\n  • Static assets: PASS\n\nEnvironment Config: ✅ PASS\n  • NODE_ENV: PASS (production)\n  • API_URL: PASS (http://localhost:8000)\n  • WS_URL: PASS (ws://localhost:8000)\n\nPerformance Checks: ✅ PASS\n  • Response time: 4ms - GOOD\n  • Response size: 10225 bytes\n  • Compression: DISABLED\n\nSecurity Checks: ❌ FAIL\n  • x-frame-options: PRESENT\n  • x-content-type-options: PRESENT\n  • x-xss-protection: MISSING\n  • strict-transport-security: MISSING\n  • HTTPS: DISABLED\n\n📄 Detailed report saved to: /Users/user/Desktop/fiver_project/Mohamedo/scripts/deployment-validation-report.json\n\n❌ Some deployment pipeline validation tests failed.\n🔧 Please review the errors and fix before proceeding.\n"
+    ]
+  },
+  "summary": {
+    "totalTests": 3,
+    "passed": 2,
+    "failed": 1
+  }
+}

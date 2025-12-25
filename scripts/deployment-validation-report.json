@@ -1,0 +1,86 @@
+{
+  "timestamp": "2025-12-24T16:10:10.519Z",
+  "config": {
+    "frontendUrl": "http://localhost:3000",
+    "backendUrl": "http://localhost:8000",
+    "timeout": 30000,
+    "retries": 3,
+    "verbose": false
+  },
+  "results": {
+    "buildValidation": {
+      "status": true,
+      "details": [
+        "Application responding correctly",
+        "Build artifact check: /favicon.ico - OK"
+      ],
+      "errors": []
+    },
+    "healthChecks": {
+      "status": false,
+      "details": [
+        "Frontend health check: PASS"
+      ],
+      "errors": [
+        ""
+      ]
+    },
+    "staticAssets": {
+      "status": false,
+      "details": [
+        "Asset /favicon.ico: LOADED"
+      ],
+      "errors": [
+        "Only 1 out of 3 assets loaded"
+      ]
+    },
+    "apiConnectivity": {
+      "status": false,
+      "details": [],
+      "errors": [
+        ""
+      ]
+    },
+    "interfaceRendering": {
+      "status": true,
+      "details": [
+        "DOCTYPE: PASS",
+        "HTML tag: PASS",
+        "Title tag: PASS",
+        "Main content: FAIL",
+        "Static assets: PASS"
+      ],
+      "errors": []
+    },
+    "environmentConfig": {
+      "status": true,
+      "details": [
+        "NODE_ENV: PASS (production)",
+        "API_URL: PASS (http://localhost:8000)",
+        "WS_URL: PASS (ws://localhost:8000)"
+      ],
+      "errors": []
+    },
+    "performanceChecks": {
+      "status": true,
+      "details": [
+        "Response time: 4ms - GOOD",
+        "Response size: 10225 bytes",
+        "Compression: DISABLED"
+      ],
+      "errors": []
+    },
+    "securityChecks": {
+      "status": false,
+      "details": [
+        "x-frame-options: PRESENT",
+        "x-content-type-options: PRESENT",
+        "x-xss-protection: MISSING",
+        "strict-transport-security: MISSING",
+        "HTTPS: DISABLED"
+      ],
+      "errors": []
+    }
+  },
+  "overallStatus": "FAIL"
+}

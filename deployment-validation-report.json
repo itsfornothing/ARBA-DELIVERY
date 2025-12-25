@@ -1,0 +1,79 @@
+{
+  "timestamp": "2025-12-25T07:45:33.931Z",
+  "config": {
+    "frontendUrl": "https://arba-delivery-frontend.onrender.com",
+    "backendUrl": "https://arba-delivery-backend.onrender.com",
+    "timeout": 30000,
+    "retries": 3,
+    "verbose": false
+  },
+  "results": {
+    "buildValidation": {
+      "status": false,
+      "details": [],
+      "errors": [
+        "Application not responding correctly (status: 404)"
+      ]
+    },
+    "healthChecks": {
+      "status": false,
+      "details": [],
+      "errors": [
+        "Frontend health check failed (status: 404)"
+      ]
+    },
+    "staticAssets": {
+      "status": false,
+      "details": [
+        "Asset /_next/static/css/: NOT FOUND (acceptable)",
+        "Asset /_next/static/chunks/: NOT FOUND (acceptable)",
+        "Asset /favicon.ico: NOT FOUND (acceptable)"
+      ],
+      "errors": [
+        "Only 0 out of 3 assets loaded"
+      ]
+    },
+    "apiConnectivity": {
+      "status": false,
+      "details": [],
+      "errors": [
+        "Backend API not accessible (status: 404)"
+      ]
+    },
+    "interfaceRendering": {
+      "status": false,
+      "details": [],
+      "errors": [
+        "Interface not accessible (status: 404)"
+      ]
+    },
+    "environmentConfig": {
+      "status": false,
+      "details": [],
+      "errors": [
+        "Could not retrieve environment configuration"
+      ]
+    },
+    "performanceChecks": {
+      "status": true,
+      "details": [
+        "Response time: 299ms - GOOD",
+        "Response size: 10 bytes",
+        "Compression: DISABLED"
+      ],
+      "errors": []
+    },
+    "securityChecks": {
+      "status": false,
+      "details": [
+        "x-frame-options: MISSING",
+        "x-content-type-options: PRESENT",
+        "x-xss-protection: MISSING",
+        "strict-transport-security: MISSING",
+        "HTTPS: ENABLED"
+      ],
+      "errors": []
+    }
+  },
+  "overallStatus": "FAIL"
+}
