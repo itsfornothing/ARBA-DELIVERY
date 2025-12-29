@@ -19,7 +19,7 @@
     "format:check": "prettier --check .",
     "test": "jest",
     "test:watch": "jest --watch",
-    "prepare": "husky",
+    "prepare": "node scripts/conditional-husky.js",
     "validate:assets": "node scripts/validate-assets.js",
     "validate:assets:production": "NODE_ENV=production node scripts/validate-assets.js",
     "performance:audit": "lighthouse http://localhost:3000 --output=json --output-path=./performance-report.json",
