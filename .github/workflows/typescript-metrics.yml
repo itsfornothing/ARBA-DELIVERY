@@ -1,0 +1,311 @@
+name: TypeScript Quality Metrics
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'frontend/**'
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  collect-metrics:
+    name: Collect TypeScript Quality Metrics
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./frontend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Collect TypeScript metrics
+        run: |
+          echo "Collecting TypeScript quality metrics..."
+          
+          # Create metrics directory
+          mkdir -p metrics
+          
+          # Count TypeScript files
+          TS_FILES=$(find src -name "*.ts" -o -name "*.tsx" | wc -l)
+          echo "typescript_files_count: $TS_FILES" > metrics/typescript-metrics.txt
+          
+          # Count lines of TypeScript code
+          TS_LINES=$(find src -name "*.ts" -o -name "*.tsx" -exec wc -l {} + | tail -1 | awk '{print $1}')
+          echo "typescript_lines_count: $TS_LINES" >> metrics/typescript-metrics.txt
+          
+          # Run TypeScript compiler to get error count
+          if npx tsc --noEmit > typescript-errors.log 2>&1; then
+            echo "typescript_errors_count: 0" >> metrics/typescript-metrics.txt
+          else
+            ERROR_COUNT=$(grep -c "error TS" typescript-errors.log || echo "0")
+            echo "typescript_errors_count: $ERROR_COUNT" >> metrics/typescript-metrics.txt
+          fi
+          
+          # Run ESLint to get violation count
+          if npx eslint src --ext .ts,.tsx --format json > eslint-report.json 2>/dev/null; then
+            ESLINT_ERRORS=$(jq '[.[].messages[] | select(.severity == 2)] | length' eslint-report.json)
+            ESLINT_WARNINGS=$(jq '[.[].messages[] | select(.severity == 1)] | length' eslint-report.json)
+            echo "eslint_errors_count: $ESLINT_ERRORS" >> metrics/typescript-metrics.txt
+            echo "eslint_warnings_count: $ESLINT_WARNINGS" >> metrics/typescript-metrics.txt
+          else
+            echo "eslint_errors_count: 0" >> metrics/typescript-metrics.txt
+            echo "eslint_warnings_count: 0" >> metrics/typescript-metrics.txt
+          fi
+          
+          # Calculate type annotation coverage (approximate)
+          ANY_USAGE=$(grep -r ": any" src --include="*.ts" --include="*.tsx" | wc -l || echo "0")
+          echo "any_type_usage_count: $ANY_USAGE" >> metrics/typescript-metrics.txt
+          
+          # Build success rate
+          if npm run build > build.log 2>&1; then
+            echo "build_success: true" >> metrics/typescript-metrics.txt
+          else
+            echo "build_success: false" >> metrics/typescript-metrics.txt
+          fi
+          
+          # Add timestamp
+          echo "collection_timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> metrics/typescript-metrics.txt
+          echo "commit_sha: ${{ github.sha }}" >> metrics/typescript-metrics.txt
+          
+          echo "Metrics collected:"
+          cat metrics/typescript-metrics.txt
+
+      - name: Generate metrics report
+        run: |
+          echo "# TypeScript Quality Metrics Report" > metrics-report.md
+          echo "" >> metrics-report.md
+          echo "**Generated:** $(date)" >> metrics-report.md
+          echo "**Commit:** ${{ github.sha }}" >> metrics-report.md
+          echo "**Branch:** ${{ github.ref_name }}" >> metrics-report.md
+          echo "" >> metrics-report.md
+          
+          # Read metrics
+          TS_FILES=$(grep "typescript_files_count:" metrics/typescript-metrics.txt | cut -d' ' -f2)
+          TS_LINES=$(grep "typescript_lines_count:" metrics/typescript-metrics.txt | cut -d' ' -f2)
+          TS_ERRORS=$(grep "typescript_errors_count:" metrics/typescript-metrics.txt | cut -d' ' -f2)
+          ESLINT_ERRORS=$(grep "eslint_errors_count:" metrics/typescript-metrics.txt | cut -d' ' -f2)
+          ESLINT_WARNINGS=$(grep "eslint_warnings_count:" metrics/typescript-metrics.txt | cut -d' ' -f2)
+          ANY_USAGE=$(grep "any_type_usage_count:" metrics/typescript-metrics.txt | cut -d' ' -f2)
+          BUILD_SUCCESS=$(grep "build_success:" metrics/typescript-metrics.txt | cut -d' ' -f2)
+          
+          echo "## Code Statistics" >> metrics-report.md
+          echo "" >> metrics-report.md
+          echo "| Metric | Value |" >> metrics-report.md
+          echo "|--------|-------|" >> metrics-report.md
+          echo "| TypeScript Files | $TS_FILES |" >> metrics-report.md
+          echo "| Lines of Code | $TS_LINES |" >> metrics-report.md
+          echo "| Average Lines per File | $((TS_LINES / TS_FILES)) |" >> metrics-report.md
+          echo "" >> metrics-report.md
+          
+          echo "## Quality Metrics" >> metrics-report.md
+          echo "" >> metrics-report.md
+          echo "| Metric | Value | Status |" >> metrics-report.md
+          echo "|--------|-------|--------|" >> metrics-report.md
+          
+          # TypeScript errors
+          if [ "$TS_ERRORS" -eq 0 ]; then
+            echo "| TypeScript Errors | $TS_ERRORS | ✅ |" >> metrics-report.md
+          else
+            echo "| TypeScript Errors | $TS_ERRORS | ❌ |" >> metrics-report.md
+          fi
+          
+          # ESLint errors
+          if [ "$ESLINT_ERRORS" -eq 0 ]; then
+            echo "| ESLint Errors | $ESLINT_ERRORS | ✅ |" >> metrics-report.md
+          else
+            echo "| ESLint Errors | $ESLINT_ERRORS | ❌ |" >> metrics-report.md
+          fi
+          
+          # ESLint warnings
+          if [ "$ESLINT_WARNINGS" -lt 10 ]; then
+            echo "| ESLint Warnings | $ESLINT_WARNINGS | ✅ |" >> metrics-report.md
+          else
+            echo "| ESLint Warnings | $ESLINT_WARNINGS | ⚠️ |" >> metrics-report.md
+          fi
+          
+          # Any type usage
+          if [ "$ANY_USAGE" -eq 0 ]; then
+            echo "| 'any' Type Usage | $ANY_USAGE | ✅ |" >> metrics-report.md
+          elif [ "$ANY_USAGE" -lt 5 ]; then
+            echo "| 'any' Type Usage | $ANY_USAGE | ⚠️ |" >> metrics-report.md
+          else
+            echo "| 'any' Type Usage | $ANY_USAGE | ❌ |" >> metrics-report.md
+          fi
+          
+          # Build success
+          if [ "$BUILD_SUCCESS" = "true" ]; then
+            echo "| Build Success | Yes | ✅ |" >> metrics-report.md
+          else
+            echo "| Build Success | No | ❌ |" >> metrics-report.md
+          fi
+          
+          echo "" >> metrics-report.md
+          
+          # Overall health score
+          SCORE=0
+          [ "$TS_ERRORS" -eq 0 ] && SCORE=$((SCORE + 20))
+          [ "$ESLINT_ERRORS" -eq 0 ] && SCORE=$((SCORE + 20))
+          [ "$ESLINT_WARNINGS" -lt 10 ] && SCORE=$((SCORE + 15))
+          [ "$ANY_USAGE" -eq 0 ] && SCORE=$((SCORE + 20))
+          [ "$BUILD_SUCCESS" = "true" ] && SCORE=$((SCORE + 25))
+          
+          echo "## Overall Health Score" >> metrics-report.md
+          echo "" >> metrics-report.md
+          echo "**Score: $SCORE/100**" >> metrics-report.md
+          echo "" >> metrics-report.md
+          
+          if [ "$SCORE" -ge 90 ]; then
+            echo "🟢 **Excellent** - TypeScript codebase is in excellent condition" >> metrics-report.md
+          elif [ "$SCORE" -ge 75 ]; then
+            echo "🟡 **Good** - TypeScript codebase is in good condition with minor issues" >> metrics-report.md
+          elif [ "$SCORE" -ge 50 ]; then
+            echo "🟠 **Fair** - TypeScript codebase needs attention" >> metrics-report.md
+          else
+            echo "🔴 **Poor** - TypeScript codebase requires immediate attention" >> metrics-report.md
+          fi
+          
+          echo "" >> metrics-report.md
+          echo "## Recommendations" >> metrics-report.md
+          echo "" >> metrics-report.md
+          
+          if [ "$TS_ERRORS" -gt 0 ]; then
+            echo "- 🔧 Fix $TS_ERRORS TypeScript compilation errors" >> metrics-report.md
+          fi
+          if [ "$ESLINT_ERRORS" -gt 0 ]; then
+            echo "- 🔧 Fix $ESLINT_ERRORS ESLint errors" >> metrics-report.md
+          fi
+          if [ "$ESLINT_WARNINGS" -ge 10 ]; then
+            echo "- ⚠️ Address $ESLINT_WARNINGS ESLint warnings" >> metrics-report.md
+          fi
+          if [ "$ANY_USAGE" -gt 0 ]; then
+            echo "- 📝 Replace $ANY_USAGE instances of 'any' type with proper types" >> metrics-report.md
+          fi
+          if [ "$BUILD_SUCCESS" = "false" ]; then
+            echo "- 🏗️ Fix build failures" >> metrics-report.md
+          fi
+          
+          if [ "$SCORE" -eq 100 ]; then
+            echo "- 🎉 Congratulations! Your TypeScript codebase is in perfect condition!" >> metrics-report.md
+          fi
+
+      - name: Upload metrics artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: typescript-metrics-${{ github.run_number }}
+          path: |
+            frontend/metrics/
+            frontend/metrics-report.md
+            frontend/typescript-errors.log
+            frontend/eslint-report.json
+            frontend/build.log
+          retention-days: 90
+
+      - name: Comment on commit (if push to main)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = './frontend/metrics-report.md';
+            
+            if (fs.existsSync(path)) {
+              const report = fs.readFileSync(path, 'utf8');
+              
+              // Create a comment on the commit
+              await github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+                body: `## TypeScript Quality Metrics\n\n${report}`
+              });
+            }
+
+  trend-analysis:
+    name: Trend Analysis
+    runs-on: ubuntu-latest
+    needs: collect-metrics
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Download current metrics
+        uses: actions/download-artifact@v4
+        with:
+          name: typescript-metrics-${{ github.run_number }}
+          path: current-metrics
+          
+      - name: Download previous metrics
+        uses: actions/download-artifact@v4
+        with:
+          name: typescript-metrics-${{ github.run_number - 1 }}
+          path: previous-metrics
+        continue-on-error: true
+        
+      - name: Generate trend analysis
+        run: |
+          echo "# TypeScript Quality Trends" > trend-analysis.md
+          echo "" >> trend-analysis.md
+          echo "**Analysis Date:** $(date)" >> trend-analysis.md
+          echo "**Commit:** ${{ github.sha }}" >> trend-analysis.md
+          echo "" >> trend-analysis.md
+          
+          if [ -f "previous-metrics/metrics/typescript-metrics.txt" ] && [ -f "current-metrics/metrics/typescript-metrics.txt" ]; then
+            echo "## Trend Analysis" >> trend-analysis.md
+            echo "" >> trend-analysis.md
+            
+            # Compare metrics
+            PREV_ERRORS=$(grep "typescript_errors_count:" previous-metrics/metrics/typescript-metrics.txt | cut -d' ' -f2)
+            CURR_ERRORS=$(grep "typescript_errors_count:" current-metrics/metrics/typescript-metrics.txt | cut -d' ' -f2)
+            
+            PREV_ESLINT_ERRORS=$(grep "eslint_errors_count:" previous-metrics/metrics/typescript-metrics.txt | cut -d' ' -f2)
+            CURR_ESLINT_ERRORS=$(grep "eslint_errors_count:" current-metrics/metrics/typescript-metrics.txt | cut -d' ' -f2)
+            
+            echo "| Metric | Previous | Current | Trend |" >> trend-analysis.md
+            echo "|--------|----------|---------|-------|" >> trend-analysis.md
+            
+            # TypeScript errors trend
+            if [ "$CURR_ERRORS" -lt "$PREV_ERRORS" ]; then
+              echo "| TypeScript Errors | $PREV_ERRORS | $CURR_ERRORS | 📈 Improved |" >> trend-analysis.md
+            elif [ "$CURR_ERRORS" -gt "$PREV_ERRORS" ]; then
+              echo "| TypeScript Errors | $PREV_ERRORS | $CURR_ERRORS | 📉 Degraded |" >> trend-analysis.md
+            else
+              echo "| TypeScript Errors | $PREV_ERRORS | $CURR_ERRORS | ➡️ Stable |" >> trend-analysis.md
+            fi
+            
+            # ESLint errors trend
+            if [ "$CURR_ESLINT_ERRORS" -lt "$PREV_ESLINT_ERRORS" ]; then
+              echo "| ESLint Errors | $PREV_ESLINT_ERRORS | $CURR_ESLINT_ERRORS | 📈 Improved |" >> trend-analysis.md
+            elif [ "$CURR_ESLINT_ERRORS" -gt "$PREV_ESLINT_ERRORS" ]; then
+              echo "| ESLint Errors | $PREV_ESLINT_ERRORS | $CURR_ESLINT_ERRORS | 📉 Degraded |" >> trend-analysis.md
+            else
+              echo "| ESLint Errors | $PREV_ESLINT_ERRORS | $CURR_ESLINT_ERRORS | ➡️ Stable |" >> trend-analysis.md
+            fi
+            
+          else
+            echo "## First Run" >> trend-analysis.md
+            echo "" >> trend-analysis.md
+            echo "This is the first metrics collection run. Trend analysis will be available after the next run." >> trend-analysis.md
+          fi
+          
+      - name: Upload trend analysis
+        uses: actions/upload-artifact@v4
+        with:
+          name: trend-analysis-${{ github.run_number }}
+          path: trend-analysis.md
+          retention-days: 90

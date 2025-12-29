@@ -1,0 +1,208 @@
+name: TypeScript Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/typescript-validation.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/typescript-validation.yml'
+
+jobs:
+  typescript-validation:
+    name: TypeScript Compilation Check
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./frontend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: TypeScript compilation check
+        run: npm run type-check
+        
+      - name: Generate TypeScript compilation report
+        if: failure()
+        run: |
+          echo "## TypeScript Compilation Failed" >> $GITHUB_STEP_SUMMARY
+          echo "The TypeScript compilation check failed. Please fix the following errors:" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          npm run type-check 2>&1 || true >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          
+      - name: Upload TypeScript errors as artifact
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: typescript-errors
+          path: |
+            frontend/tsconfig.json
+            frontend/next-env.d.ts
+          retention-days: 7
+
+  eslint-validation:
+    name: ESLint Validation
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./frontend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run ESLint
+        run: npm run lint
+        
+      - name: Generate ESLint report
+        if: failure()
+        run: |
+          echo "## ESLint Validation Failed" >> $GITHUB_STEP_SUMMARY
+          echo "The ESLint validation failed. Please fix the following issues:" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          npm run lint 2>&1 || true >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+  build-validation:
+    name: Build Validation
+    runs-on: ubuntu-latest
+    needs: [typescript-validation, eslint-validation]
+    
+    defaults:
+      run:
+        working-directory: ./frontend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build application
+        run: npm run build
+        
+      - name: Generate build report
+        if: always()
+        run: |
+          if [ $? -eq 0 ]; then
+            echo "## Build Successful ✅" >> $GITHUB_STEP_SUMMARY
+            echo "The application built successfully without errors." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## Build Failed ❌" >> $GITHUB_STEP_SUMMARY
+            echo "The build process failed. Please check the logs above for details." >> $GITHUB_STEP_SUMMARY
+          fi
+          
+      - name: Upload build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            frontend/.next/
+            frontend/out/
+          retention-days: 7
+
+  quality-gate:
+    name: Quality Gate
+    runs-on: ubuntu-latest
+    needs: [typescript-validation, eslint-validation, build-validation]
+    if: always()
+    
+    steps:
+      - name: Check quality gate
+        run: |
+          echo "Checking quality gate status..."
+          
+          # Check if all required jobs passed
+          if [[ "${{ needs.typescript-validation.result }}" == "success" && 
+                "${{ needs.eslint-validation.result }}" == "success" && 
+                "${{ needs.build-validation.result }}" == "success" ]]; then
+            echo "✅ Quality gate passed - all validations successful"
+            echo "## Quality Gate: PASSED ✅" >> $GITHUB_STEP_SUMMARY
+            echo "All TypeScript validation checks have passed successfully." >> $GITHUB_STEP_SUMMARY
+            exit 0
+          else
+            echo "❌ Quality gate failed - validation errors detected"
+            echo "## Quality Gate: FAILED ❌" >> $GITHUB_STEP_SUMMARY
+            echo "One or more validation checks failed:" >> $GITHUB_STEP_SUMMARY
+            echo "- TypeScript Compilation: ${{ needs.typescript-validation.result }}" >> $GITHUB_STEP_SUMMARY
+            echo "- ESLint Validation: ${{ needs.eslint-validation.result }}" >> $GITHUB_STEP_SUMMARY
+            echo "- Build Validation: ${{ needs.build-validation.result }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Please fix all errors before merging." >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+  validation-report:
+    name: Generate Validation Report
+    runs-on: ubuntu-latest
+    needs: [quality-gate]
+    if: always()
+    
+    steps:
+      - name: Generate comprehensive report
+        run: |
+          echo "# TypeScript Maintenance System - Validation Report" >> validation-report.md
+          echo "" >> validation-report.md
+          echo "**Date:** $(date)" >> validation-report.md
+          echo "**Commit:** ${{ github.sha }}" >> validation-report.md
+          echo "**Branch:** ${{ github.ref_name }}" >> validation-report.md
+          echo "" >> validation-report.md
+          echo "## Validation Results" >> validation-report.md
+          echo "" >> validation-report.md
+          echo "| Check | Status |" >> validation-report.md
+          echo "|-------|--------|" >> validation-report.md
+          echo "| TypeScript Compilation | ${{ needs.typescript-validation.result }} |" >> validation-report.md
+          echo "| ESLint Validation | ${{ needs.eslint-validation.result }} |" >> validation-report.md
+          echo "| Build Process | ${{ needs.build-validation.result }} |" >> validation-report.md
+          echo "| Quality Gate | ${{ needs.quality-gate.result }} |" >> validation-report.md
+          echo "" >> validation-report.md
+          
+          if [[ "${{ needs.quality-gate.result }}" == "success" ]]; then
+            echo "✅ **All validations passed successfully!**" >> validation-report.md
+          else
+            echo "❌ **Validation failures detected. Please review and fix before merging.**" >> validation-report.md
+          fi
+          
+      - name: Upload validation report
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-report
+          path: validation-report.md
+          retention-days: 30

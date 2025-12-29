@@ -1,0 +1,280 @@
+name: TypeScript Maintenance
+
+on:
+  schedule:
+    # Run weekly on Sundays at 3 AM UTC
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+
+jobs:
+  dependency-check:
+    name: Check TypeScript Dependencies
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./frontend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Check for TypeScript updates
+        run: |
+          echo "Checking for TypeScript and related dependency updates..."
+          
+          # Check current versions
+          echo "## Current Versions" > dependency-report.md
+          echo "" >> dependency-report.md
+          echo "| Package | Current Version |" >> dependency-report.md
+          echo "|---------|-----------------|" >> dependency-report.md
+          
+          TYPESCRIPT_VERSION=$(npm list typescript --depth=0 | grep typescript | cut -d'@' -f2)
+          ESLINT_TS_VERSION=$(npm list @typescript-eslint/eslint-plugin --depth=0 | grep @typescript-eslint/eslint-plugin | cut -d'@' -f3 || echo "Not installed")
+          
+          echo "| TypeScript | $TYPESCRIPT_VERSION |" >> dependency-report.md
+          echo "| @typescript-eslint/eslint-plugin | $ESLINT_TS_VERSION |" >> dependency-report.md
+          echo "" >> dependency-report.md
+          
+          # Check for outdated packages
+          echo "## Outdated TypeScript-related Packages" >> dependency-report.md
+          echo "" >> dependency-report.md
+          
+          if npm outdated typescript @typescript-eslint/eslint-plugin @typescript-eslint/parser > outdated.txt 2>/dev/null; then
+            if [ -s outdated.txt ]; then
+              echo "\`\`\`" >> dependency-report.md
+              cat outdated.txt >> dependency-report.md
+              echo "\`\`\`" >> dependency-report.md
+            else
+              echo "All TypeScript-related packages are up to date! ✅" >> dependency-report.md
+            fi
+          else
+            echo "All TypeScript-related packages are up to date! ✅" >> dependency-report.md
+          fi
+          
+          echo "" >> dependency-report.md
+          echo "## Security Audit" >> dependency-report.md
+          echo "" >> dependency-report.md
+          
+          # Run security audit
+          if npm audit --audit-level=moderate > audit.txt 2>&1; then
+            echo "No security vulnerabilities found! ✅" >> dependency-report.md
+          else
+            echo "Security vulnerabilities detected:" >> dependency-report.md
+            echo "\`\`\`" >> dependency-report.md
+            head -20 audit.txt >> dependency-report.md
+            echo "\`\`\`" >> dependency-report.md
+          fi
+
+      - name: Test compatibility
+        run: |
+          echo "Testing TypeScript configuration compatibility..."
+          
+          # Test current configuration
+          npm run type-check > typecheck-result.txt 2>&1
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ TypeScript configuration is working correctly" >> dependency-report.md
+          else
+            echo "❌ TypeScript configuration issues detected:" >> dependency-report.md
+            echo "\`\`\`" >> dependency-report.md
+            head -10 typecheck-result.txt >> dependency-report.md
+            echo "\`\`\`" >> dependency-report.md
+          fi
+
+      - name: Upload maintenance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: typescript-maintenance-report
+          path: |
+            frontend/dependency-report.md
+            frontend/outdated.txt
+            frontend/audit.txt
+            frontend/typecheck-result.txt
+          retention-days: 30
+
+  configuration-validation:
+    name: Validate TypeScript Configuration
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./frontend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Validate tsconfig.json
+        run: |
+          echo "Validating TypeScript configuration..."
+          
+          echo "# TypeScript Configuration Validation" > config-validation.md
+          echo "" >> config-validation.md
+          echo "**Date:** $(date)" >> config-validation.md
+          echo "" >> config-validation.md
+          
+          # Check if tsconfig.json is valid
+          if npx tsc --showConfig > tsconfig-output.json 2>&1; then
+            echo "✅ **tsconfig.json is valid**" >> config-validation.md
+            echo "" >> config-validation.md
+            
+            # Extract key configuration options
+            echo "## Key Configuration Options" >> config-validation.md
+            echo "" >> config-validation.md
+            echo "| Option | Value |" >> config-validation.md
+            echo "|--------|-------|" >> config-validation.md
+            
+            # Parse important options from tsconfig
+            STRICT=$(jq -r '.compilerOptions.strict // "not set"' tsconfig-output.json)
+            NO_IMPLICIT_ANY=$(jq -r '.compilerOptions.noImplicitAny // "not set"' tsconfig-output.json)
+            STRICT_NULL_CHECKS=$(jq -r '.compilerOptions.strictNullChecks // "not set"' tsconfig-output.json)
+            
+            echo "| strict | $STRICT |" >> config-validation.md
+            echo "| noImplicitAny | $NO_IMPLICIT_ANY |" >> config-validation.md
+            echo "| strictNullChecks | $STRICT_NULL_CHECKS |" >> config-validation.md
+            
+          else
+            echo "❌ **tsconfig.json has errors**" >> config-validation.md
+            echo "" >> config-validation.md
+            echo "\`\`\`" >> config-validation.md
+            cat tsconfig-output.json >> config-validation.md
+            echo "\`\`\`" >> config-validation.md
+          fi
+          
+          # Validate ESLint configuration
+          echo "" >> config-validation.md
+          echo "## ESLint Configuration" >> config-validation.md
+          echo "" >> config-validation.md
+          
+          if npx eslint --print-config src/app/page.tsx > eslint-config.json 2>&1; then
+            echo "✅ **ESLint configuration is valid**" >> config-validation.md
+            
+            # Check for TypeScript-specific rules
+            TS_RULES=$(jq -r 'keys[] | select(startswith("@typescript-eslint"))' eslint-config.json | wc -l)
+            echo "" >> config-validation.md
+            echo "- TypeScript-specific rules configured: $TS_RULES" >> config-validation.md
+          else
+            echo "❌ **ESLint configuration has errors**" >> config-validation.md
+            echo "" >> config-validation.md
+            echo "\`\`\`" >> config-validation.md
+            head -10 eslint-config.json >> config-validation.md
+            echo "\`\`\`" >> config-validation.md
+          fi
+
+      - name: Upload configuration validation
+        uses: actions/upload-artifact@v4
+        with:
+          name: typescript-config-validation
+          path: |
+            frontend/config-validation.md
+            frontend/tsconfig-output.json
+            frontend/eslint-config.json
+          retention-days: 30
+
+  performance-check:
+    name: TypeScript Performance Check
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./frontend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Measure TypeScript performance
+        run: |
+          echo "Measuring TypeScript compilation performance..."
+          
+          echo "# TypeScript Performance Report" > performance-report.md
+          echo "" >> performance-report.md
+          echo "**Date:** $(date)" >> performance-report.md
+          echo "" >> performance-report.md
+          
+          # Measure compilation time
+          echo "## Compilation Performance" >> performance-report.md
+          echo "" >> performance-report.md
+          
+          START_TIME=$(date +%s)
+          if npm run type-check > /dev/null 2>&1; then
+            END_TIME=$(date +%s)
+            DURATION=$((END_TIME - START_TIME))
+            echo "✅ **Compilation successful**" >> performance-report.md
+            echo "" >> performance-report.md
+            echo "- Compilation time: ${DURATION} seconds" >> performance-report.md
+            
+            if [ $DURATION -lt 30 ]; then
+              echo "- Performance: 🟢 Excellent (< 30s)" >> performance-report.md
+            elif [ $DURATION -lt 60 ]; then
+              echo "- Performance: 🟡 Good (30-60s)" >> performance-report.md
+            elif [ $DURATION -lt 120 ]; then
+              echo "- Performance: 🟠 Fair (1-2 minutes)" >> performance-report.md
+            else
+              echo "- Performance: 🔴 Poor (> 2 minutes)" >> performance-report.md
+            fi
+          else
+            echo "❌ **Compilation failed**" >> performance-report.md
+          fi
+          
+          # Count files and estimate complexity
+          TS_FILES=$(find src -name "*.ts" -o -name "*.tsx" | wc -l)
+          TS_LINES=$(find src -name "*.ts" -o -name "*.tsx" -exec wc -l {} + | tail -1 | awk '{print $1}')
+          
+          echo "" >> performance-report.md
+          echo "## Project Statistics" >> performance-report.md
+          echo "" >> performance-report.md
+          echo "- TypeScript files: $TS_FILES" >> performance-report.md
+          echo "- Lines of code: $TS_LINES" >> performance-report.md
+          echo "- Average lines per file: $((TS_LINES / TS_FILES))" >> performance-report.md
+          
+          # Performance recommendations
+          echo "" >> performance-report.md
+          echo "## Recommendations" >> performance-report.md
+          echo "" >> performance-report.md
+          
+          if [ $DURATION -gt 60 ]; then
+            echo "- Consider enabling incremental compilation" >> performance-report.md
+            echo "- Review tsconfig.json for optimization opportunities" >> performance-report.md
+            echo "- Consider using project references for large codebases" >> performance-report.md
+          else
+            echo "- TypeScript compilation performance is good! 🎉" >> performance-report.md
+          fi
+
+      - name: Upload performance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: typescript-performance-report
+          path: frontend/performance-report.md
+          retention-days: 30

@@ -1,0 +1,286 @@
+name: TypeScript Error Detection
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**/*.ts'
+      - 'frontend/**/*.tsx'
+      - 'frontend/tsconfig.json'
+      - 'frontend/package.json'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**/*.ts'
+      - 'frontend/**/*.tsx'
+      - 'frontend/tsconfig.json'
+      - 'frontend/package.json'
+
+jobs:
+  typescript-error-detection:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+        
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm ci
+        
+    - name: Run TypeScript Error Detection
+      id: error-detection
+      run: |
+        cd frontend
+        echo "Running TypeScript error detection..."
+        
+        # Run the error detection script
+        if node scripts/typescript-error-detector.js --format json > typescript-errors.json; then
+          echo "No TypeScript errors found!"
+          echo "has_errors=false" >> $GITHUB_OUTPUT
+        else
+          echo "TypeScript errors detected!"
+          echo "has_errors=true" >> $GITHUB_OUTPUT
+          
+          # Display summary for GitHub Actions log
+          echo "## TypeScript Error Summary" >> $GITHUB_STEP_SUMMARY
+          node scripts/typescript-error-detector.js --format summary >> $GITHUB_STEP_SUMMARY
+        fi
+        
+    - name: Upload error report
+      if: steps.error-detection.outputs.has_errors == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: typescript-error-report
+        path: frontend/typescript-errors.json
+        retention-days: 30
+        
+    - name: Comment on PR with error summary
+      if: github.event_name == 'pull_request' && steps.error-detection.outputs.has_errors == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const path = require('path');
+          
+          try {
+            const errorReport = JSON.parse(fs.readFileSync('frontend/typescript-errors.json', 'utf8'));
+            
+            const criticalErrors = errorReport.errors.filter(e => 
+              ['SYNTAX_ERROR', 'CONFIGURATION_ERROR', 'IMPORT_ERROR'].includes(e.category)
+            ).length;
+            
+            const totalErrors = errorReport.errors.length;
+            const totalWarnings = errorReport.warnings.length;
+            
+            const comment = `## 🚨 TypeScript Error Detection Results
+            
+**Summary:**
+- ❌ **${totalErrors}** errors found
+- ⚠️ **${totalWarnings}** warnings found
+- 🚨 **${criticalErrors}** critical errors
+
+**Error Categories:**
+${Object.entries(
+  errorReport.errors.reduce((acc, error) => {
+    acc[error.category] = (acc[error.category] || 0) + 1;
+    return acc;
+  }, {})
+).map(([category, count]) => `- ${category}: ${count}`).join('\n')}
+
+**Top Errors:**
+${errorReport.errors.slice(0, 5).map(error => 
+  `- \`${error.file}:${error.line}:${error.column}\` - TS${error.code}: ${error.message.substring(0, 100)}${error.message.length > 100 ? '...' : ''}`
+).join('\n')}
+
+${errorReport.suggestions.length > 0 ? `
+**Suggestions:**
+${errorReport.suggestions.slice(0, 3).map(s => `- 💡 ${s.description}`).join('\n')}
+` : ''}
+
+📊 **Performance:** Processed ${errorReport.performance.filesProcessed} files in ${errorReport.performance.endTime - errorReport.performance.startTime}ms
+
+[Download full error report](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          } catch (error) {
+            console.error('Failed to create PR comment:', error);
+          }
+          
+    - name: Fail on critical errors
+      if: steps.error-detection.outputs.has_errors == 'true'
+      run: |
+        cd frontend
+        echo "TypeScript errors detected. Failing the build."
+        
+        # Check if there are critical errors
+        if node -e "
+          const report = JSON.parse(require('fs').readFileSync('typescript-errors.json', 'utf8'));
+          const criticalErrors = report.errors.filter(e => 
+            ['SYNTAX_ERROR', 'CONFIGURATION_ERROR', 'IMPORT_ERROR'].includes(e.category)
+          );
+          if (criticalErrors.length > 0) {
+            console.log('Critical errors found:', criticalErrors.length);
+            process.exit(1);
+          }
+        "; then
+          echo "No critical errors found, allowing build to continue with warnings."
+          exit 0
+        else
+          echo "Critical errors found, failing the build."
+          exit 1
+        fi
+
+  typescript-incremental-check:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+        
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm ci
+        
+    - name: Get changed TypeScript files
+      id: changed-files
+      run: |
+        # Get list of changed TypeScript files
+        changed_files=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -E '\.(ts|tsx)$' | grep '^frontend/' || true)
+        
+        if [ -z "$changed_files" ]; then
+          echo "No TypeScript files changed"
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+        else
+          echo "Changed TypeScript files:"
+          echo "$changed_files"
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$changed_files" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Run incremental TypeScript check
+      if: steps.changed-files.outputs.has_changes == 'true'
+      run: |
+        cd frontend
+        echo "Running incremental TypeScript check on changed files..."
+        
+        # Convert file list to space-separated string
+        files="${{ steps.changed-files.outputs.files }}"
+        files=$(echo "$files" | tr '\n' ' ' | sed 's/frontend\///g')
+        
+        echo "Checking files: $files"
+        
+        # Run TypeScript check on specific files
+        if node scripts/typescript-error-detector.js --format summary $files; then
+          echo "✅ No errors in changed files"
+        else
+          echo "❌ Errors found in changed files"
+          exit 1
+        fi
+
+  performance-monitoring:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+        
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm ci
+        
+    - name: Monitor TypeScript compilation performance
+      run: |
+        cd frontend
+        echo "Monitoring TypeScript compilation performance..."
+        
+        # Run multiple iterations to get average performance
+        total_time=0
+        iterations=3
+        
+        for i in $(seq 1 $iterations); do
+          echo "Iteration $i..."
+          start_time=$(date +%s%3N)
+          
+          # Run TypeScript compilation
+          npx tsc --noEmit --incremental
+          
+          end_time=$(date +%s%3N)
+          iteration_time=$((end_time - start_time))
+          total_time=$((total_time + iteration_time))
+          
+          echo "Iteration $i took ${iteration_time}ms"
+        done
+        
+        average_time=$((total_time / iterations))
+        echo "Average compilation time: ${average_time}ms"
+        
+        # Set performance thresholds
+        warning_threshold=30000  # 30 seconds
+        error_threshold=60000    # 60 seconds
+        
+        if [ $average_time -gt $error_threshold ]; then
+          echo "❌ Compilation time exceeds error threshold (${error_threshold}ms)"
+          exit 1
+        elif [ $average_time -gt $warning_threshold ]; then
+          echo "⚠️ Compilation time exceeds warning threshold (${warning_threshold}ms)"
+          echo "## ⚠️ Performance Warning" >> $GITHUB_STEP_SUMMARY
+          echo "TypeScript compilation took ${average_time}ms (threshold: ${warning_threshold}ms)" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "✅ Compilation performance is within acceptable limits"
+        fi
+        
+        # Store performance metrics
+        echo "compilation_time=${average_time}" >> $GITHUB_OUTPUT
+        
+    - name: Store performance metrics
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          
+          const metrics = {
+            timestamp: new Date().toISOString(),
+            commit: context.sha,
+            branch: context.ref.replace('refs/heads/', ''),
+            compilation_time: process.env.compilation_time || 0,
+            workflow_run: context.runId
+          };
+          
+          // In a real implementation, you would store this in a database
+          // or send to a monitoring service
+          console.log('Performance metrics:', JSON.stringify(metrics, null, 2));

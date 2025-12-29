@@ -1,0 +1,264 @@
+name: Pull Request Validation
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/**'
+
+# Prevent multiple runs on the same PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changed-files:
+    name: Detect Changed Files
+    runs-on: ubuntu-latest
+    outputs:
+      frontend-changed: ${{ steps.changes.outputs.frontend }}
+      typescript-files: ${{ steps.changes.outputs.typescript-files }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Detect changes
+        id: changes
+        run: |
+          # Check if frontend files changed
+          if git diff --name-only origin/${{ github.base_ref }}..HEAD | grep -q "^frontend/"; then
+            echo "frontend=true" >> $GITHUB_OUTPUT
+          else
+            echo "frontend=false" >> $GITHUB_OUTPUT
+          fi
+          
+          # Get list of changed TypeScript files
+          TYPESCRIPT_FILES=$(git diff --name-only origin/${{ github.base_ref }}..HEAD | grep -E "\.(ts|tsx)$" | grep "^frontend/" || true)
+          if [ -n "$TYPESCRIPT_FILES" ]; then
+            echo "typescript-files<<EOF" >> $GITHUB_OUTPUT
+            echo "$TYPESCRIPT_FILES" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "typescript-files=" >> $GITHUB_OUTPUT
+          fi
+
+  typescript-incremental:
+    name: Incremental TypeScript Check
+    runs-on: ubuntu-latest
+    needs: changed-files
+    if: needs.changed-files.outputs.frontend-changed == 'true'
+    
+    defaults:
+      run:
+        working-directory: ./frontend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run incremental TypeScript check
+        run: |
+          echo "Running TypeScript check on changed files..."
+          if [ -n "${{ needs.changed-files.outputs.typescript-files }}" ]; then
+            echo "Changed TypeScript files:"
+            echo "${{ needs.changed-files.outputs.typescript-files }}"
+            
+            # Run type check on specific files
+            echo "${{ needs.changed-files.outputs.typescript-files }}" | while read -r file; do
+              if [ -f "$file" ]; then
+                echo "Checking: $file"
+                npx tsc --noEmit "$file" || exit 1
+              fi
+            done
+          else
+            echo "No TypeScript files changed, running full type check..."
+            npm run type-check
+          fi
+
+  eslint-incremental:
+    name: Incremental ESLint Check
+    runs-on: ubuntu-latest
+    needs: changed-files
+    if: needs.changed-files.outputs.frontend-changed == 'true'
+    
+    defaults:
+      run:
+        working-directory: ./frontend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run incremental ESLint check
+        run: |
+          echo "Running ESLint on changed files..."
+          if [ -n "${{ needs.changed-files.outputs.typescript-files }}" ]; then
+            echo "Changed TypeScript files:"
+            echo "${{ needs.changed-files.outputs.typescript-files }}"
+            
+            # Run ESLint on specific files
+            echo "${{ needs.changed-files.outputs.typescript-files }}" | xargs npx eslint --ext .ts,.tsx
+          else
+            echo "No TypeScript files changed, running full ESLint check..."
+            npm run lint
+          fi
+
+  format-check:
+    name: Format Check
+    runs-on: ubuntu-latest
+    needs: changed-files
+    if: needs.changed-files.outputs.frontend-changed == 'true'
+    
+    defaults:
+      run:
+        working-directory: ./frontend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Check code formatting
+        run: npm run format:check
+
+  test-validation:
+    name: Test Validation
+    runs-on: ubuntu-latest
+    needs: changed-files
+    if: needs.changed-files.outputs.frontend-changed == 'true'
+    
+    defaults:
+      run:
+        working-directory: ./frontend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run tests
+        run: npm test -- --passWithNoTests --coverage=false --watchAll=false
+        
+      - name: Run property-based tests
+        run: |
+          echo "Running property-based tests..."
+          npm test -- --testPathPattern="property.test" --passWithNoTests --coverage=false --watchAll=false
+
+  pr-quality-gate:
+    name: PR Quality Gate
+    runs-on: ubuntu-latest
+    needs: [typescript-incremental, eslint-incremental, format-check, test-validation]
+    if: always() && needs.changed-files.outputs.frontend-changed == 'true'
+    
+    steps:
+      - name: Evaluate PR quality gate
+        run: |
+          echo "Evaluating PR quality gate..."
+          
+          # Check if all validation jobs passed
+          TYPESCRIPT_STATUS="${{ needs.typescript-incremental.result }}"
+          ESLINT_STATUS="${{ needs.eslint-incremental.result }}"
+          FORMAT_STATUS="${{ needs.format-check.result }}"
+          TEST_STATUS="${{ needs.test-validation.result }}"
+          
+          echo "## Pull Request Validation Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Validation | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| TypeScript | $TYPESCRIPT_STATUS |" >> $GITHUB_STEP_SUMMARY
+          echo "| ESLint | $ESLINT_STATUS |" >> $GITHUB_STEP_SUMMARY
+          echo "| Formatting | $FORMAT_STATUS |" >> $GITHUB_STEP_SUMMARY
+          echo "| Tests | $TEST_STATUS |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Determine if PR can be merged
+          if [[ "$TYPESCRIPT_STATUS" == "success" && 
+                "$ESLINT_STATUS" == "success" && 
+                "$FORMAT_STATUS" == "success" && 
+                "$TEST_STATUS" == "success" ]]; then
+            echo "✅ **PR Quality Gate: PASSED**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "All validation checks passed. This PR is ready for review and merge." >> $GITHUB_STEP_SUMMARY
+            exit 0
+          else
+            echo "❌ **PR Quality Gate: FAILED**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "One or more validation checks failed. Please fix the issues before requesting review." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Required Actions:" >> $GITHUB_STEP_SUMMARY
+            
+            if [[ "$TYPESCRIPT_STATUS" != "success" ]]; then
+              echo "- 🔧 Fix TypeScript compilation errors" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [[ "$ESLINT_STATUS" != "success" ]]; then
+              echo "- 🔧 Fix ESLint violations" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [[ "$FORMAT_STATUS" != "success" ]]; then
+              echo "- 🔧 Fix code formatting issues (run \`npm run format\`)" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [[ "$TEST_STATUS" != "success" ]]; then
+              echo "- 🔧 Fix failing tests" >> $GITHUB_STEP_SUMMARY
+            fi
+            
+            exit 1
+          fi
+
+  no-changes:
+    name: No Frontend Changes
+    runs-on: ubuntu-latest
+    needs: changed-files
+    if: needs.changed-files.outputs.frontend-changed == 'false'
+    
+    steps:
+      - name: Skip validation
+        run: |
+          echo "## No Frontend Changes Detected" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "No changes detected in the frontend directory. Skipping TypeScript validation." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Validation: SKIPPED**" >> $GITHUB_STEP_SUMMARY
