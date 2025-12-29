@@ -101,7 +101,7 @@ const StyledSelect = styled.select<{
   border: none;
   outline: none;
   background: transparent;
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   color: ${({ theme }) => theme.colors.text};
   appearance: none;
   cursor: pointer;
@@ -149,7 +149,7 @@ const FloatingLabel = styled(motion.label)<{
   position: absolute;
   left: ${({ theme }) => theme.spacing.scale[4] * theme.spacing.unit}px;
   pointer-events: none;
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   transition: all ${({ theme }) => theme.animations.duration.fast}ms ${({ theme }) => theme.animations.easing.easeOut};
   
   ${({ $isFloating, $isFocused, $hasError, $size, theme }) => {
@@ -197,7 +197,7 @@ const ChevronIcon = styled(motion.div)<{ $isFocused: boolean }>`
 
 const HelperText = styled(motion.div)<{ $isError: boolean }>`
   font-size: 0.875rem;
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   color: ${({ $isError, theme }) => $isError ? theme.colors.error : theme.colors.muted};
   margin-top: ${({ theme }) => theme.spacing.scale[1] * theme.spacing.unit}px;
 `;

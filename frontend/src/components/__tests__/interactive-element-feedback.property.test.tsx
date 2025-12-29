@@ -3,7 +3,7 @@
  * **Feature: delivery-app-ui-enhancement, Property 8: Interactive Element Feedback**
  * **Validates: Requirements 6.1, 4.4, 7.4**
  * 
- * Tests that all interactive elements provide hover effects and visual feedback
+ * Tests that all elements provide hover effects and visual feedback
  * that clearly indicate interactivity across all input combinations.
  */
 
@@ -43,7 +43,7 @@ describe('Interactive Element Feedback Properties', () => {
     document.body.innerHTML = '';
   });
 
-  it('Property 8.1: All interactive buttons provide hover and focus feedback', () => {
+  it('Property 8.1: All buttons provide hover and focus feedback', () => {
     fc.assert(fc.property(
       buttonVariantGen,
       buttonSizeGen,
@@ -260,7 +260,7 @@ describe('Interactive Element Feedback Properties', () => {
     ), { numRuns: 50 });
   });
 
-  it('Property 8.5: All card elements provide hover feedback when interactive', () => {
+  it('Property 8.5: All card elements provide hover feedback when', () => {
     fc.assert(fc.property(
       fc.boolean(),
       fc.string({ minLength: 1, maxLength: 100 }),
@@ -295,14 +295,14 @@ describe('Interactive Element Feedback Properties', () => {
           // Should have transition for hover effects
           expect(computedStyle.transition).toContain('all');
         } else {
-          // Non-interactive cards should not have pointer cursor
+          // Non-cards should not have pointer cursor
           expect(computedStyle.cursor).not.toBe('pointer');
         }
         
         // All cards should have proper border radius
         // In test environment, just verify the card element exists and has classes
-        expect(cardElement).toBeTruthy();
-        expect(cardElement.className).toContain('rounded');
+        expect(card).toBeTruthy();
+        expect(card.className).toContain('rounded');
         
         // Clean up
         unmount();
@@ -335,9 +335,9 @@ describe('Interactive Element Feedback Properties', () => {
         
         // Check minimum touch target sizes (Requirements 7.1, 7.4)
         const expectedMinHeights = {
-          small: 32,
-          medium: 40,
-          large: 48
+          sm: 32,
+          md: 40,
+          lg: 48
         };
         
         expect(minHeight).toBeGreaterThanOrEqual(expectedMinHeights[size]);
@@ -355,7 +355,7 @@ describe('Interactive Element Feedback Properties', () => {
     ), { numRuns: 50 });
   });
 
-  it('Property 8.7: All interactive elements provide immediate visual response', () => {
+  it('Property 8.7: All elements provide immediate visual response', () => {
     fc.assert(fc.property(
       buttonVariantGen,
       fc.string({ minLength: 1, maxLength: 30 }),

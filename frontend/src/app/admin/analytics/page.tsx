@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { apiClient } from '@/lib/api';
+import { formatCurrency } from '@/lib/utils';
 
 interface DashboardMetrics {
   total_orders: number;

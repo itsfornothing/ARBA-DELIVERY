@@ -162,7 +162,7 @@ export default function OnboardingDemoPage() {
                   Customer Dashboard Tour
                 </Typography>
                 <Typography variant="body1" color="muted" className="mb-6">
-                  Guide customers through their dashboard with interactive tooltips highlighting key features and actions.
+                  Guide customers through their dashboard with tooltips highlighting key features and actions.
                 </Typography>
                 <div className="space-y-3">
                   <Button 

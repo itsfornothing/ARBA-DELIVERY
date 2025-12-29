@@ -144,7 +144,7 @@ const CheckboxIcon = styled(motion.div)<{ $size: CheckboxProps['size'] }>`
 `;
 
 const CheckboxLabel = styled.div<{ $hasError: boolean }>`
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   color: ${({ $hasError, theme }) => $hasError ? theme.colors.error : theme.colors.text};
   line-height: 1.5;
   margin-top: 1px; // Align with checkbox center
@@ -152,7 +152,7 @@ const CheckboxLabel = styled.div<{ $hasError: boolean }>`
 
 const HelperText = styled(motion.div)<{ $isError: boolean }>`
   font-size: 0.875rem;
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   color: ${({ $isError, theme }) => $isError ? theme.colors.error : theme.colors.muted};
   margin-top: ${({ theme }) => theme.spacing.scale[1] * theme.spacing.unit}px;
   margin-left: ${({ theme }) => theme.spacing.scale[6] * theme.spacing.unit}px;

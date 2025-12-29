@@ -208,7 +208,7 @@ describe('Checkpoint: Core Components Functionality', () => {
     it('has complete color palettes defined', () => {
       expect(enhancedTheme.colors.primary).toBeDefined();
       expect(enhancedTheme.colors.secondary).toBeDefined();
-      expect(enhancedTheme.colors.neutral).toBeDefined();
+      expect(enhancedTheme.colors.neutralPalette).toBeDefined();
       expect(enhancedTheme.colors.success).toBeDefined();
       expect(enhancedTheme.colors.warning).toBeDefined();
       expect(enhancedTheme.colors.error).toBeDefined();
@@ -219,7 +219,7 @@ describe('Checkpoint: Core Components Functionality', () => {
       shades.forEach(shade => {
         expect(enhancedTheme.colors.primary[shade]).toBeDefined();
         expect(enhancedTheme.colors.secondary[shade]).toBeDefined();
-        expect(enhancedTheme.colors.neutral[shade]).toBeDefined();
+        expect(enhancedTheme.colors.neutralPalette[shade]).toBeDefined();
       });
     });
 
@@ -302,7 +302,7 @@ describe('Checkpoint: Core Components Functionality', () => {
       // Test with theme colors
       const primaryOnWhite = validateColorContrast(
         enhancedTheme.colors.primary[600],
-        enhancedTheme.colors.neutral[50]
+        enhancedTheme.colors.neutralPalette[50]
       );
       console.log(`Primary on white: ${primaryOnWhite.ratio}:1 - Accessible: ${primaryOnWhite.isAccessible}`);
       expect(primaryOnWhite.ratio).toBeGreaterThan(1);

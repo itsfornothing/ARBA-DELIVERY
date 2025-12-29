@@ -36,7 +36,7 @@ const SuccessMessage = styled(motion.div)`
   border: 1px solid ${({ theme }) => theme.colors.success}30;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   color: ${({ theme }) => theme.colors.success};
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-size: 0.875rem;
   display: flex;
   align-items: center;

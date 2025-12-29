@@ -188,14 +188,14 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         <ContentContainer>
           <Typography 
             variant="h3" 
-            color="text" 
+            color="primary" 
             style={{ marginBottom: '16px' }}
             data-testid="empty-title"
           >
             {displayTitle}
           </Typography>
           <Typography 
-            variant="body" 
+            variant="body1" 
             color="muted"
             data-testid="empty-description"
           >

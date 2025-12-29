@@ -30,6 +30,9 @@ const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 // Generators for component props
 const inputVariantArb = fc.constantFrom('default', 'filled', 'outlined');
 const inputSizeArb = fc.constantFrom('sm', 'md', 'lg');
+const textareaSizeArb = fc.constantFrom('small', 'medium', 'large');
+const selectSizeArb = fc.constantFrom('small', 'medium', 'large');
+const checkboxSizeArb = fc.constantFrom('small', 'medium', 'large');
 const textArb = fc.string({ minLength: 0, maxLength: 50 });
 const labelArb = fc.string({ minLength: 1, maxLength: 30 });
 const errorMessageArb = fc.string({ minLength: 1, maxLength: 100 });
@@ -166,7 +169,7 @@ describe('Form Interaction Consistency Property Tests', () => {
     fc.assert(
       fc.property(
         inputVariantArb,
-        inputSizeArb,
+        textareaSizeArb,
         labelArb,
         textArb,
         (variant, size, label, value) => {
@@ -208,7 +211,7 @@ describe('Form Interaction Consistency Property Tests', () => {
     fc.assert(
       fc.property(
         inputVariantArb,
-        inputSizeArb,
+        selectSizeArb,
         labelArb,
         selectOptionsArb,
         (variant, size, label, options) => {
@@ -249,7 +252,7 @@ describe('Form Interaction Consistency Property Tests', () => {
   it('should maintain consistent visual states across Checkbox components', () => {
     fc.assert(
       fc.property(
-        inputSizeArb,
+        checkboxSizeArb,
         labelArb,
         fc.boolean(),
         fc.boolean(),

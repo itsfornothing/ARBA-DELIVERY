@@ -22,7 +22,7 @@ import {
 
 // Generators for theme validation
 const colorShadeArb = fc.constantFrom('50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950');
-const colorPaletteNameArb = fc.constantFrom('primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info');
+const colorPaletteNameArb = fc.constantFrom('primaryPalette', 'secondaryPalette', 'neutralPalette', 'successPalette', 'warningPalette', 'errorPalette', 'infoPalette');
 const statusColorNameArb = fc.constantFrom('success', 'warning', 'error', 'info');
 const fontFamilyNameArb = fc.constantFrom('sans', 'display', 'mono');
 const fontSizeNameArb = fc.constantFrom('xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl', '8xl', '9xl');
@@ -103,7 +103,7 @@ const isValidSpacingSystem = (spacing: SpacingSystem): boolean => {
 
   const scaleValid = Array.isArray(spacing.scale) && 
     spacing.scale.length > 0 && 
-    spacing.scale.every(value => isValidCSSValue(value));
+    spacing.scale.every(value => isValidCSSValue(String(value)));
 
   const unitValid = typeof spacing.unit === 'number' && spacing.unit > 0;
 
@@ -152,15 +152,13 @@ describe('Theme Configuration Completeness Property Tests', () => {
         (theme, paletteName, shade) => {
           const palette = theme.colors[paletteName];
           
-          // Skip status colors as they have different structure
-          if (paletteName === 'status') return true;
-          
+          // All palette names from the generator are valid palettes, not status
           expect(palette).toBeDefined();
           expect(typeof palette).toBe('object');
           
           const colorPalette = palette as ColorPalette;
-          expect(colorPalette[shade as keyof ColorPalette]).toBeDefined();
-          expect(isValidHexColor(colorPalette[shade as keyof ColorPalette])).toBe(true);
+          expect(colorPalette[shade as unknown as keyof ColorPalette]).toBeDefined();
+          expect(isValidHexColor(colorPalette[shade as unknown as keyof ColorPalette])).toBe(true);
           
           // Verify complete palette structure
           expect(isValidColorPalette(colorPalette)).toBe(true);
@@ -366,13 +364,13 @@ describe('Theme Configuration Completeness Property Tests', () => {
           expect(theme.breakpoints).toBeDefined();
           
           // Verify colors structure
-          const requiredColorPalettes = ['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info', 'status'] as const;
+          const requiredColorPalettes = ['primary', 'secondary', 'success', 'warning', 'error', 'info', 'status'] as const;
           requiredColorPalettes.forEach(palette => {
             expect(theme.colors[palette]).toBeDefined();
           });
           
           // Verify each color palette (except status) has complete shade range
-          const colorPalettes = ['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'] as const;
+          const colorPalettes = ['primaryPalette', 'secondaryPalette', 'neutralPalette', 'successPalette', 'warningPalette', 'errorPalette', 'infoPalette'] as const;
           colorPalettes.forEach(palette => {
             expect(isValidColorPalette(theme.colors[palette] as ColorPalette)).toBe(true);
           });

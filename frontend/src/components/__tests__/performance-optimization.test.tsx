@@ -24,7 +24,9 @@ const mockPerformanceObserver = {
   disconnect: jest.fn(),
 };
 
-global.PerformanceObserver = jest.fn().mockImplementation(() => mockPerformanceObserver);
+const MockPerformanceObserver = jest.fn().mockImplementation(() => mockPerformanceObserver);
+(MockPerformanceObserver as any).supportedEntryTypes = ['measure', 'navigation', 'resource'];
+global.PerformanceObserver = MockPerformanceObserver as any;
 
 describe('Performance Optimization', () => {
   let performanceMonitor: PerformanceMonitor;

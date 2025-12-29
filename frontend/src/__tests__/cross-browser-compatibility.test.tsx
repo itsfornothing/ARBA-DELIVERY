@@ -37,7 +37,7 @@ const BROWSER_USER_AGENTS = {
 
 // Mock CSS features for different browsers
 const mockCSSSupports = (feature: string, supported: boolean) => {
-  if (typeof CSS !== 'undefined' && CSS.supports) {
+  if (typeof CSS !== 'undefined' && CSS.supports && typeof CSS.supports === 'function') {
     jest.spyOn(CSS, 'supports').mockImplementation((property: string, value?: string) => {
       if (property === feature || (value && `${property}: ${value}` === feature)) {
         return supported;

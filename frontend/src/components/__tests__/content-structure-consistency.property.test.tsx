@@ -59,9 +59,9 @@ const activityGenerator = fc.array(
 // Use unique labels to avoid React key conflicts
 const chartDataGenerator = fc.array(
   fc.record({
-    label: fc.string({ minLength: 1, maxLength: 10 }).map((s, index) => `Item-${s}-${index}`), // Unique labels
+    label: fc.string({ minLength: 1, maxLength: 10 }).map((s) => `Item-${s}`), // Unique labels
     value: fc.float({ min: 50, max: 500, noNaN: true }),
-    color: fc.option(fc.constantFrom('#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#6366F1')),
+    color: fc.option(fc.constantFrom('#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#6366F1'), { nil: undefined }),
   }),
   { minLength: 3, maxLength: 5 }
 ).map(arr => arr.map((item, index) => ({ ...item, label: `${item.label}-${index}` })));

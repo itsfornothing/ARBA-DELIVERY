@@ -1,0 +1,57 @@
+name: Optimized TypeScript Validation
+'on':
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  typescript-validation:
+    runs-on: ubuntu-latest
+    timeout: 10
+    strategy:
+      matrix:
+        node-version:
+          - 18.x
+          - 20.x
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Cache TypeScript build
+        uses: actions/cache@v3
+        with:
+          path: >-
+            frontend/.typescript-cache\nfrontend/.next/cache\nfrontend/node_modules/.cache
+          key: >-
+            ${{ runner.os }}-typescript-${{ hashFiles('frontend/tsconfig.json',
+            'frontend/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-typescript-
+      - name: Install dependencies
+        run: cd frontend\nnpm ci --prefer-offline --no-audit --no-fund
+      - name: Run TypeScript validation (parallel)
+        run: cd frontend\nnpm run type-check:fast || npm run type-check
+        env:
+          NODE_OPTIONS: '--max-old-space-size=4096'
+          TYPESCRIPT_CACHE_ENABLED: 'true'
+      - name: Run ESLint validation
+        run: cd frontend\nnpm run lint:fast || npm run lint
+      - name: Upload performance metrics
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: typescript-performance-metrics-${{ matrix.node-version }}
+          path: frontend/.typescript-cache/performance-metrics.json
+          retention-days: 30

@@ -153,7 +153,7 @@ const IconContainer = styled(motion.div)<{ $level: 'small' | 'medium' | 'large' 
 `;
 
 const Title = styled(motion.h2)<{ $level: 'small' | 'medium' | 'large' }>`
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-size: ${({ $level }) => $level === 'large' ? '2rem' : $level === 'medium' ? '1.5rem' : '1.25rem'};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text};
@@ -162,7 +162,7 @@ const Title = styled(motion.h2)<{ $level: 'small' | 'medium' | 'large' }>`
 `;
 
 const Message = styled(motion.p)`
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.muted};
   margin: 0 0 ${({ theme }) => theme.spacing.scale[6] * theme.spacing.unit}px;
@@ -175,7 +175,7 @@ const DismissButton = styled(motion.button)`
   border: none;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   padding: ${({ theme }) => theme.spacing.scale[3] * theme.spacing.unit}px ${({ theme }) => theme.spacing.scale[6] * theme.spacing.unit}px;
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;

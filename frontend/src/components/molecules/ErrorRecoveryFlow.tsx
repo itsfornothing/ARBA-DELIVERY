@@ -221,33 +221,33 @@ export const ErrorRecoveryFlow: React.FC<ErrorRecoveryFlowProps> = ({
       case 'initial':
         return (
           <StepCard>
-            <Typography variant="h4" color="text" style={{ marginBottom: '16px' }}>
+            <Typography variant="h4" color="primary" style={{ marginBottom: '16px' }}>
               Let's fix this together
             </Typography>
-            <Typography variant="body" color="muted" style={{ marginBottom: '24px' }}>
+            <Typography variant="body1" color="muted" style={{ marginBottom: '24px' }}>
               We've detected an issue. Choose how you'd like to proceed:
             </Typography>
             
             <ActionGrid>
               <ActionCard 
                 $variant="primary" 
-                interactive 
+                
                 onClick={() => setCurrentStep('troubleshooting')}
               >
-                <Typography variant="h6" color="text" style={{ marginBottom: '8px' }}>
+                <Typography variant="h6" color="primary" style={{ marginBottom: '8px' }}>
                   🔧 Troubleshoot
                 </Typography>
-                <Typography variant="body" color="muted">
+                <Typography variant="body1" color="muted">
                   Try some quick fixes first
                 </Typography>
               </ActionCard>
               
               {onRetry && (
-                <ActionCard $variant="secondary" interactive onClick={onRetry}>
-                  <Typography variant="h6" color="text" style={{ marginBottom: '8px' }}>
+                <ActionCard $variant="secondary" onClick={onRetry}>
+                  <Typography variant="h6" color="primary" style={{ marginBottom: '8px' }}>
                     🔄 Try Again
                   </Typography>
-                  <Typography variant="body" color="muted">
+                  <Typography variant="body1" color="muted">
                     Retry the action immediately
                   </Typography>
                 </ActionCard>
@@ -255,13 +255,13 @@ export const ErrorRecoveryFlow: React.FC<ErrorRecoveryFlowProps> = ({
               
               <ActionCard 
                 $variant="tertiary" 
-                interactive 
+                
                 onClick={() => setCurrentStep('contact')}
               >
-                <Typography variant="h6" color="text" style={{ marginBottom: '8px' }}>
+                <Typography variant="h6" color="primary" style={{ marginBottom: '8px' }}>
                   💬 Get Help
                 </Typography>
-                <Typography variant="body" color="muted">
+                <Typography variant="body1" color="muted">
                   Contact our support team
                 </Typography>
               </ActionCard>
@@ -272,17 +272,17 @@ export const ErrorRecoveryFlow: React.FC<ErrorRecoveryFlowProps> = ({
       case 'troubleshooting':
         return (
           <StepCard>
-            <Typography variant="h4" color="text" style={{ marginBottom: '16px' }}>
+            <Typography variant="h4" color="primary" style={{ marginBottom: '16px' }}>
               Troubleshooting Steps
             </Typography>
-            <Typography variant="body" color="muted" style={{ marginBottom: '24px' }}>
+            <Typography variant="body1" color="muted" style={{ marginBottom: '24px' }}>
               Try these steps in order:
             </Typography>
             
             <ol style={{ paddingLeft: '20px', marginBottom: '24px' }}>
               {getTroubleshootingSteps().map((step, index) => (
                 <li key={index} style={{ marginBottom: '8px' }}>
-                  <Typography variant="body" color="text">{step}</Typography>
+                  <Typography variant="body1" color="primary">{step}</Typography>
                 </li>
               ))}
             </ol>
@@ -308,10 +308,10 @@ export const ErrorRecoveryFlow: React.FC<ErrorRecoveryFlowProps> = ({
       case 'contact':
         return (
           <StepCard>
-            <Typography variant="h4" color="text" style={{ marginBottom: '16px' }}>
+            <Typography variant="h4" color="primary" style={{ marginBottom: '16px' }}>
               Contact Support
             </Typography>
-            <Typography variant="body" color="muted" style={{ marginBottom: '24px' }}>
+            <Typography variant="body1" color="muted" style={{ marginBottom: '24px' }}>
               Our support team is here to help. Please provide some details:
             </Typography>
             
@@ -363,10 +363,10 @@ export const ErrorRecoveryFlow: React.FC<ErrorRecoveryFlowProps> = ({
       case 'report':
         return (
           <StepCard>
-            <Typography variant="h4" color="text" style={{ marginBottom: '16px' }}>
+            <Typography variant="h4" color="primary" style={{ marginBottom: '16px' }}>
               Report a Bug
             </Typography>
-            <Typography variant="body" color="muted" style={{ marginBottom: '24px' }}>
+            <Typography variant="body1" color="muted" style={{ marginBottom: '24px' }}>
               Help us improve by reporting this issue:
             </Typography>
             
@@ -420,10 +420,10 @@ export const ErrorRecoveryFlow: React.FC<ErrorRecoveryFlowProps> = ({
           <StepCard>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '4rem', marginBottom: '16px' }}>✅</div>
-              <Typography variant="h4" color="text" style={{ marginBottom: '16px' }}>
+              <Typography variant="h4" color="primary" style={{ marginBottom: '16px' }}>
                 Thank You!
               </Typography>
-              <Typography variant="body" color="muted" style={{ marginBottom: '24px' }}>
+              <Typography variant="body1" color="muted" style={{ marginBottom: '24px' }}>
                 We've received your request and will get back to you soon.
               </Typography>
               

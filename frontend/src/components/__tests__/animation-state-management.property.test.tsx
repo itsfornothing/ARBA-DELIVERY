@@ -239,7 +239,7 @@ describe('Property Test 2: Animation State Management', () => {
     test('loading spinners respect motion preferences', () => {
       fc.assert(
         fc.property(
-          fc.constantFrom('sm', 'md', 'lg'),
+          fc.constantFrom('small', 'medium', 'large'),
           fc.constantFrom('primary', 'secondary', 'muted'),
           fc.boolean(),
           (size, color, reducedMotion) => {

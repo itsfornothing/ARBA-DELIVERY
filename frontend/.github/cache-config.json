@@ -1,0 +1,45 @@
+{
+  "enabled": true,
+  "strategy": "layered",
+  "layers": [
+    {
+      "name": "dependencies",
+      "paths": [
+        "node_modules",
+        "package-lock.json"
+      ],
+      "key": "deps-${{ hashFiles('package-lock.json') }}",
+      "restoreKeys": [
+        "deps-"
+      ]
+    },
+    {
+      "name": "typescript-cache",
+      "paths": [
+        ".typescript-cache",
+        ".next/cache"
+      ],
+      "key": "ts-cache-${{ hashFiles('tsconfig.json', '**/*.ts', '**/*.tsx') }}",
+      "restoreKeys": [
+        "ts-cache-"
+      ]
+    },
+    {
+      "name": "eslint-cache",
+      "paths": [
+        ".eslintcache",
+        "node_modules/.cache/eslint"
+      ],
+      "key": "eslint-cache-${{ hashFiles('.eslintrc.*', '**/*.ts', '**/*.tsx') }}",
+      "restoreKeys": [
+        "eslint-cache-"
+      ]
+    }
+  ],
+  "optimization": {
+    "parallelCaching": true,
+    "compressionEnabled": false,
+    "incrementalCaching": true,
+    "smartInvalidation": true
+  }
+}

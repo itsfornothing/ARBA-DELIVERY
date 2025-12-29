@@ -179,7 +179,9 @@ describe('CourierLayout', () => {
     );
 
     const nav = screen.getByRole('navigation');
-    expect(nav).toHaveClass('bg-green-600', 'text-white', 'shadow-lg');
+    expect(nav).toHaveClass('bg-green-600');
+    expect(nav).toHaveClass('text-white');
+    expect(nav).toHaveClass('shadow-lg');
 
     const navLinks = screen.getAllByRole('link');
     navLinks.forEach(link => {
@@ -201,7 +203,9 @@ describe('CourierLayout', () => {
 
     const main = screen.getByRole('main');
     expect(main).toContainElement(screen.getByTestId('child-content'));
-    expect(main).toHaveClass('max-w-7xl', 'mx-auto', 'py-6');
+    expect(main).toHaveClass('max-w-7xl');
+    expect(main).toHaveClass('mx-auto');
+    expect(main).toHaveClass('py-6');
   });
 
   it('does not render content for unauthenticated users', () => {
@@ -240,6 +244,8 @@ describe('CourierLayout', () => {
     );
 
     const container = screen.getByText('Test Content').closest('.max-w-7xl');
-    expect(container).toHaveClass('px-4', 'sm:px-6', 'lg:px-8');
+    expect(container).toHaveClass('px-4');
+    expect(container).toHaveClass('sm:px-6');
+    expect(container).toHaveClass('lg:px-8');
   });
 });

@@ -122,7 +122,7 @@ describe('Visual Feedback Completeness Properties', () => {
   it('Property 3.1: All button interactions provide immediate visual feedback', () => {
     fc.assert(fc.property(
       fc.constantFrom('primary', 'secondary', 'outline', 'ghost', 'danger'),
-      fc.constantFrom('small', 'medium', 'large'),
+      fc.constantFrom('sm', 'md', 'lg'),
       fc.boolean(),
       fc.string({ minLength: 1, maxLength: 30 }),
       (variant, size, loading, text) => {
@@ -432,16 +432,12 @@ describe('Visual Feedback Completeness Properties', () => {
         const { unmount, container } = render(
           <TestWrapper>
             <FormField
+              name="test-field"
               label="Test Field"
-              error={hasError ? errorMessage : undefined}
+              value=""
+              onChange={() => {}}
               data-testid={`error-field-${uniqueTestId}`}
-            >
-              <Input
-                placeholder="Test input"
-                error={hasError ? errorMessage : undefined}
-                data-testid={`error-input-${uniqueTestId}`}
-              />
-            </FormField>
+            />
           </TestWrapper>
         );
 

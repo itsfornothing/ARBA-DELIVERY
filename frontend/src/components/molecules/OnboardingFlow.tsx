@@ -162,7 +162,7 @@ const ProgressFill = styled.div<{ $progress: number }>`
 `;
 
 const ProgressText = styled.span`
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.muted};
   font-weight: 500;
@@ -171,7 +171,7 @@ const ProgressText = styled.span`
 `;
 
 const StepTitle = styled(motion.h2)`
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-size: 1.5rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text};
@@ -200,7 +200,7 @@ const StepIconContainer = styled(motion.div)`
 `;
 
 const StepDescription = styled(motion.p)`
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.muted};
   line-height: 1.6;
@@ -255,7 +255,7 @@ const FooterButton = styled(motion.button)<{ $variant: 'primary' | 'secondary' |
     $variant === 'secondary' ? `1px solid ${theme.colors.border}` : 'none'};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   padding: ${({ theme }) => theme.spacing.scale[3] * theme.spacing.unit}px ${({ theme }) => theme.spacing.scale[6] * theme.spacing.unit}px;
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
@@ -297,7 +297,7 @@ const CelebrationIcon = styled(motion.div)`
 `;
 
 const CelebrationTitle = styled(motion.h2)`
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-size: 1.75rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text};
@@ -305,7 +305,7 @@ const CelebrationTitle = styled(motion.h2)`
 `;
 
 const CelebrationMessage = styled(motion.p)`
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.muted};
   line-height: 1.6;

@@ -426,7 +426,7 @@ export const EnhancedOrderTracking: React.FC<EnhancedOrderTrackingProps> = ({
             <Typography variant="h2" style={{ margin: 0, color: 'white' }}>
               Order #{order.id}
             </Typography>
-            <Typography variant="body" style={{ opacity: 0.9, color: 'white' }}>
+            <Typography variant="body1" style={{ opacity: 0.9, color: 'white' }}>
               {getStatusDescription(order.status)}
             </Typography>
             <Typography variant="caption" style={{ opacity: 0.8, color: 'white' }}>
@@ -518,10 +518,10 @@ export const EnhancedOrderTracking: React.FC<EnhancedOrderTrackingProps> = ({
             </CourierDetails>
             
             <CourierActions>
-              <Button variant="outline" size="small">
+              <Button variant="outline" size="sm">
                 <Phone size={16} />
               </Button>
-              <Button variant="outline" size="small">
+              <Button variant="outline" size="sm">
                 <Navigation size={16} />
               </Button>
             </CourierActions>
@@ -630,7 +630,7 @@ export const EnhancedOrderTracking: React.FC<EnhancedOrderTrackingProps> = ({
               </Typography>
             </div>
             {onRefresh && (
-              <Button variant="outline" size="small" onClick={onRefresh}>
+              <Button variant="outline" size="sm" onClick={onRefresh}>
                 Refresh
               </Button>
             )}

@@ -3,7 +3,7 @@
  * **Feature: delivery-app-ui-enhancement, Property 1: Responsive Layout Consistency**
  * **Validates: Requirements 1.4, 7.1, 7.2**
  * 
- * Tests that for any screen size or device orientation, all interactive elements
+ * Tests that for any screen size or device orientation, all elements
  * maintain minimum touch target sizes and layouts reorganize appropriately
  * without breaking functionality.
  */
@@ -48,7 +48,7 @@ const viewportArbitrary = fc.record({
 });
 
 // Interactive element generator
-const interactiveElementArbitrary = fc.constantFrom(
+const elementArbitrary = fc.constantFrom(
   'button',
   'input',
   'card-interactive'
@@ -78,7 +78,7 @@ describe('Responsive Layout Consistency Properties', () => {
     fc.assert(
       fc.property(
         viewportArbitrary,
-        interactiveElementArbitrary,
+       elementArbitrary,
         componentSizeArbitrary,
         (viewport, elementType, size) => {
           // Set viewport
@@ -94,10 +94,10 @@ describe('Responsive Layout Consistency Properties', () => {
             value: viewport.height,
           });
 
-          let component: JSX.Element;
+          let component: React.JSX.Element;
           let testId: string;
 
-          // Render different interactive elements
+          // Render different elements
           switch (elementType) {
             case 'button':
               testId = 'test-button';
@@ -121,7 +121,7 @@ describe('Responsive Layout Consistency Properties', () => {
               testId = 'test-card';
               component = (
                 <TestWrapper>
-                  <Card interactive data-testid={testId}>
+                  <Card data-testid={testId}>
                     Interactive Card Content
                   </Card>
                 </TestWrapper>

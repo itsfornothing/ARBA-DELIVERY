@@ -180,12 +180,12 @@ export const Toast: React.FC<ToastProps> = ({
       
       <ContentContainer>
         {title && (
-          <Typography variant="caption" weight="semibold" color="text">
+          <Typography variant="caption" weight="semibold" color="primary">
             {title}
           </Typography>
         )}
         
-        <Typography variant="caption" color="text">
+        <Typography variant="caption" color="primary">
           {message}
         </Typography>
         

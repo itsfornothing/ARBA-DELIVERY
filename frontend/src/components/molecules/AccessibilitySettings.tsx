@@ -147,7 +147,7 @@ export const AccessibilitySettings: React.FC = () => {
 
         <SettingGroup>
           <SettingLabel variant="h4">Motion Preferences</SettingLabel>
-          <SettingDescription variant="body">
+          <SettingDescription variant="body1">
             Control animations and transitions based on your preferences or system settings.
           </SettingDescription>
           
@@ -157,7 +157,7 @@ export const AccessibilitySettings: React.FC = () => {
           </StatusIndicator>
           
           <TestArea>
-            <Typography variant="body" style={{ marginBottom: '16px' }}>
+            <Typography variant="body1" style={{ marginBottom: '16px' }}>
               Test animations with your current settings:
             </Typography>
             <AccessibleButton onClick={testAnimations}>
@@ -169,7 +169,7 @@ export const AccessibilitySettings: React.FC = () => {
                 duration={0.5}
                 style={{ marginTop: '16px' }}
               >
-                <Typography variant="body" color="success">
+                <Typography variant="body1" color="success">
                   ✓ Animation test complete
                 </Typography>
               </MotionWrapper>
@@ -179,7 +179,7 @@ export const AccessibilitySettings: React.FC = () => {
 
         <SettingGroup>
           <SettingLabel variant="h4">Contrast Preferences</SettingLabel>
-          <SettingDescription variant="body">
+          <SettingDescription variant="body1">
             High contrast mode improves visibility by using stronger color differences.
           </SettingDescription>
           
@@ -191,7 +191,7 @@ export const AccessibilitySettings: React.FC = () => {
 
         <SettingGroup>
           <SettingLabel variant="h4">Font Size</SettingLabel>
-          <SettingDescription variant="body">
+          <SettingDescription variant="body1">
             Adjust the text size for better readability.
           </SettingDescription>
           
@@ -222,7 +222,7 @@ export const AccessibilitySettings: React.FC = () => {
 
         <SettingGroup>
           <SettingLabel variant="h4">Screen Reader Support</SettingLabel>
-          <SettingDescription variant="body">
+          <SettingDescription variant="body1">
             Test screen reader announcements and accessibility features.
           </SettingDescription>
           

@@ -1,0 +1,89 @@
+{
+  "timestamp": "2025-12-29T21:15:19.051Z",
+  "version": "1.0.0",
+  "adjustmentReason": "performance_optimization_and_team_needs",
+  "previousThresholds": {
+    "errorThreshold": 5,
+    "warningThreshold": 10,
+    "performanceThreshold": 30,
+    "memoryThreshold": 256,
+    "cacheHitRateThreshold": 0.8999992083333334
+  },
+  "newThresholds": {
+    "errorThreshold": 5,
+    "warningThreshold": 10,
+    "performanceThreshold": 30,
+    "memoryThreshold": 256,
+    "cacheHitRateThreshold": 0.8999992083333334,
+    "alertResponseTime": 1800,
+    "monitoringInterval": 300000,
+    "trendThresholds": {
+      "compilationTimeIncrease": 0.2,
+      "errorRateIncrease": 0.5,
+      "cacheHitRateDecrease": 0.1
+    }
+  },
+  "performanceAnalysis": {
+    "compilationTime": {
+      "mean": 16067.985875,
+      "min": 16067.985875,
+      "max": 16067.985875,
+      "p25": 16067.985875,
+      "p75": 16067.985875,
+      "p90": 16067.985875,
+      "p95": 16067.985875
+    },
+    "memoryUsage": {
+      "mean": -245672,
+      "min": -245672,
+      "max": -245672,
+      "p25": -245672,
+      "p75": -245672,
+      "p90": -245672,
+      "p95": -245672
+    },
+    "cacheHitRate": {
+      "mean": 0.9999991203703704,
+      "min": 0.9999991203703704,
+      "max": 0.9999991203703704,
+      "p25": 0.9999991203703704,
+      "p75": 0.9999991203703704,
+      "p90": 0.9999991203703704,
+      "p95": 0.9999991203703704
+    },
+    "filesProcessed": {
+      "mean": 217,
+      "min": 217,
+      "max": 217,
+      "p25": 217,
+      "p75": 217,
+      "p90": 217,
+      "p95": 217
+    },
+    "errorRate": {
+      "mean": 0,
+      "p75": 0,
+      "p90": 0,
+      "p95": 0
+    },
+    "trends": {
+      "errorRate": 0,
+      "compilationTime": 0
+    },
+    "seasonality": "none",
+    "outliers": []
+  },
+  "expectedImprovements": {
+    "alertAccuracy": "15-25% improvement in alert accuracy",
+    "falsePositiveReduction": "20-30% reduction in false positives",
+    "detectionSpeed": "10-20% faster issue detection",
+    "teamSatisfaction": "Improved developer experience with relevant alerts"
+  },
+  "recommendations": [
+    "Monitor alert effectiveness over the next 2 weeks",
+    "Collect team feedback on alert relevance and timing",
+    "Consider enabling adaptive thresholds for automatic optimization",
+    "Review and adjust thresholds monthly based on team growth"
+  ],
+  "nextReviewDate": "2026-01-28T21:15:19.057Z"
+}

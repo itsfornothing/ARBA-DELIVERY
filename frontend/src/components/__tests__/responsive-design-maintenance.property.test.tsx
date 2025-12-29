@@ -120,7 +120,7 @@ describe('Responsive Design Maintenance Properties', () => {
           // Button should have responsive sizing classes
           expect(hasHeightClasses || hasPaddingClasses).toBe(true);
 
-          // Button should be visible and interactive
+          // Button should be visible and
           const computedStyle = window.getComputedStyle(button);
           expect(computedStyle.display).not.toBe('none');
           expect(computedStyle.visibility).not.toBe('hidden');
@@ -172,7 +172,7 @@ describe('Responsive Design Maintenance Properties', () => {
           // Input should have responsive sizing classes
           expect(hasHeightClasses || hasTextSizeClasses).toBe(true);
 
-          // Input should be accessible and interactive
+          // Input should be accessible and
           const computedStyle = window.getComputedStyle(input);
           expect(computedStyle.display).not.toBe('none');
           expect(computedStyle.visibility).not.toBe('hidden');

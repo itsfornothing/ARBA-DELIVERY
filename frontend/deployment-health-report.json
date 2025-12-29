@@ -1,0 +1,130 @@
+{
+  "timestamp": "2025-12-28T20:33:03.689Z",
+  "deploymentUrl": "http://localhost:3000",
+  "overallStatus": "UNHEALTHY",
+  "summary": {
+    "totalChecks": 5,
+    "passed": 1,
+    "failed": 3,
+    "warnings": 1
+  },
+  "checks": [
+    {
+      "name": "Environment Configuration",
+      "status": "FAILED",
+      "details": {
+        "requiredVariables": 1,
+        "presentRequired": 0,
+        "checks": [
+          {
+            "variable": "NODE_ENV",
+            "required": true,
+            "present": false,
+            "value": "[NOT SET]"
+          },
+          {
+            "variable": "NEXT_PUBLIC_API_URL",
+            "required": false,
+            "present": false,
+            "value": "[NOT SET]"
+          },
+          {
+            "variable": "DEPLOYMENT_URL",
+            "required": false,
+            "present": false,
+            "value": "[NOT SET]"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Build Artifacts",
+      "status": "PASSED",
+      "details": {
+        "totalArtifacts": 3,
+        "passedArtifacts": 3,
+        "artifacts": [
+          {
+            "path": ".next/BUILD_ID",
+            "status": "PASSED",
+            "exists": true,
+            "isDirectory": false,
+            "size": 7,
+            "modified": "2025-12-28T20:15:33.165Z"
+          },
+          {
+            "path": ".next/static",
+            "status": "PASSED",
+            "exists": true,
+            "isDirectory": true,
+            "size": null,
+            "modified": "2025-12-28T20:15:20.449Z"
+          },
+          {
+            "path": ".next/server",
+            "status": "PASSED",
+            "exists": true,
+            "isDirectory": true,
+            "size": null,
+            "modified": "2025-12-28T20:15:33.715Z"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Application Load",
+      "status": "FAILED",
+      "error": ""
+    },
+    {
+      "name": "Static Assets",
+      "status": "FAILED",
+      "details": {
+        "totalAssets": 3,
+        "passedAssets": 0,
+        "assets": [
+          {
+            "path": "/_next/static/css",
+            "status": "FAILED",
+            "error": ""
+          },
+          {
+            "path": "/_next/static/chunks",
+            "status": "FAILED",
+            "error": ""
+          },
+          {
+            "path": "/favicon.ico",
+            "status": "FAILED",
+            "error": ""
+          }
+        ]
+      }
+    },
+    {
+      "name": "API Endpoints",
+      "status": "WARNING",
+      "details": {
+        "totalEndpoints": 2,
+        "passedEndpoints": 0,
+        "endpoints": [
+          {
+            "endpoint": "/api/health",
+            "status": "FAILED",
+            "error": ""
+          },
+          {
+            "endpoint": "/api/status",
+            "status": "FAILED",
+            "error": ""
+          }
+        ]
+      }
+    }
+  ],
+  "recommendations": [
+    "Set all required environment variables before deployment",
+    "Check server logs and ensure the application is properly deployed",
+    "Verify build process completed successfully and static files are accessible"
+  ]
+}

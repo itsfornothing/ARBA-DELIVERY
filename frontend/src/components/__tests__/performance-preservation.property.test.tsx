@@ -12,11 +12,11 @@ import * as fc from 'fast-check';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { defaultTheme } from '@/lib/theme';
 import { 
-  PerformanceMonitor, 
+  BUNDLE_SIZE_THRESHOLDS, 
   BundleSizeAnalyzer, 
   CSSOptimizer,
   PERFORMANCE_THRESHOLDS,
-  BUNDLE_SIZE_THRESHOLDS 
+  PerformanceMonitor 
 } from '@/lib/performanceOptimization';
 
 // Import components for performance testing

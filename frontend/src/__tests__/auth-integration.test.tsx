@@ -489,7 +489,7 @@ describe('Authentication Integration Tests', () => {
 
       // Check login page layout
       const loginForm = screen.getByRole('button', { name: /sign in/i }).closest('form');
-      expect(loginForm).toHaveClass('space-y-5', 'sm:space-y-6');
+      expect(loginForm).toHaveClass('space-y-5 sm:space-y-6');
 
       // Switch to registration page
       rerender(<RegisterPage />);
@@ -507,7 +507,7 @@ describe('Authentication Integration Tests', () => {
       expect(loginContainer).toBeInTheDocument();
       
       const loginWrapper = loginContainer?.parentElement;
-      expect(loginWrapper).toHaveClass('min-h-screen', 'flex', 'items-center', 'justify-center');
+      expect(loginWrapper).toHaveClass('min-h-screen flex items-center justify-center');
 
       // Switch to registration page
       rerender(<RegisterPage />);
@@ -517,7 +517,7 @@ describe('Authentication Integration Tests', () => {
       expect(registerContainer).toBeInTheDocument();
       
       const registerWrapper = registerContainer?.parentElement;
-      expect(registerWrapper).toHaveClass('min-h-screen', 'flex', 'items-center', 'justify-center');
+      expect(registerWrapper).toHaveClass('min-h-screen flex items-center justify-center');
     });
 
     it('should maintain consistent error state styling', async () => {
@@ -542,7 +542,7 @@ describe('Authentication Integration Tests', () => {
       await waitFor(() => {
         const loginError = screen.getByText('Test error message');
         expect(loginError).toBeInTheDocument();
-        expect(loginError.closest('div')).toHaveClass('bg-error-50', 'border-error-500', 'text-error-700');
+        expect(loginError.closest('div')).toHaveClass('bg-error-50 border-error-500 text-error-700');
       });
 
       // Switch to registration page and test error styling
@@ -583,7 +583,7 @@ describe('Authentication Integration Tests', () => {
       await waitFor(() => {
         const registerError = screen.getByText('Registration error message');
         expect(registerError).toBeInTheDocument();
-        expect(registerError.closest('div')).toHaveClass('bg-error-50', 'border-error-500', 'text-error-700');
+        expect(registerError.closest('div')).toHaveClass('bg-error-50 border-error-500 text-error-700');
       });
     });
 

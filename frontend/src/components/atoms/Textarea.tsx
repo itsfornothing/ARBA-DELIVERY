@@ -25,7 +25,7 @@ const StyledTextarea = styled.textarea<{
   $variant: TextareaProps['variant'];
   $hasError: boolean;
 }>`
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   transition: all ${({ theme }) => theme.animations.duration.fast}ms ${({ theme }) => theme.animations.easing.easeOut};
   resize: vertical;

@@ -1,0 +1,21 @@
+{
+  "summary": {
+    "totalValidations": 1,
+    "averageCompilationTime": 16068,
+    "averageMemoryUsage": 0,
+    "averageErrorsFound": 0,
+    "averageWarningsFound": 0
+  },
+  "latest": {
+    "timestamp": "2025-12-29T17:41:11.030Z",
+    "compilationTime": 16068,
+    "memoryUsage": 0,
+    "errorsFound": 0,
+    "warningsFound": 0,
+    "cacheHitRate": 100
+  },
+  "trends": {
+    "insufficient_data": true
+  },
+  "recommendations": []
+}

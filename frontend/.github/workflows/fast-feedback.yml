@@ -1,0 +1,42 @@
+name: Fast Feedback
+'on':
+  pull_request:
+    branches:
+      - main
+      - develop
+concurrency:
+  group: fast-feedback-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  quick-validation:
+    runs-on: ubuntu-latest
+    timeout: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Cache dependencies and build
+        uses: actions/cache@v3
+        with:
+          path: >-
+            frontend/node_modules\nfrontend/.typescript-cache\nfrontend/.next/cache
+          key: >-
+            ${{ runner.os }}-quick-${{ hashFiles('frontend/package-lock.json')
+            }}
+          restore-keys: ${{ runner.os }}-quick-
+      - name: Install dependencies (fast)
+        run: >-
+          cd frontend\nnpm ci --prefer-offline --no-audit --no-fund
+          --ignore-scripts
+      - name: Quick TypeScript check
+        run: cd frontend\nnpm run type-check:quick
+        env:
+          NODE_OPTIONS: '--max-old-space-size=2048'
+      - name: Quick lint check
+        run: cd frontend\nnpm run lint:quick

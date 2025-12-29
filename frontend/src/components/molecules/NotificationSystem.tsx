@@ -160,7 +160,7 @@ const ContentContainer = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-weight: 600;
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.text};
@@ -168,7 +168,7 @@ const Title = styled.div`
 `;
 
 const Message = styled.div`
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.muted};
   line-height: 1.4;
@@ -225,7 +225,7 @@ const ProgressBar = styled.div<{ $duration: number }>`
   height: 3px;
   background-color: currentColor;
   opacity: 0.3;
-  ${css`animation: ${progressBar} ${({ $duration }) => $duration}ms linear;`}
+  animation: ${progressBar} ${({ $duration }) => $duration}ms linear;
 `;
 
 const getIcon = (type: NotificationData['type']) => {

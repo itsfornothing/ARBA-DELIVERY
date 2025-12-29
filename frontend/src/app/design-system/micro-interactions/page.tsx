@@ -93,7 +93,7 @@ const MicroInteractionsDemo: React.FC = () => {
               Micro-Interactions & Button Feedback Systems
             </Typography>
             <Typography variant="body1" color="muted">
-              Explore enhanced interactive elements with satisfying animations and visual feedback
+              Explore enhanced elements with satisfying animations and visual feedback
             </Typography>
           </motion.section>
 

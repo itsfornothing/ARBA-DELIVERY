@@ -1,0 +1,42 @@
+{
+  "timestamp": "2025-12-28T20:35:32.157Z",
+  "demoType": "Monitoring Integration Demo",
+  "results": [
+    {
+      "step": "Pre-build Validation",
+      "status": "FAILED",
+      "message": "Environment issues detected",
+      "details": "Check pre-build-validation-report.json for details"
+    },
+    {
+      "step": "Build Process",
+      "status": "PASSED",
+      "message": "Application built successfully"
+    },
+    {
+      "step": "Deployment Health Check",
+      "status": "SIMULATED",
+      "message": "Health check structure validated",
+      "details": "Would check actual deployment in real scenario"
+    },
+    {
+      "step": "Continuous Monitoring",
+      "status": "READY",
+      "message": "Continuous monitoring script is ready",
+      "details": "Can be started with: npm run validate:continuous"
+    }
+  ],
+  "summary": {
+    "totalSteps": 4,
+    "successful": 2,
+    "failed": 1,
+    "simulated": 1
+  },
+  "recommendations": [
+    "Fix TypeScript compilation errors before deployment",
+    "Set up proper environment variables for production",
+    "Configure deployment URL for health checks",
+    "Set up alerting system for continuous monitoring",
+    "Integrate scripts into CI/CD pipeline"
+  ]
+}

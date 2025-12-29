@@ -1,0 +1,38 @@
+{
+  "enabled": true,
+  "collectMetrics": true,
+  "trackTrends": true,
+  "enableAlerts": true,
+  "alertThresholds": {
+    "errorThreshold": 5,
+    "warningThreshold": 10,
+    "performanceThreshold": 30,
+    "memoryThreshold": 256,
+    "cacheHitRateThreshold": 0.8999992083333334
+  },
+  "retentionPeriod": 30,
+  "aggregationPeriods": [
+    "daily",
+    "weekly",
+    "monthly"
+  ],
+  "monitoringInterval": 600000,
+  "autoRefresh": true,
+  "alertResponseTime": 1800,
+  "trendMonitoring": {
+    "enabled": true,
+    "thresholds": {
+      "compilationTimeIncrease": 0.2,
+      "errorRateIncrease": 0.5,
+      "cacheHitRateDecrease": 0.1
+    },
+    "analysisWindow": "7d",
+    "alertOnTrends": true
+  },
+  "adaptiveThresholds": {
+    "enabled": true,
+    "adjustmentInterval": "24h",
+    "learningPeriod": "7d",
+    "maxAdjustment": 0.3
+  }
+}

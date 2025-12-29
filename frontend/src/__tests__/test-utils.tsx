@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import { enhancedTheme } from '../lib/theme';
+import { enhancedTheme } from '@/lib/theme';
 
 // Create a comprehensive test wrapper with theme provider
 const AllTheProviders: React.FC<{ children: React.ReactNode }> = ({ children }) => {

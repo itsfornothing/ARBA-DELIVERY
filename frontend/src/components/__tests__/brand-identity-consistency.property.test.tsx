@@ -26,11 +26,11 @@ const TestWrapper: React.FC<{ children: React.ReactNode; theme?: any }> = ({
 
 // Generators for component props
 const buttonVariantArb = fc.constantFrom('primary', 'secondary', 'outline', 'ghost', 'danger');
-const buttonSizeArb = fc.constantFrom('small', 'medium', 'large');
+const buttonSizeArb = fc.constantFrom('sm', 'md', 'lg');
 const inputVariantArb = fc.constantFrom('default', 'filled', 'outlined');
-const typographyVariantArb = fc.constantFrom('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'body', 'caption', 'overline');
-const colorArb = fc.constantFrom('primary', 'secondary', 'text', 'muted', 'error', 'success', 'warning');
-const cardVariantArb = fc.constantFrom('default', 'outlined', 'elevated', 'filled');
+const typographyVariantArb = fc.constantFrom('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'body1', 'caption', 'overline');
+const colorArb = fc.constantFrom('primary', 'secondary', 'neutral', 'muted', 'error', 'success', 'warning');
+const cardVariantArb = fc.constantFrom('default', 'outlined', 'elevated');
 const spinnerSizeArb = fc.constantFrom('small', 'medium', 'large');
 const spinnerColorArb = fc.constantFrom('primary', 'secondary', 'muted');
 const themeArb = fc.constantFrom(defaultTheme, darkTheme);
@@ -71,8 +71,9 @@ describe('Brand Identity Consistency Property Tests', () => {
             // Convert theme colors to check against computed styles
             return themeColors.some(themeColor => {
               // Basic check - in a real implementation, you'd need proper color conversion
-              return color.includes(themeColor.replace('#', '')) || 
-                     themeColor.toLowerCase().includes(color.toLowerCase());
+              const colorStr = typeof themeColor === 'string' ? themeColor : '';
+              return color.includes(colorStr.replace('#', '')) || 
+                     colorStr.toLowerCase().includes(color.toLowerCase());
             });
           });
           
@@ -227,7 +228,7 @@ describe('Brand Identity Consistency Property Tests', () => {
             <TestWrapper theme={theme}>
               <div>
                 <Button variant="primary">{buttonText}</Button>
-                <Typography variant="h2" color="text">Test Heading</Typography>
+                <Typography variant="h2" color="primary">Test Heading</Typography>
                 <Card variant="default">
                   <Typography>Card content</Typography>
                 </Card>

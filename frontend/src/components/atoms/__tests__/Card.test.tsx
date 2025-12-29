@@ -23,7 +23,7 @@ describe('Card Component', () => {
       );
       
       const card = container.firstChild as HTMLElement;
-      expect(card).toHaveClass('bg-white', 'rounded-xl', 'shadow-soft', 'border', 'border-neutral-100', 'p-4'); // Mobile-first: p-4 on mobile, p-6 on tablet
+      expect(card).toHaveClass('bg-white rounded-xl shadow-soft border border-neutral-100 p-4'); // Mobile-first: p-4 on mobile, p-6 on tablet
     });
 
     it('forwards ref correctly', () => {
@@ -47,7 +47,7 @@ describe('Card Component', () => {
       );
       
       const card = container.firstChild as HTMLElement;
-      expect(card).toHaveClass('shadow-soft', 'border', 'border-neutral-100');
+      expect(card).toHaveClass('shadow-soft border border-neutral-100');
     });
 
     it('applies elevated variant styles', () => {
@@ -70,7 +70,7 @@ describe('Card Component', () => {
       );
       
       const card = container.firstChild as HTMLElement;
-      expect(card).toHaveClass('border-2', 'border-neutral-200');
+      expect(card).toHaveClass('border-2 border-neutral-200');
       expect(card).not.toHaveClass('shadow-soft');
     });
   });
@@ -84,7 +84,7 @@ describe('Card Component', () => {
       );
       
       const card = container.firstChild as HTMLElement;
-      expect(card).not.toHaveClass('p-4', 'p-6', 'p-8');
+      expect(card).not.toHaveClass('p-4 p-6 p-8');
     });
 
     it('applies small padding when padding="sm"', () => {
@@ -156,7 +156,7 @@ describe('Card Sub-components', () => {
       );
       
       const header = container.firstChild as HTMLElement;
-      expect(header).toHaveClass('flex', 'flex-col', 'space-y-1.5', 'pb-4');
+      expect(header).toHaveClass('flex flex-col space-y-1.5 pb-4');
     });
 
     it('accepts custom className', () => {
@@ -177,7 +177,7 @@ describe('Card Sub-components', () => {
       
       const title = screen.getByRole('heading', { level: 3 });
       expect(title).toBeInTheDocument();
-      expect(title).toHaveClass('text-lg', 'font-semibold', 'leading-none', 'tracking-tight', 'text-neutral-900');
+      expect(title).toHaveClass('text-lg font-semibold leading-none tracking-tight text-neutral-900');
       expect(title).toHaveTextContent('Test Title');
     });
 
@@ -194,7 +194,7 @@ describe('Card Sub-components', () => {
       render(<CardDescription>Test description</CardDescription>);
       
       const description = screen.getByText('Test description');
-      expect(description).toHaveClass('text-sm', 'text-neutral-500');
+      expect(description).toHaveClass('text-sm text-neutral-500');
     });
 
     it('accepts custom className', () => {
@@ -237,7 +237,7 @@ describe('Card Sub-components', () => {
       );
       
       const footer = container.firstChild as HTMLElement;
-      expect(footer).toHaveClass('flex', 'items-center', 'pt-4');
+      expect(footer).toHaveClass('flex items-center pt-4');
     });
 
     it('accepts custom className', () => {

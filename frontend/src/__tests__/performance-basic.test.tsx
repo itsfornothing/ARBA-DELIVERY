@@ -45,8 +45,8 @@ describe('Basic Performance Tests', () => {
             {Array.from({ length: 50 }, (_, i) => (
               <Card key={i} data-testid={`card-${i}`}>
                 <Typography variant="h4">Item {i}</Typography>
-                <Typography variant="body">Description for item {i}</Typography>
-                <Button size="small">Action {i}</Button>
+                <Typography variant="body1">Description for item {i}</Typography>
+                <Button size="sm">Action {i}</Button>
               </Card>
             ))}
           </div>
@@ -345,7 +345,7 @@ describe('Basic Performance Tests', () => {
                 {Array.from({ length: 8 }, (_, i) => (
                   <Card key={i} style={{ marginBottom: '8px' }}>
                     <Typography variant="h4">Card {i}</Typography>
-                    <Typography variant="body">Content for card {i}</Typography>
+                    <Typography variant="body1">Content for card {i}</Typography>
                   </Card>
                 ))}
               </div>

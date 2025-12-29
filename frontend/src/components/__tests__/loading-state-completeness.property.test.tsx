@@ -26,11 +26,16 @@ import { useLoadingStore, LoadingKeys } from '@/lib/loadingState';
 
 // Mock IntersectionObserver for tests
 global.IntersectionObserver = class IntersectionObserver {
+  root = null;
+  rootMargin = '';
+  thresholds = [];
+  
   constructor() {}
   observe() {}
   disconnect() {}
   unobserve() {}
-};
+  takeRecords() { return []; }
+} as any;
 
 // Test wrapper component
 const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (

@@ -89,9 +89,9 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
         <ResponsiveGrid container spacing={isMobile ? 1 : 2} $isMobile={isMobile}>
           <Grid item xs={12} md={6} lg={4}>
             <TouchOptimizedCard 
-              interactive 
+              
               $isMobile={isMobile}
-              padding={isMobile ? 'small' : 'medium'}
+              padding={isMobile ? 'sm' : 'md'}
             >
               <ResponsiveText $isMobile={isMobile}>
                 <h3 style={{ margin: '0 0 8px 0', fontSize: isMobile ? '18px' : '20px' }}>
@@ -107,9 +107,9 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
           
           <Grid item xs={12} md={6} lg={4}>
             <TouchOptimizedCard 
-              interactive 
+              
               $isMobile={isMobile}
-              padding={isMobile ? 'small' : 'medium'}
+              padding={isMobile ? 'sm' : 'md'}
             >
               <ResponsiveText $isMobile={isMobile}>
                 <h3 style={{ margin: '0 0 8px 0', fontSize: isMobile ? '18px' : '20px' }}>
@@ -125,9 +125,9 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
           
           <Grid item xs={12} md={12} lg={4}>
             <TouchOptimizedCard 
-              interactive 
+              
               $isMobile={isMobile}
-              padding={isMobile ? 'small' : 'medium'}
+              padding={isMobile ? 'sm' : 'md'}
             >
               <ResponsiveText $isMobile={isMobile}>
                 <h3 style={{ margin: '0 0 8px 0', fontSize: isMobile ? '18px' : '20px' }}>
@@ -156,7 +156,7 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
                   <Input
                     label="Full Name"
                     placeholder="Enter your full name"
-                    size={isMobile ? 'medium' : 'medium'}
+                    size={isMobile ? 'md' : 'md'}
                     fullWidth
                   />
                 </div>
@@ -168,7 +168,7 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
                     label="Email Address"
                     type="email"
                     placeholder="Enter your email"
-                    size={isMobile ? 'medium' : 'medium'}
+                    size={isMobile ? 'md' : 'md'}
                     fullWidth
                   />
                 </div>
@@ -179,7 +179,7 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
                   <Input
                     label="Message"
                     placeholder="Enter your message"
-                    size={isMobile ? 'medium' : 'medium'}
+                    size={isMobile ? 'md' : 'md'}
                     fullWidth
                   />
                 </div>
@@ -188,7 +188,7 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
               <Grid item xs={12} sm={6} md={4}>
                 <Button
                   variant="primary"
-                  size={isMobile ? 'medium' : 'medium'}
+                  size={isMobile ? 'md' : 'md'}
                   fullWidth={isMobile}
                 >
                   Submit Form
@@ -198,7 +198,7 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
               <Grid item xs={12} sm={6} md={4}>
                 <Button
                   variant="outline"
-                  size={isMobile ? 'medium' : 'medium'}
+                  size={isMobile ? 'md' : 'md'}
                   fullWidth={isMobile}
                 >
                   Cancel

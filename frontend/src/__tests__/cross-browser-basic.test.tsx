@@ -213,7 +213,7 @@ describe('Basic Cross-Browser Compatibility Tests', () => {
   describe('CSS Feature Support', () => {
     it('should handle CSS Grid support detection', () => {
       // Mock CSS.supports for Grid
-      if (typeof CSS !== 'undefined' && CSS.supports) {
+      if (typeof CSS !== 'undefined' && CSS.supports && typeof CSS.supports === 'function') {
         jest.spyOn(CSS, 'supports').mockImplementation((property: string, value?: string) => {
           if (property === 'display' && value === 'grid') {
             return true;
@@ -246,7 +246,7 @@ describe('Basic Cross-Browser Compatibility Tests', () => {
 
     it('should provide flexbox fallback when Grid is not supported', () => {
       // Mock CSS.supports for no Grid support
-      if (typeof CSS !== 'undefined' && CSS.supports) {
+      if (typeof CSS !== 'undefined' && CSS.supports && typeof CSS.supports === 'function') {
         jest.spyOn(CSS, 'supports').mockImplementation((property: string, value?: string) => {
           if (property === 'display' && value === 'grid') {
             return false;

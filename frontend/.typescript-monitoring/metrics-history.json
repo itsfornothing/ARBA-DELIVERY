@@ -1,0 +1,56 @@
+[
+  {
+    "timestamp": "2025-12-29T18:13:41.108Z",
+    "errorCount": 22,
+    "warningCount": 1,
+    "errorsByCategory": {
+      "syntax": 1,
+      "type": 21,
+      "import": 0,
+      "unused": 0,
+      "strict": 0
+    },
+    "performance": {
+      "compilationTime": 4.836,
+      "memoryUsage": 3.3255996704101562,
+      "fileCount": 229,
+      "cacheHitRate": 0.8282221170247248
+    }
+  },
+  {
+    "timestamp": "2025-12-29T18:14:38.080Z",
+    "errorCount": 22,
+    "warningCount": 1,
+    "errorsByCategory": {
+      "syntax": 1,
+      "type": 21,
+      "import": 0,
+      "unused": 0,
+      "strict": 0
+    },
+    "performance": {
+      "compilationTime": 4.918,
+      "memoryUsage": 3.3255996704101562,
+      "fileCount": 229,
+      "cacheHitRate": 0.6759797860926382
+    }
+  },
+  {
+    "timestamp": "2025-12-29T18:14:49.835Z",
+    "errorCount": 22,
+    "warningCount": 1,
+    "errorsByCategory": {
+      "syntax": 1,
+      "type": 21,
+      "import": 0,
+      "unused": 0,
+      "strict": 0
+    },
+    "performance": {
+      "compilationTime": 4.621,
+      "memoryUsage": 3.3255996704101562,
+      "fileCount": 229,
+      "cacheHitRate": 0.8098535998149422
+    }
+  }
+]

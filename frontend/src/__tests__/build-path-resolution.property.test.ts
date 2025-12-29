@@ -151,7 +151,7 @@ describe('Build Path Resolution Properties', () => {
             
             try {
               // Set test environment
-              process.env.NODE_ENV = config.nodeEnv;
+              (process.env as any).NODE_ENV = config.nodeEnv;
               
               if (config.hasApiUrl) {
                 process.env.NEXT_PUBLIC_API_URL = 'https://test-api.example.com';
@@ -191,9 +191,9 @@ describe('Build Path Resolution Properties', () => {
             } finally {
               // Restore original environment
               if (originalNodeEnv !== undefined) {
-                process.env.NODE_ENV = originalNodeEnv;
+                (process.env as any).NODE_ENV = originalNodeEnv;
               } else {
-                delete process.env.NODE_ENV;
+                (process.env as any).NODE_ENV = undefined;
               }
               
               // Clean up test environment variables

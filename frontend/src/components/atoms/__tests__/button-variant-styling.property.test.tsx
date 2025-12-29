@@ -162,8 +162,8 @@ describe('Button Variant Styling Property Tests', () => {
           expect(hasDistinctStyling(button!, variant)).toBe(true);
           
           // Verify proper base styling
-          expect(button).toHaveClass('inline-flex', 'items-center', 'justify-center');
-          expect(button).toHaveClass('rounded-lg', 'font-semibold');
+          expect(button).toHaveClass('inline-flex items-center justify-center');
+          expect(button).toHaveClass('rounded-lg font-semibold');
         }
       ),
       { numRuns: 100 }
@@ -281,7 +281,7 @@ describe('Button Variant Styling Property Tests', () => {
             // Verify spinner is present and animated
             const spinner = button!.querySelector('svg.animate-spin');
             expect(spinner).toBeInTheDocument();
-            expect(spinner).toHaveClass('h-5', 'w-5', 'text-current');
+            expect(spinner).toHaveClass('h-5 w-5 text-current');
             
             // Verify content is hidden when loading
             const contentContainer = button!.querySelector('div.invisible');

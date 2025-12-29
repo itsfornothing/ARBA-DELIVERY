@@ -55,7 +55,7 @@ const colorArb = fc.constantFrom(
 );
 
 const buttonVariantArb = fc.constantFrom('primary', 'secondary', 'outline', 'ghost', 'danger');
-const buttonSizeArb = fc.constantFrom('sm', 'md', 'lg');
+const buttonSizeArb = fc.constantFrom('small', 'medium', 'large');
 const textArb = fc.string({ minLength: 1, maxLength: 50 });
 
 describe('Property Test 7: Accessibility Compliance', () => {

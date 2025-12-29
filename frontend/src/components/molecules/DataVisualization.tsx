@@ -241,7 +241,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
           })}
         </DonutSvg>
         <DonutCenter>
-          <Typography variant="h4" color="text" weight="bold">
+          <Typography variant="h4" color="primary" weight="bold">
             {total.toLocaleString()}
           </Typography>
           <Typography variant="caption" color="muted">
@@ -295,12 +295,12 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
   };
 
   return (
-    <Card variant="default" padding="large">
-      <Typography variant="h4" color="text" weight="semibold">
+    <Card variant="default" padding="lg">
+      <Typography variant="h4" color="primary" weight="semibold">
         {title}
       </Typography>
       {subtitle && (
-        <Typography variant="body" color="muted">
+        <Typography variant="body1" color="muted">
           {subtitle}
         </Typography>
       )}
@@ -314,7 +314,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
           {coloredData.map((item, index) => (
             <LegendItem key={`${item.label}-${index}`}>
               <LegendColor $color={item.color!} />
-              <Typography variant="caption" color="text">
+              <Typography variant="caption" color="primary">
                 {item.label}: {item.value.toLocaleString()}
               </Typography>
             </LegendItem>

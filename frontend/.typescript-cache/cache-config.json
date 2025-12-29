@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "strategy": "aggressive",
+  "maxCacheSize": "512MB",
+  "cacheDirectory": ".typescript-cache",
+  "cleanupInterval": "30d",
+  "compressionEnabled": true,
+  "parallelCaching": true,
+  "incrementalCaching": true,
+  "smartInvalidation": true
+}

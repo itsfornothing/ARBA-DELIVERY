@@ -109,7 +109,7 @@ describe('Build Process Completeness Properties', () => {
             // Test that environment variables are properly handled during build
             const originalNodeEnv = process.env.NODE_ENV;
             try {
-              process.env.NODE_ENV = config.nodeEnv;
+              (process.env as any).NODE_ENV = config.nodeEnv;
               
               // Verify that NEXT_PUBLIC_ variables are accessible
               const nextPublicVars = Object.keys(process.env)
@@ -119,14 +119,14 @@ describe('Build Process Completeness Properties', () => {
               nextPublicVars.forEach(key => {
                 const value = process.env[key];
                 expect(typeof value).toBe('string');
-                expect(value.length).toBeGreaterThan(0);
+                expect(value?.length || 0).toBeGreaterThan(0);
               });
               
             } finally {
               if (originalNodeEnv !== undefined) {
-                process.env.NODE_ENV = originalNodeEnv;
+                (process.env as any).NODE_ENV = originalNodeEnv;
               } else {
-                delete process.env.NODE_ENV;
+                (process.env as any).NODE_ENV = undefined;
               }
             }
           }
@@ -194,7 +194,7 @@ describe('Build Process Completeness Properties', () => {
               
               // Test that component files are valid TypeScript/React
               componentFiles.slice(0, 3).forEach(file => {
-                const filePath = path.join(componentsPath, file);
+                const filePath = path.join(componentsPath, file.toString());
                 const content = fs.readFileSync(filePath, 'utf8');
                 
                 // Should contain React imports or JSX
@@ -326,7 +326,7 @@ describe('Build Process Completeness Properties', () => {
             // Test that environment-specific configurations are valid
             const originalNodeEnv = process.env.NODE_ENV;
             try {
-              process.env.NODE_ENV = config.nodeEnv;
+              (process.env as any).NODE_ENV = config.nodeEnv;
               
               // Verify that Next.js can read the configuration
               const nextConfigPath = path.join(process.cwd(), 'next.config.js');
@@ -365,9 +365,9 @@ describe('Build Process Completeness Properties', () => {
               
             } finally {
               if (originalNodeEnv !== undefined) {
-                process.env.NODE_ENV = originalNodeEnv;
+                (process.env as any).NODE_ENV = originalNodeEnv;
               } else {
-                delete process.env.NODE_ENV;
+                (process.env as any).NODE_ENV = undefined;
               }
             }
             

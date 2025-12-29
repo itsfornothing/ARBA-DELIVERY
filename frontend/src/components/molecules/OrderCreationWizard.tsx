@@ -416,7 +416,7 @@ export const OrderCreationWizard: React.FC<OrderCreationWizardProps> = ({
             <Typography variant="h2" style={{ marginBottom: '1rem', color: '#10b981' }}>
               Order Created Successfully!
             </Typography>
-            <Typography variant="body" style={{ color: '#6b7280', marginBottom: '2rem' }}>
+            <Typography variant="body1" style={{ color: '#6b7280', marginBottom: '2rem' }}>
               Your delivery order has been placed and a courier will be assigned shortly.
             </Typography>
             <Typography variant="h3" style={{ color: '#3b82f6' }}>
@@ -590,7 +590,7 @@ export const OrderCreationWizard: React.FC<OrderCreationWizardProps> = ({
                 <Typography variant="h4" style={{ marginBottom: '0.5rem' }}>
                   Payment on Delivery
                 </Typography>
-                <Typography variant="body" style={{ color: '#6b7280' }}>
+                <Typography variant="body1" style={{ color: '#6b7280' }}>
                   You can pay the courier directly when your order is delivered.
                 </Typography>
                 <Typography variant="h3" style={{ marginTop: '1rem', color: '#3b82f6' }}>
@@ -611,7 +611,7 @@ export const OrderCreationWizard: React.FC<OrderCreationWizardProps> = ({
                   <Typography variant="h4" style={{ marginBottom: '0.5rem' }}>
                     Pickup Address
                   </Typography>
-                  <Typography variant="body" style={{ color: '#6b7280' }}>
+                  <Typography variant="body1" style={{ color: '#6b7280' }}>
                     {orderData.pickup_address}
                   </Typography>
                 </div>
@@ -620,7 +620,7 @@ export const OrderCreationWizard: React.FC<OrderCreationWizardProps> = ({
                   <Typography variant="h4" style={{ marginBottom: '0.5rem' }}>
                     Delivery Address
                   </Typography>
-                  <Typography variant="body" style={{ color: '#6b7280' }}>
+                  <Typography variant="body1" style={{ color: '#6b7280' }}>
                     {orderData.delivery_address}
                   </Typography>
                 </div>
@@ -630,7 +630,7 @@ export const OrderCreationWizard: React.FC<OrderCreationWizardProps> = ({
                     <Typography variant="h4" style={{ marginBottom: '0.5rem' }}>
                       Distance
                     </Typography>
-                    <Typography variant="body" style={{ color: '#6b7280' }}>
+                    <Typography variant="body1" style={{ color: '#6b7280' }}>
                       {orderData.distance_km.toFixed(1)} km
                     </Typography>
                   </div>
@@ -650,7 +650,7 @@ export const OrderCreationWizard: React.FC<OrderCreationWizardProps> = ({
                     <Typography variant="h4" style={{ marginBottom: '0.5rem' }}>
                       Special Instructions
                     </Typography>
-                    <Typography variant="body" style={{ color: '#6b7280' }}>
+                    <Typography variant="body1" style={{ color: '#6b7280' }}>
                       {orderData.special_instructions}
                     </Typography>
                   </div>

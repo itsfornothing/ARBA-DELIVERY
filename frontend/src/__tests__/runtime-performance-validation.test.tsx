@@ -25,7 +25,8 @@ const mockPerformanceObserver = () => {
   global.PerformanceObserver = jest.fn().mockImplementation(() => ({
     observe: jest.fn(),
     disconnect: jest.fn(),
-  }));
+  })) as any;
+  (global.PerformanceObserver as any).supportedEntryTypes = ['measure', 'navigation'];
 };
 
 const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (

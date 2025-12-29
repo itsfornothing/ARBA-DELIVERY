@@ -11,7 +11,7 @@
 import * as fc from 'fast-check';
 import * as fs from 'fs';
 import * as path from 'path';
-import { StaticAssetValidator, AssetValidationResult } from '../lib/staticAssetValidator';
+import { StaticAssetValidator, AssetValidationResult } from '@/lib/staticAssetValidator';
 
 describe('Static Asset Serving Correctness Properties', () => {
   describe('Property 3: Static Asset Serving Correctness', () => {
@@ -400,7 +400,7 @@ describe('Static Asset Serving Correctness Properties', () => {
               const imageFiles = publicFiles.filter(file => {
                 if (typeof file !== 'string') return false;
                 const ext = path.extname(file).toLowerCase().substring(1);
-                return config.supportedFormats.includes(ext);
+                return config.supportedFormats.includes(ext as any);
               });
               
               // Test each image file
@@ -759,7 +759,7 @@ async function validateSourceAssets(): Promise<AssetValidationResult> {
 
   } catch (error) {
     result.isValid = false;
-    result.warnings.push(`Source validation failed: ${error.message}`);
+    result.warnings.push(`Source validation failed: ${(error as Error).message}`);
   }
 
   return result;

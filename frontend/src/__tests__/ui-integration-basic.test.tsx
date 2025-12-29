@@ -50,7 +50,7 @@ describe('Basic UI Integration Tests', () => {
           <Typography variant="h1" data-testid="title">Test Page</Typography>
           <Card data-testid="test-card">
             <Typography variant="h3">Card Title</Typography>
-            <Typography variant="body">Card content goes here.</Typography>
+            <Typography variant="body1">Card content goes here.</Typography>
             <Button variant="primary" data-testid="card-button">
               Action Button
             </Button>

@@ -91,7 +91,7 @@ export default function AccessibilityPage() {
                       Keyboard Navigation
                     </Typography>
                     <Typography variant="body1" className="mb-4">
-                      Full keyboard support for all interactive elements.
+                      Full keyboard support for all elements.
                     </Typography>
                     <ul className="space-y-2 text-sm text-neutral-600">
                       <li className="flex items-center gap-2">

@@ -5,11 +5,12 @@ import { CARD_RESPONSIVE } from '@/lib/responsive';
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'elevated' | 'outlined';
   padding?: 'none' | 'sm' | 'md' | 'lg';
+  interactive?: boolean;
   children: React.ReactNode;
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = 'default', padding = 'md', children, ...props }, ref) => {
+  ({ className, variant = 'default', padding = 'md', interactive = false, children, ...props }, ref) => {
     const baseStyles = 'bg-white rounded-xl transition-all duration-200';
     
     const variants = {
@@ -25,12 +26,15 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       lg: `${CARD_RESPONSIVE.padding.mobile} md:${CARD_RESPONSIVE.padding.tablet} lg:${CARD_RESPONSIVE.padding.desktop}`,
     };
 
+    const interactiveStyles = interactive ? 'cursor-pointer hover:shadow-lg' : '';
+
     return (
       <div
         className={cn(
           baseStyles,
           variants[variant],
           paddings[padding],
+          interactiveStyles,
           className
         )}
         ref={ref}

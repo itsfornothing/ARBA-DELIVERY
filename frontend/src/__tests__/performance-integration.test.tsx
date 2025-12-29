@@ -39,7 +39,8 @@ describe('Performance Integration Tests', () => {
     global.PerformanceObserver = jest.fn().mockImplementation(() => ({
       observe: jest.fn(),
       disconnect: jest.fn(),
-    }));
+    })) as any;
+    (global.PerformanceObserver as any).supportedEntryTypes = ['measure', 'navigation'];
   });
 
   afterEach(() => {
@@ -261,7 +262,7 @@ describe('Performance Integration Tests', () => {
               {/* Dynamic list */}
               <div>
                 {items.map((item, index) => (
-                  <Card key={index} variant="outline" padding="sm" style={{ marginBottom: '4px' }}>
+                  <Card key={index} variant="outlined" padding="sm" style={{ marginBottom: '4px' }}>
                     <Typography variant="body1">{item}</Typography>
                   </Card>
                 ))}
@@ -343,7 +344,7 @@ describe('Performance Integration Tests', () => {
                 {data.map(item => (
                   <Card 
                     key={item.id} 
-                    variant={item.active ? 'default' : 'outline'} 
+                    variant={item.active ? 'default' : 'outlined'} 
                     padding="sm"
                     style={{ marginBottom: '4px' }}
                   >
@@ -488,7 +489,7 @@ describe('Performance Integration Tests', () => {
               <Typography variant="h2">Dashboard</Typography>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
                 {Array.from({ length: 4 }, (_, i) => (
-                  <Card key={i} variant="outline" padding="md">
+                  <Card key={i} variant="outlined" padding="md">
                     <Typography variant="h4">Widget {i + 1}</Typography>
                     <Typography variant="body1">Widget content {i + 1}</Typography>
                     <Button size="sm">Action</Button>

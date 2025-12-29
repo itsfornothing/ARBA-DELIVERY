@@ -277,10 +277,10 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
         </ErrorIcon>
         
         <MessageContainer data-testid="error-message">
-          <Typography variant="h3" color="text" style={{ marginBottom: '16px' }}>
+          <Typography variant="h3" color="primary" style={{ marginBottom: '16px' }}>
             Oops! Something went wrong
           </Typography>
-          <Typography variant="body" color="muted">
+          <Typography variant="body1" color="muted">
             {errorMessage}
           </Typography>
           {code && (
@@ -291,14 +291,14 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
         </MessageContainer>
 
         <RecoveryContainer data-testid="error-recovery">
-          <Typography variant="body" color="text">
+          <Typography variant="body1" color="primary">
             {recoveryInstructions}
           </Typography>
         </RecoveryContainer>
 
         {contextualHelp && (
           <HelpContainer data-testid="error-help">
-            <Typography variant="body" color="text">
+            <Typography variant="body1" color="primary">
               💡 {contextualHelp}
             </Typography>
           </HelpContainer>

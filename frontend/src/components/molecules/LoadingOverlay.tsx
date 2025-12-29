@@ -109,7 +109,7 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({
       <LoadingSpinner size={spinnerSize} variant="spinner" />
       {message && (
         <Typography 
-          variant="body" 
+          variant="body1" 
           color="muted"
           style={{ marginTop: '8px' }}
         >

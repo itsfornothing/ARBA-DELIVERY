@@ -210,7 +210,7 @@ export default function DesignSystemPage() {
           <section>
             <Typography variant="h2" className="mb-6">Component Demos</Typography>
             <Typography variant="body1" color="muted" className="mb-6">
-              Explore comprehensive component demonstrations and interactive examples.
+              Explore comprehensive component demonstrations and examples.
             </Typography>
             <div className="flex gap-3 flex-wrap items-center">
               <Button 

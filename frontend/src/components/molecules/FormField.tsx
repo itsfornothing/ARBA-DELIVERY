@@ -85,6 +85,9 @@ export const FormField: React.FC<FormFieldProps> = ({
     }
   }, [value, validationRules, touched]);
 
+  // Map size prop to Input component's expected format
+  const inputSize = size === 'small' ? 'sm' : size === 'large' ? 'lg' : 'md';
+
   return (
     <Input
       name={name}
@@ -95,7 +98,7 @@ export const FormField: React.FC<FormFieldProps> = ({
       onChange={handleChange}
       onBlur={handleBlur}
       error={error}
-      size={size}
+      size={inputSize}
       variant={variant}
       fullWidth={fullWidth}
       leftIcon={leftIcon}

@@ -164,7 +164,7 @@ const hasConsistentTypography = (element: HTMLElement): boolean => {
   );
   
   // More lenient - accept any typography classes or default browser styling
-  return typographyClasses.length > 0 || element.tagName.match(/^H[1-6]|P|SPAN|DIV$/);
+  return typographyClasses.length > 0 || !!element.tagName.match(/^H[1-6]|P|SPAN|DIV$/);
 };
 
 const hasConsistentShadows = (element: HTMLElement): boolean => {
@@ -209,8 +209,8 @@ const hasConsistentInteractionStates = (element: HTMLElement): boolean => {
     cls.includes('cursor-')
   );
   
-  // More lenient - interactive elements should have some interaction styling or be buttons/inputs
-  return interactionClasses.length > 0 || element.tagName.match(/^BUTTON|INPUT|A$/);
+  // More lenient - elements should have some interaction styling or be buttons/inputs
+  return interactionClasses.length > 0 || !!element.tagName.match(/^BUTTON|INPUT|A$/);
 };
 
 const followsDesignSystemPatterns = (element: HTMLElement, componentType: string): boolean => {
@@ -245,7 +245,7 @@ const followsDesignSystemPatterns = (element: HTMLElement, componentType: string
       // Content elements should be semantic or have styling
       return (
         classList.length > 0 || // Has some classes
-        tagName.match(/^(H[1-6]|P|DIV|SECTION|ARTICLE|SPAN)$/) // Semantic content elements
+        !!tagName.match(/^(H[1-6]|P|DIV|SECTION|ARTICLE|SPAN)$/) // Semantic content elements
       );
     
     default:

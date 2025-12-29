@@ -3,9 +3,10 @@ const nextConfig = {
   // Enable standalone output for better deployment
   output: 'standalone',
   
-  // Disable TypeScript checking during build for performance testing
+  // Enable TypeScript checking for proper error detection
+  // Disabled in development for faster builds, enabled in production for type safety
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: process.env.NODE_ENV === 'development',
   },
   
   // Environment variables
@@ -66,10 +67,10 @@ const nextConfig = {
   // Experimental features for performance
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: ['lucide-react', 'framer-motion', 'clsx', 'tailwind-merge'],
   },
 
-  // Webpack optimizations for bundle splitting
+  // Webpack optimizations for bundle splitting and module resolution
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Add environment validation during build
     if (!dev) {
@@ -81,11 +82,31 @@ const nextConfig = {
       }
     }
 
+    // Enhanced module resolution for better path mapping
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname, 'src'),
+    };
+
+    // Ensure proper module resolution for utilities
+    config.resolve.modules = [
+      require('path').resolve(__dirname, 'src'),
+      'node_modules',
+      ...config.resolve.modules,
+    ];
+
     // Optimize bundle splitting
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
         chunks: 'all',
+        minSize: 20000,
+        maxSize: 244000,
         cacheGroups: {
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
@@ -103,6 +124,14 @@ const nextConfig = {
             name: 'ui-components',
             priority: 15,
             reuseExistingChunk: true,
+            minChunks: 2,
+          },
+          utils: {
+            test: /[\\/]src[\\/]lib[\\/]/,
+            name: 'utils',
+            priority: 25,
+            reuseExistingChunk: true,
+            minChunks: 2,
           },
         },
       };
@@ -119,6 +148,22 @@ const nextConfig = {
       }
     }
 
+    // Add build progress indicator
+    if (!dev) {
+      config.plugins.push(
+        new webpack.ProgressPlugin({
+          activeModules: false,
+          entries: true,
+          modules: true,
+          modulesCount: 5000,
+          profile: false,
+          dependencies: true,
+          dependenciesCount: 10000,
+          percentBy: null,
+        })
+      );
+    }
+
     return config;
   },
 
@@ -130,14 +175,43 @@ const nextConfig = {
   assetPrefix: process.env.NODE_ENV === 'production' ? '' : '',
   trailingSlash: false,
   
-  // Build optimization
+  // Build optimization for deployment
+  generateBuildId: async () => {
+    // Use git commit hash if available, otherwise use timestamp
+    try {
+      const { execSync } = require('child_process');
+      return execSync('git rev-parse HEAD').toString().trim().slice(0, 7);
+    } catch {
+      return `build-${Date.now()}`;
+    }
+  },
   
   // Production-specific optimizations
   ...(process.env.NODE_ENV === 'production' && {
     compiler: {
       removeConsole: {
-        exclude: ['error'],
+        exclude: ['error', 'warn'],
       },
+    },
+  }),
+
+  // Development-specific optimizations
+  ...(process.env.NODE_ENV === 'development' && {
+    // Faster builds in development
+    webpack: (config, options) => {
+      // Apply base webpack config first
+      config = nextConfig.webpack(config, options);
+      
+      // Development-specific optimizations
+      config.optimization.splitChunks = false;
+      config.cache = {
+        type: 'filesystem',
+        buildDependencies: {
+          config: [__filename],
+        },
+      };
+      
+      return config;
     },
   }),
 };

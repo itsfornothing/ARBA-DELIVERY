@@ -20,14 +20,15 @@ import { Typography } from '@/components/atoms/Typography';
 import { LoadingSpinner } from '@/components/molecules/LoadingSpinner';
 import { Form } from '@/components/molecules/Form';
 import { ResponsiveLayout } from '@/components/molecules/ResponsiveLayout';
-import { SkeletonScreens } from '@/components/molecules/SkeletonScreens';
+import { PageSkeleton } from '@/components/molecules/SkeletonScreens';
 
 // Mock performance APIs
 const mockPerformanceObserver = () => {
   global.PerformanceObserver = jest.fn().mockImplementation(() => ({
     observe: jest.fn(),
     disconnect: jest.fn(),
-  }));
+  })) as any;
+  (global.PerformanceObserver as any).supportedEntryTypes = ['measure', 'navigation'];
 };
 
 const mockIntersectionObserver = () => {
@@ -65,8 +66,8 @@ describe('Performance Optimization Tests', () => {
             {Array.from({ length: 100 }, (_, i) => (
               <Card key={i} data-testid={`card-${i}`}>
                 <Typography variant="h4">Item {i}</Typography>
-                <Typography variant="body">Description for item {i}</Typography>
-                <Button size="small">Action {i}</Button>
+                <Typography variant="body1">Description for item {i}</Typography>
+                <Button size="sm">Action {i}</Button>
               </Card>
             ))}
           </div>
@@ -275,7 +276,7 @@ describe('Performance Optimization Tests', () => {
             <LoadingSpinner size="small" />
             <LoadingSpinner size="medium" />
             <LoadingSpinner size="large" />
-            <SkeletonScreens variant="card" count={5} />
+            <PageSkeleton />
           </div>
         </TestWrapper>
       );
@@ -462,7 +463,7 @@ describe('Performance Optimization Tests', () => {
                 {Array.from({ length: 20 }, (_, i) => (
                   <Card key={i} style={{ marginBottom: '8px' }}>
                     <Typography variant="h4">Card {i}</Typography>
-                    <Typography variant="body">Content for card {i}</Typography>
+                    <Typography variant="body1">Content for card {i}</Typography>
                   </Card>
                 ))}
               </div>

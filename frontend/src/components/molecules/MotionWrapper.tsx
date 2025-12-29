@@ -131,7 +131,7 @@ interface ConditionalMotionProps {
   children: ReactNode;
   condition: boolean;
   animatedProps: MotionProps;
-  staticProps?: React.HTMLAttributes<HTMLDivElement>;
+  staticProps?: React.HTMLAttributes<HTMLDivElement> & { 'data-testid'?: string };
   component?: keyof React.JSX.IntrinsicElements;
 }
 

@@ -121,10 +121,10 @@ export const AccessibilityProvider: React.FC<AccessibilityProviderProps> = ({ ch
       ...selectedTheme,
       typography: {
         ...selectedTheme.typography,
-        bodySize: `${multiplier}rem`,
-        headingSizes: headingSizes.map(size => 
-          `${parseFloat(size) * multiplier}rem`
-        ),
+        fontSize: {
+          ...selectedTheme.typography.fontSize,
+          base: `${multiplier}rem`,
+        },
       },
     };
     

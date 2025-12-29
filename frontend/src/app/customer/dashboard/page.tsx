@@ -296,7 +296,7 @@ export default function CustomerDashboard() {
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
                 <Typography variant="h5">Active Orders</Typography>
                 {loadingStates.orders && (
-                  <LoadingSpinner size="sm" text="Loading orders..." />
+                  <LoadingSpinner size="md" text="Loading orders..." />
                 )}
               </div>
               
@@ -399,7 +399,7 @@ export default function CustomerDashboard() {
                 <Typography variant="h5">Recent Notifications</Typography>
                 <div className="flex items-center space-x-4">
                   {loadingStates.notifications && (
-                    <LoadingSpinner size="sm" text="Loading notifications..." />
+                    <LoadingSpinner size="md" text="Loading notifications..." />
                   )}
                   <Button
                     as={Link}

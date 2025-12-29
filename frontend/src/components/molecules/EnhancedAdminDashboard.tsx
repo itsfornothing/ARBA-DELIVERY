@@ -214,18 +214,18 @@ export const EnhancedAdminDashboard: React.FC<AdminDashboardProps> = ({
   return (
     <DashboardContainer>
       {/* Header */}
-      <Card variant="elevated" padding="large">
-        <Typography variant="h1" color="text">
+      <Card variant="elevated" padding="lg">
+        <Typography variant="h1" color="primary">
           Admin Dashboard
         </Typography>
-        <Typography variant="body" color="muted">
+        <Typography variant="body1" color="muted">
           Monitor your delivery platform's performance and key metrics
         </Typography>
       </Card>
 
       {/* Key Metrics */}
       <MetricsGrid>
-        <MetricCard variant="default" padding="medium" $accentColor="#3B82F6" interactive>
+        <MetricCard variant="default" padding="md" $accentColor="#3B82F6">
           <MetricContent>
             <MetricIcon $bgColor="#3B82F620" $iconColor="#3B82F6">
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -244,7 +244,7 @@ export const EnhancedAdminDashboard: React.FC<AdminDashboardProps> = ({
           </MetricContent>
         </MetricCard>
 
-        <MetricCard variant="default" padding="medium" $accentColor="#10B981" interactive>
+        <MetricCard variant="default" padding="md" $accentColor="#10B981">
           <MetricContent>
             <MetricIcon $bgColor="#10B98120" $iconColor="#10B981">
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -263,7 +263,7 @@ export const EnhancedAdminDashboard: React.FC<AdminDashboardProps> = ({
           </MetricContent>
         </MetricCard>
 
-        <MetricCard variant="default" padding="medium" $accentColor="#F59E0B" interactive>
+        <MetricCard variant="default" padding="md" $accentColor="#F59E0B">
           <MetricContent>
             <MetricIcon $bgColor="#F59E0B20" $iconColor="#F59E0B">
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -282,7 +282,7 @@ export const EnhancedAdminDashboard: React.FC<AdminDashboardProps> = ({
           </MetricContent>
         </MetricCard>
 
-        <MetricCard variant="default" padding="medium" $accentColor="#6366F1" interactive>
+        <MetricCard variant="default" padding="md" $accentColor="#6366F1">
           <MetricContent>
             <MetricIcon $bgColor="#6366F120" $iconColor="#6366F1">
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -308,11 +308,11 @@ export const EnhancedAdminDashboard: React.FC<AdminDashboardProps> = ({
       {/* Charts and Activity */}
       <ChartsGrid>
         {/* Revenue Chart */}
-        <Card variant="elevated" padding="large">
-          <Typography variant="h4" color="text" weight="semibold">
+        <Card variant="elevated" padding="lg">
+          <Typography variant="h4" color="primary" weight="semibold">
             Revenue Analytics
           </Typography>
-          <Typography variant="body" color="muted">
+          <Typography variant="body1" color="muted">
             Monthly revenue performance over the last 7 months
           </Typography>
           
@@ -356,11 +356,11 @@ export const EnhancedAdminDashboard: React.FC<AdminDashboardProps> = ({
         </Card>
 
         {/* Recent Activity */}
-        <Card variant="default" padding="large">
-          <Typography variant="h4" color="text" weight="semibold">
+        <Card variant="default" padding="lg">
+          <Typography variant="h4" color="primary" weight="semibold">
             Recent Activity
           </Typography>
-          <Typography variant="body" color="muted">
+          <Typography variant="body1" color="muted">
             Latest system events and updates
           </Typography>
           
@@ -377,7 +377,7 @@ export const EnhancedAdminDashboard: React.FC<AdminDashboardProps> = ({
                   {getActivityIcon(activity.type)}
                 </ActivityIcon>
                 <div style={{ flex: 1 }}>
-                  <Typography variant="caption" color="text" weight="medium">
+                  <Typography variant="caption" color="primary" weight="medium">
                     {activity.message}
                   </Typography>
                   <Typography variant="caption" color="muted" style={{ display: 'block', marginTop: '4px' }}>
@@ -391,13 +391,13 @@ export const EnhancedAdminDashboard: React.FC<AdminDashboardProps> = ({
       </ChartsGrid>
 
       {/* Quick Actions */}
-      <Card variant="default" padding="large">
-        <Typography variant="h4" color="text" weight="semibold">
+      <Card variant="default" padding="lg">
+        <Typography variant="h4" color="primary" weight="semibold">
           Quick Actions
         </Typography>
         
         <QuickActions>
-          <ActionCard variant="outlined" padding="medium" interactive>
+          <ActionCard variant="outlined" padding="md">
             <Typography variant="h6" color="primary" weight="semibold">
               📊 View Reports
             </Typography>
@@ -406,7 +406,7 @@ export const EnhancedAdminDashboard: React.FC<AdminDashboardProps> = ({
             </Typography>
           </ActionCard>
           
-          <ActionCard variant="outlined" padding="medium" interactive>
+          <ActionCard variant="outlined" padding="md">
             <Typography variant="h6" color="success" weight="semibold">
               👥 Manage Users
             </Typography>
@@ -415,7 +415,7 @@ export const EnhancedAdminDashboard: React.FC<AdminDashboardProps> = ({
             </Typography>
           </ActionCard>
           
-          <ActionCard variant="outlined" padding="medium" interactive>
+          <ActionCard variant="outlined" padding="md">
             <Typography variant="h6" color="warning" weight="semibold">
               🚚 Monitor Orders
             </Typography>
@@ -424,7 +424,7 @@ export const EnhancedAdminDashboard: React.FC<AdminDashboardProps> = ({
             </Typography>
           </ActionCard>
           
-          <ActionCard variant="outlined" padding="medium" interactive>
+          <ActionCard variant="outlined" padding="md">
             <Typography variant="h6" color="secondary" weight="semibold">
               ⚙️ System Settings
             </Typography>

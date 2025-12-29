@@ -18,8 +18,8 @@ export const GlobalStyles = createGlobalStyle`
     font-family: ${enhancedTheme.typography.fontFamily.sans.join(', ')};
     font-size: ${enhancedTheme.typography.fontSize.base};
     line-height: ${enhancedTheme.typography.lineHeight.normal};
-    color: ${enhancedTheme.colors.neutral[900]};
-    background-color: ${enhancedTheme.colors.neutral[50]};
+    color: ${enhancedTheme.colors.neutralPalette[900]};
+    background-color: ${enhancedTheme.colors.neutralPalette[50]};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -33,7 +33,7 @@ export const GlobalStyles = createGlobalStyle`
   /* Selection styles */
   ::selection {
     background-color: ${enhancedTheme.colors.primary[500]}30;
-    color: ${enhancedTheme.colors.neutral[900]};
+    color: ${enhancedTheme.colors.neutralPalette[900]};
   }
 
   /* Scrollbar styles */
@@ -43,16 +43,16 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   ::-webkit-scrollbar-track {
-    background: ${enhancedTheme.colors.neutral[100]};
+    background: ${enhancedTheme.colors.neutralPalette[100]};
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${enhancedTheme.colors.neutral[300]};
+    background: ${enhancedTheme.colors.neutralPalette[300]};
     border-radius: ${enhancedTheme.borderRadius.sm};
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: ${enhancedTheme.colors.neutral[400]};
+    background: ${enhancedTheme.colors.neutralPalette[400]};
   }
 
   /* Reduced motion support */

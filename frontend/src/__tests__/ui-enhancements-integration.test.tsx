@@ -24,9 +24,9 @@ import { Typography } from '@/components/atoms/Typography';
 import { Form } from '@/components/molecules/Form';
 import { ResponsiveLayout } from '@/components/molecules/ResponsiveLayout';
 import { LoadingSpinner } from '@/components/molecules/LoadingSpinner';
-import { SkeletonScreens } from '@/components/molecules/SkeletonScreens';
-import { NotificationSystem } from '@/components/molecules/NotificationSystem';
-import { MicroInteractions } from '@/components/molecules/MicroInteractions';
+import { PageSkeleton } from '@/components/molecules/SkeletonScreens';
+import { NotificationProvider } from '@/components/molecules/NotificationSystem';
+import { InteractiveCard } from '@/components/molecules/MicroInteractions';
 import { SuccessCelebration } from '@/components/molecules/SuccessCelebration';
 import { ErrorState } from '@/components/molecules/ErrorState';
 import { EmptyState } from '@/components/molecules/EmptyState';
@@ -149,7 +149,7 @@ describe('UI Enhancements Integration Tests', () => {
       const user = userEvent.setup();
       let orderData: any = null;
       
-      const handleOrderSubmit = (data: any) => {
+      const handleOrderSubmit = async (data: any) => {
         orderData = data;
       };
 
@@ -161,11 +161,13 @@ describe('UI Enhancements Integration Tests', () => {
             </Typography>
             
             <OrderCreationWizard
-              onOrderSubmit={handleOrderSubmit}
+              onSubmit={handleOrderSubmit}
               data-testid="order-wizard"
             />
             
-            <NotificationSystem data-testid="notifications" />
+            <NotificationProvider>
+              <div data-testid="notifications" />
+            </NotificationProvider>
           </div>
         </IntegrationTestWrapper>
       );
@@ -215,7 +217,7 @@ describe('UI Enhancements Integration Tests', () => {
         <IntegrationTestWrapper>
           <div data-testid="loading-demo">
             <LoadingSpinner size="large" data-testid="main-spinner" />
-            <SkeletonScreens variant="orderCard" count={3} data-testid="skeleton-cards" />
+            <PageSkeleton data-testid="skeleton-cards" />
           </div>
         </IntegrationTestWrapper>
       );
@@ -235,8 +237,14 @@ describe('UI Enhancements Integration Tests', () => {
       render(
         <IntegrationTestWrapper>
           <SuccessCelebration
-            type="orderPlaced"
-            message="Your order has been placed successfully!"
+            celebration={{
+              id: 'test-celebration',
+              type: 'order_completion',
+              title: 'Order Placed!',
+              message: 'Your order has been placed successfully!',
+              duration: 3000
+            }}
+            onDismiss={() => {}}
             data-testid="success-celebration"
           />
         </IntegrationTestWrapper>
@@ -252,12 +260,15 @@ describe('UI Enhancements Integration Tests', () => {
   describe('Complete User Journey: Order Tracking Experience', () => {
     it('should provide enhanced order tracking with real-time updates', async () => {
       const mockOrder = {
-        id: 'ORD-123',
+        id: 123,
         status: 'in_transit',
-        pickup: '123 Main St',
-        delivery: '456 Oak Ave',
-        courier: 'John Doe',
-        estimatedTime: '25 minutes'
+        pickup_address: '123 Main St',
+        delivery_address: '456 Oak Ave',
+        distance_km: 5.2,
+        price: 15.50,
+        created_at: '2024-01-01T10:00:00Z',
+        customer_name: 'Jane Smith',
+        assigned_courier_name: 'John Doe'
       };
 
       render(
@@ -267,10 +278,19 @@ describe('UI Enhancements Integration Tests', () => {
             
             <EnhancedOrderTracking
               order={mockOrder}
+              progress_percentage={75}
+              tracking_steps={[
+                { id: 'created', label: 'Order Created', description: 'Your order has been created', completed: true, current: false, timestamp: mockOrder.created_at, icon: () => <div>✓</div> },
+                { id: 'assigned', label: 'Courier Assigned', description: 'A courier has been assigned', completed: true, current: false, timestamp: mockOrder.created_at, icon: () => <div>✓</div> },
+                { id: 'in_transit', label: 'In Transit', description: 'Your order is on the way', completed: true, current: true, timestamp: mockOrder.created_at, icon: () => <div>→</div> },
+                { id: 'delivered', label: 'Delivered', description: 'Order has been delivered', completed: false, current: false, timestamp: '', icon: () => <div>○</div> }
+              ]}
               data-testid="order-tracking"
             />
             
-            <NotificationSystem data-testid="tracking-notifications" />
+            <NotificationProvider>
+              <div data-testid="tracking-notifications" />
+            </NotificationProvider>
           </div>
         </IntegrationTestWrapper>
       );
@@ -289,7 +309,7 @@ describe('UI Enhancements Integration Tests', () => {
   });
 
   describe('Complete User Journey: Courier Dashboard Experience', () => {
-    it('should provide enhanced courier dashboard with interactive elements', async () => {
+    it('should provide enhanced courier dashboard with elements', async () => {
       const user = userEvent.setup();
       const mockCourierData = {
         name: 'Jane Smith',
@@ -308,7 +328,17 @@ describe('UI Enhancements Integration Tests', () => {
             <Typography variant="h1">Courier Dashboard</Typography>
             
             <EnhancedCourierDashboard
-              courierData={mockCourierData}
+              stats={{
+                activeOrders: 3,
+                completedOrders: mockCourierData.completedOrders,
+                totalEarnings: mockCourierData.earnings,
+                todayEarnings: mockCourierData.earnings,
+                averageRating: mockCourierData.rating,
+                totalDeliveries: mockCourierData.completedOrders
+              }}
+              isAvailable={true}
+              onToggleAvailability={() => {}}
+              courierName={mockCourierData.name}
               data-testid="dashboard-content"
             />
           </div>
@@ -360,7 +390,22 @@ describe('UI Enhancements Integration Tests', () => {
             <Typography variant="h1">Admin Dashboard</Typography>
             
             <EnhancedAdminDashboard
-              adminData={mockAdminData}
+              stats={{
+                totalUsers: 500,
+                totalOrders: mockAdminData.totalOrders,
+                activeOrders: 25,
+                totalRevenue: mockAdminData.totalRevenue,
+                activeCouriers: mockAdminData.activeCouriers,
+                totalCouriers: 100,
+                averageDeliveryTime: mockAdminData.averageDeliveryTime,
+                customerSatisfaction: 4.5
+              }}
+              recentActivity={mockAdminData.recentOrders.map(order => ({
+                id: order.id,
+                type: 'order' as const,
+                message: `Order ${order.id} - ${order.customer} - ${order.status}`,
+                timestamp: new Date().toISOString()
+              }))}
               data-testid="admin-content"
             />
           </div>
@@ -436,7 +481,7 @@ describe('UI Enhancements Integration Tests', () => {
               >
                 Toggle Theme
               </Button>
-              <Typography variant="body" data-testid="theme-indicator">
+              <Typography variant="body1" data-testid="theme-indicator">
                 Current theme: {isDark ? 'dark' : 'light'}
               </Typography>
             </div>
@@ -582,12 +627,12 @@ describe('UI Enhancements Integration Tests', () => {
       render(
         <IntegrationTestWrapper>
           <div data-testid="reduced-motion-test">
-            <MicroInteractions 
-              enableAnimations={false}
+            <InteractiveCard 
               data-testid="micro-interactions"
-            />
+            >
+              <div>Interactive content</div>
+            </InteractiveCard>
             <LoadingSpinner 
-              reduceMotion={true}
               data-testid="reduced-motion-spinner"
             />
           </div>
@@ -615,7 +660,6 @@ describe('UI Enhancements Integration Tests', () => {
       render(
         <IntegrationTestWrapper>
           <ErrorState
-            title="Something went wrong"
             message="We couldn't load your orders. Please try again."
             onRetry={handleRetry}
             data-testid="error-state"
@@ -646,9 +690,11 @@ describe('UI Enhancements Integration Tests', () => {
         <IntegrationTestWrapper>
           <EmptyState
             title="No orders yet"
-            message="Start by creating your first order"
-            actionLabel="Create Order"
-            onAction={handleAction}
+            description="Start by creating your first order"
+            primaryAction={{
+              text: "Create Order",
+              onClick: handleAction
+            }}
             data-testid="empty-state"
           />
         </IntegrationTestWrapper>
@@ -680,10 +726,13 @@ describe('UI Enhancements Integration Tests', () => {
           <div data-testid="onboarding-test">
             <GuidedTour
               steps={[
-                { target: '#step1', content: 'Welcome to the platform!' },
-                { target: '#step2', content: 'Here you can create orders' },
-                { target: '#step3', content: 'Track your deliveries here' }
+                { id: 'step1', target: '#step1', title: 'Welcome', content: 'Welcome to the platform!' },
+                { id: 'step2', target: '#step2', title: 'Create Orders', content: 'Here you can create orders' },
+                { id: 'step3', target: '#step3', title: 'Track Deliveries', content: 'Track your deliveries here' }
               ]}
+              isActive={true}
+              onComplete={() => {}}
+              tourId="onboarding-tour"
               onStepChange={handleTourStep}
               data-testid="guided-tour"
             />
@@ -710,8 +759,13 @@ describe('UI Enhancements Integration Tests', () => {
       render(
         <IntegrationTestWrapper>
           <OnboardingFlow
-            currentStep={1}
-            totalSteps={3}
+            steps={[
+              { id: '1', title: 'Welcome', description: 'Welcome to the platform' },
+              { id: '2', title: 'Create Orders', description: 'Learn to create orders' },
+              { id: '3', title: 'Track Orders', description: 'Track your deliveries' }
+            ]}
+            isVisible={true}
+            onComplete={() => {}}
             data-testid="onboarding-flow"
           />
         </IntegrationTestWrapper>
@@ -737,7 +791,7 @@ describe('UI Enhancements Integration Tests', () => {
             {largeDataset.slice(0, 10).map(item => (
               <Card key={item.id} data-testid={`card-${item.id}`}>
                 <Typography variant="h4">{item.title}</Typography>
-                <Typography variant="body">{item.description}</Typography>
+                <Typography variant="body1">{item.description}</Typography>
               </Card>
             ))}
           </div>

@@ -1,0 +1,62 @@
+name: Optimized TypeScript Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  typescript-validation:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: 'frontend/package-lock.json'
+    
+    - name: Cache TypeScript build
+      uses: actions/cache@v3
+      with:
+        path: |
+          frontend/.typescript-cache
+          frontend/.next/cache
+        key: ${{ runner.os }}-typescript-${{ hashFiles('frontend/tsconfig.json', 'frontend/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-typescript-
+    
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm ci --prefer-offline --no-audit
+    
+    - name: Run TypeScript validation
+      run: |
+        cd frontend
+        npm run type-check
+      env:
+        NODE_OPTIONS: '--max-old-space-size=4096'
+    
+    - name: Run ESLint validation
+      run: |
+        cd frontend
+        npm run lint
+    
+    - name: Upload performance metrics
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: typescript-performance-metrics
+        path: frontend/.typescript-cache/performance-metrics.json
+        retention-days: 30

@@ -138,20 +138,20 @@ export const EnhancedCourierDashboard: React.FC<CourierDashboardProps> = ({
       transition={{ duration: 0.5 }}
     >
       {/* Header Card */}
-      <Card variant="elevated" padding="large" style={{ marginBottom: '24px' }}>
+      <Card variant="elevated" padding="lg" style={{ marginBottom: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <Typography variant="h2" color="text">
+            <Typography variant="h2" color="primary">
               Welcome back, {courierName}!
             </Typography>
-            <Typography variant="body" color="muted">
+            <Typography variant="body1" color="muted">
               Ready to make some deliveries today?
             </Typography>
           </div>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <StatusIndicator $isAvailable={isAvailable}>
-              <Typography variant="body" weight="medium">
+              <Typography variant="body1" weight="medium">
                 {isAvailable ? 'Available' : 'Offline'}
               </Typography>
             </StatusIndicator>
@@ -168,7 +168,7 @@ export const EnhancedCourierDashboard: React.FC<CourierDashboardProps> = ({
 
       {/* Statistics Grid */}
       <StatsGrid>
-        <StatCard variant="default" padding="medium" interactive>
+        <StatCard variant="default" padding="md">
           <StatContent>
             <div>
               <Typography variant="caption" color="muted">
@@ -188,7 +188,7 @@ export const EnhancedCourierDashboard: React.FC<CourierDashboardProps> = ({
           </StatContent>
         </StatCard>
 
-        <StatCard variant="default" padding="medium" interactive>
+        <StatCard variant="default" padding="md">
           <StatContent>
             <div>
               <Typography variant="caption" color="muted">
@@ -208,7 +208,7 @@ export const EnhancedCourierDashboard: React.FC<CourierDashboardProps> = ({
           </StatContent>
         </StatCard>
 
-        <StatCard variant="default" padding="medium" interactive>
+        <StatCard variant="default" padding="md">
           <StatContent>
             <div>
               <Typography variant="caption" color="muted">
@@ -228,7 +228,7 @@ export const EnhancedCourierDashboard: React.FC<CourierDashboardProps> = ({
           </StatContent>
         </StatCard>
 
-        <StatCard variant="default" padding="medium" interactive>
+        <StatCard variant="default" padding="md">
           <StatContent>
             <div>
               <Typography variant="caption" color="muted">
@@ -250,11 +250,11 @@ export const EnhancedCourierDashboard: React.FC<CourierDashboardProps> = ({
       </StatsGrid>
 
       {/* Performance Chart */}
-      <Card variant="elevated" padding="large">
-        <Typography variant="h4" color="text" weight="semibold">
+      <Card variant="elevated" padding="lg">
+        <Typography variant="h4" color="primary" weight="semibold">
           Weekly Performance
         </Typography>
-        <Typography variant="body" color="muted">
+        <Typography variant="body1" color="muted">
           Your delivery performance over the last 7 days
         </Typography>
         

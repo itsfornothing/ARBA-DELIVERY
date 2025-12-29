@@ -179,7 +179,7 @@ const StyledButton = styled(motion.button)<{
   justify-content: center;
   gap: ${({ theme }) => theme.spacing.scale[2] * theme.spacing.unit}px;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
-  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-family: ${({ theme }) => theme.typography.fontFamily.default};
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;

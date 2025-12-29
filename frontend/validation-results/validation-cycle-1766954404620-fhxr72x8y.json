@@ -1,0 +1,54 @@
+{
+  "timestamp": "2025-12-28T20:40:04.620Z",
+  "cycleId": "cycle-1766954404620-fhxr72x8y",
+  "duration": 50522,
+  "status": "FAILED",
+  "checks": {
+    "preBuild": {
+      "status": "FAILED",
+      "errors": [
+        "TypeScript compilation failed: Command failed: npx tsc --noEmit"
+      ],
+      "warnings": [
+        "moduleResolution should be set to \"node\" for better compatibility",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/__tests__/import-statement-validation.property.test.ts:209: importedModule = require('@/lib/utils');",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/__tests__/import-statement-validation.property.test.ts:262: importedModule = require('@/lib/validation');",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/__tests__/preserved-functionality-integration.test.tsx:69: import { FormValidator } from '@/lib/validation';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/app/admin/analytics/page.tsx:5: import { formatCurrency } from '@/lib/utils';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/app/admin/orders/page.tsx:5: import { formatCurrency } from '@/lib/utils';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/app/admin/settings/page.tsx:5: import { formatCurrency } from '@/lib/utils';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/app/design-system/forms/page.tsx:15: import { commonValidationRules } from '@/lib/validation';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/components/__tests__/form-interaction-consistency.property.test.tsx:21: import { ValidationRule } from '@/lib/validation';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/components/atoms/Button.tsx:4: import { cn } from '@/lib/utils';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/components/atoms/Card.tsx:2: import { cn } from '@/lib/utils';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/components/atoms/Input.tsx:5: import { cn } from '@/lib/utils';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/components/atoms/ResponsiveContainer.tsx:8: import { cn } from '@/lib/utils';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/components/atoms/ResponsiveGrid.tsx:8: import { cn } from '@/lib/utils';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/components/atoms/Typography.tsx:4: import { cn } from '@/lib/utils';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/components/molecules/Form.tsx:6: import { FormValidator, ValidationRule, ValidationResult } from '@/lib/validation';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/components/molecules/FormField.tsx:5: import { FormValidator, ValidationRule, ValidationResult } from '@/lib/validation';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/components/molecules/ResponsiveNavigation.tsx:10: import { cn } from '@/lib/utils';",
+        "Potential import issue in /Users/user/Desktop/fiver_project/Mohamedo/frontend/src/components/molecules/ResponsiveTable.tsx:10: import { cn } from '@/lib/utils';"
+      ]
+    },
+    "build": {
+      "status": "PASSED",
+      "buildTime": 44535,
+      "details": "Build completed successfully"
+    },
+    "performance": {
+      "status": "WARNING",
+      "metrics": {
+        "bundleSize": 74881846,
+        "memoryUsage": {
+          "rss": 35684352,
+          "heapTotal": 6537216,
+          "heapUsed": 4464992,
+          "external": 1883515,
+          "arrayBuffers": 16659
+        }
+      },
+      "warning": "Bundle size is large"
+    }
+  }
+}

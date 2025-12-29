@@ -1,0 +1,42 @@
+{
+  "timestamp": "2025-12-28T20:15:36.245Z",
+  "results": {
+    "moduleResolution": {
+      "success": true,
+      "utilsImport": {
+        "isValid": true,
+        "importPath": "@/lib/utils"
+      },
+      "validationImport": {
+        "isValid": true,
+        "importPath": "@/lib/validation"
+      },
+      "pathMappings": true
+    },
+    "dependencies": {
+      "success": true,
+      "clsx": {
+        "isAvailable": true,
+        "version": "^2.0.0"
+      },
+      "tailwindMerge": {
+        "isAvailable": true,
+        "version": "^2.0.0"
+      },
+      "totalDependencies": 40
+    },
+    "buildProcess": {
+      "success": true,
+      "buildExists": true,
+      "criticalFilesExist": true,
+      "buildSize": 74881059
+    },
+    "overall": true
+  },
+  "summary": {
+    "overall": true,
+    "moduleResolution": true,
+    "dependencies": true,
+    "buildProcess": true
+  }
+}

@@ -1,6 +1,6 @@
 import 'styled-components';
-import { ThemeConfig } from '@/lib/theme';
+import { EnhancedThemeConfig } from '@/lib/theme';
 
 declare module 'styled-components' {
-  export interface DefaultTheme extends ThemeConfig {}
+  export interface DefaultTheme extends EnhancedThemeConfig {}
 }

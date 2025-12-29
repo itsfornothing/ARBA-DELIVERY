@@ -441,7 +441,7 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
               <TooltipIcon>
                 <Target size={20} />
               </TooltipIcon>
-              <TooltipTitle variant="h5" color="text">
+              <TooltipTitle variant="h5" color="primary">
                 {currentStep.title}
               </TooltipTitle>
               <CloseButton
@@ -454,7 +454,7 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
             </TooltipHeader>
 
             <TooltipBody>
-              <Typography variant="body" color="muted">
+              <Typography variant="body1" color="muted">
                 {currentStep.content}
               </Typography>
             </TooltipBody>
@@ -481,7 +481,7 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
                 {!isFirstStep && (
                   <Button
                     variant="ghost"
-                    size="small"
+                    size="sm"
                     onClick={handlePrevious}
                   >
                     <ChevronLeft size={16} />
@@ -492,7 +492,7 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
                 {showSkipAll && currentStep.skipable && (
                   <Button
                     variant="outline"
-                    size="small"
+                    size="sm"
                     onClick={handleSkip}
                   >
                     Skip Tour
@@ -501,7 +501,7 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
 
                 <Button
                   variant="primary"
-                  size="small"
+                  size="sm"
                   onClick={handleNext}
                 >
                   {currentStep.action?.label || (isLastStep ? 'Finish' : 'Next')}

@@ -16,12 +16,12 @@ import {
   BuildError,
   detectBuildError,
   validateBuildEnvironment 
-} from '../lib/buildErrorDetection';
+} from '@/lib/buildErrorDetection';
 import { 
   EnvironmentValidationError, 
   validateEnvironment, 
   getEnvironmentConfig 
-} from '../lib/envValidation';
+} from '@/lib/envValidation';
 
 describe('Error Message Clarity Properties', () => {
   describe('Property 5: Error Message Clarity', () => {
@@ -279,7 +279,7 @@ describe('Error Message Clarity Properties', () => {
 
               // Remove NODE_ENV if specified
               if (config.missingNodeEnv) {
-                delete process.env.NODE_ENV;
+                (process.env as any).NODE_ENV = undefined;
               }
 
               // Validate build environment
@@ -361,7 +361,7 @@ describe('Error Message Clarity Properties', () => {
               });
               
               if (originalNodeEnv !== undefined) {
-                process.env.NODE_ENV = originalNodeEnv;
+                (process.env as any).NODE_ENV = originalNodeEnv;
               }
             }
           }

@@ -24,4 +24,3 @@ export { OnboardingFlow, useOnboarding } from './OnboardingFlow';
 export { GuidedTour, useGuidedTour } from './GuidedTour';
 export { FeatureTooltip, useFeatureTooltips } from './FeatureTooltip';
 export { OnboardingManager, useOnboardingManager, createDefaultOnboardingConfigs } from './OnboardingManager';
-export { MilestoneAchievement, useMilestoneAchievements } from './MilestoneAchievement';

@@ -326,7 +326,7 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
                 {trigger !== 'always' && (
                   <CloseButton
                     variant="ghost"
-                    size="small"
+                    size="sm"
                     onClick={() => setIsVisible(false)}
                     aria-label="Close help"
                   >
@@ -334,23 +334,23 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
                   </CloseButton>
                 )}
                 
-                <Typography variant="h5" color="text" style={{ marginBottom: '8px' }}>
+                <Typography variant="h5" color="primary" style={{ marginBottom: '8px' }}>
                   {content.title}
                 </Typography>
                 
-                <Typography variant="body" color="muted" style={{ marginBottom: '16px' }}>
+                <Typography variant="body1" color="muted" style={{ marginBottom: '16px' }}>
                   {content.description}
                 </Typography>
 
                 {content.steps && content.steps.length > 0 && (
                   <>
-                    <Typography variant="h6" color="text" style={{ marginBottom: '8px' }}>
+                    <Typography variant="h6" color="primary" style={{ marginBottom: '8px' }}>
                       Steps:
                     </Typography>
                     <StepsList>
                       {content.steps.map((step, index) => (
                         <li key={index}>
-                          <Typography variant="body" color="text">
+                          <Typography variant="body1" color="primary">
                             {step}
                           </Typography>
                         </li>
@@ -361,13 +361,13 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
 
                 {content.tips && content.tips.length > 0 && (
                   <>
-                    <Typography variant="h6" color="text" style={{ marginBottom: '8px' }}>
+                    <Typography variant="h6" color="primary" style={{ marginBottom: '8px' }}>
                       Tips:
                     </Typography>
                     <TipsList>
                       {content.tips.map((tip, index) => (
                         <li key={index}>
-                          <Typography variant="body" color="text">
+                          <Typography variant="body1" color="primary">
                             {tip}
                           </Typography>
                         </li>

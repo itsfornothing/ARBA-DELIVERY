@@ -410,12 +410,6 @@ export const FeatureTooltip: React.FC<FeatureTooltipProps> = ({
   const show = () => showTooltip();
   const hide = () => hideTooltip();
 
-  // Expose methods via ref if needed
-  React.useImperativeHandle(React.forwardRef(() => null), () => ({
-    show,
-    hide,
-  }));
-
   const IconComponent = getTooltipIcon(type);
 
   return (
@@ -439,7 +433,7 @@ export const FeatureTooltip: React.FC<FeatureTooltipProps> = ({
                   <IconComponent size={16} />
                 </TooltipIcon>
                 
-                <TooltipTitle variant="body" color="text">
+                <TooltipTitle variant="body1" color="primary">
                   {title}
                 </TooltipTitle>
                 
@@ -455,7 +449,7 @@ export const FeatureTooltip: React.FC<FeatureTooltipProps> = ({
               </TooltipHeader>
 
               <TooltipBody>
-                <Typography variant="body" color="muted" style={{ fontSize: '0.875rem' }}>
+                <Typography variant="body1" color="muted" style={{ fontSize: '0.875rem' }}>
                   {content}
                 </Typography>
               </TooltipBody>

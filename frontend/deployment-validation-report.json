@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-25T08:59:11.115Z",
+  "timestamp": "2025-12-28T20:10:12.916Z",
   "config": {
     "frontendUrl": "https://arba-delivery-frontend.onrender.com",
     "backendUrl": "https://arba-delivery-backend.onrender.com",
@@ -57,7 +57,7 @@
     "performanceChecks": {
       "status": true,
       "details": [
-        "Response time: 465ms - GOOD",
+        "Response time: 597ms - GOOD",
         "Response size: 10 bytes",
         "Compression: DISABLED"
       ],

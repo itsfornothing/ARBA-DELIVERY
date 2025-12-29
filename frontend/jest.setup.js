@@ -1,10 +1,18 @@
 import '@testing-library/jest-dom'
 import 'whatwg-fetch'
+import { cleanup } from '@testing-library/react'
 
 // Add TextEncoder/TextDecoder polyfills for MSW
 const { TextEncoder, TextDecoder } = require('util')
 global.TextEncoder = TextEncoder
 global.TextDecoder = TextDecoder
+
+// Ensure cleanup after each test
+afterEach(() => {
+  cleanup()
+  // Additional DOM cleanup for property tests
+  document.body.innerHTML = ''
+})
 
 // Mock Next.js router
 jest.mock('next/navigation', () => ({

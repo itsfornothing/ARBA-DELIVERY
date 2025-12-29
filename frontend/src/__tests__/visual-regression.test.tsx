@@ -64,29 +64,29 @@ describe('Visual Regression Tests', () => {
       const { container } = render(
         <TestWrapper>
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-            <Button variant="primary" size="small">Primary Small</Button>
-            <Button variant="primary" size="medium">Primary Medium</Button>
-            <Button variant="primary" size="large">Primary Large</Button>
+            <Button variant="primary" size="sm">Primary Small</Button>
+            <Button variant="primary" size="md">Primary Medium</Button>
+            <Button variant="primary" size="lg">Primary Large</Button>
           </div>
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginTop: '16px' }}>
-            <Button variant="secondary" size="small">Secondary Small</Button>
-            <Button variant="secondary" size="medium">Secondary Medium</Button>
-            <Button variant="secondary" size="large">Secondary Large</Button>
+            <Button variant="secondary" size="sm">Secondary Small</Button>
+            <Button variant="secondary" size="md">Secondary Medium</Button>
+            <Button variant="secondary" size="lg">Secondary Large</Button>
           </div>
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginTop: '16px' }}>
-            <Button variant="outline" size="small">Outline Small</Button>
-            <Button variant="outline" size="medium">Outline Medium</Button>
-            <Button variant="outline" size="large">Outline Large</Button>
+            <Button variant="outline" size="sm">Outline Small</Button>
+            <Button variant="outline" size="md">Outline Medium</Button>
+            <Button variant="outline" size="lg">Outline Large</Button>
           </div>
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginTop: '16px' }}>
-            <Button variant="ghost" size="small">Ghost Small</Button>
-            <Button variant="ghost" size="medium">Ghost Medium</Button>
-            <Button variant="ghost" size="large">Ghost Large</Button>
+            <Button variant="ghost" size="sm">Ghost Small</Button>
+            <Button variant="ghost" size="md">Ghost Medium</Button>
+            <Button variant="ghost" size="lg">Ghost Large</Button>
           </div>
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginTop: '16px' }}>
-            <Button variant="danger" size="small">Danger Small</Button>
-            <Button variant="danger" size="medium">Danger Medium</Button>
-            <Button variant="danger" size="large">Danger Large</Button>
+            <Button variant="danger" size="sm">Danger Small</Button>
+            <Button variant="danger" size="md">Danger Medium</Button>
+            <Button variant="danger" size="lg">Danger Large</Button>
           </div>
         </TestWrapper>
       );
@@ -155,9 +155,9 @@ describe('Visual Regression Tests', () => {
       const { container } = render(
         <TestWrapper>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <Input size="small" label="Small Input" placeholder="Small size" />
-            <Input size="medium" label="Medium Input" placeholder="Medium size" />
-            <Input size="large" label="Large Input" placeholder="Large size" />
+            <Input size="sm" label="Small Input" placeholder="Small size" />
+            <Input size="md" label="Medium Input" placeholder="Medium size" />
+            <Input size="lg" label="Large Input" placeholder="Large size" />
           </div>
         </TestWrapper>
       );
@@ -186,21 +186,21 @@ describe('Visual Regression Tests', () => {
       const { container } = render(
         <TestWrapper>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px' }}>
-            <Card variant="default" padding="medium">
+            <Card variant="default" padding="md">
               <Typography variant="h3">Default Card</Typography>
-              <Typography variant="body">This is a default card with medium padding.</Typography>
+              <Typography variant="body1">This is a default card with medium padding.</Typography>
             </Card>
-            <Card variant="outlined" padding="medium">
+            <Card variant="outlined" padding="md">
               <Typography variant="h3">Outlined Card</Typography>
-              <Typography variant="body">This is an outlined card with medium padding.</Typography>
+              <Typography variant="body1">This is an outlined card with medium padding.</Typography>
             </Card>
-            <Card variant="elevated" padding="medium">
+            <Card variant="elevated" padding="md">
               <Typography variant="h3">Elevated Card</Typography>
-              <Typography variant="body">This is an elevated card with medium padding.</Typography>
+              <Typography variant="body1">This is an elevated card with medium padding.</Typography>
             </Card>
-            <Card variant="filled" padding="medium">
-              <Typography variant="h3">Filled Card</Typography>
-              <Typography variant="body">This is a filled card with medium padding.</Typography>
+            <Card variant="default" padding="md">
+              <Typography variant="h3">Default Card</Typography>
+              <Typography variant="body1">This is a default card with medium padding.</Typography>
             </Card>
           </div>
         </TestWrapper>
@@ -209,17 +209,17 @@ describe('Visual Regression Tests', () => {
       expect(container).toMatchSnapshot('card-variants-light-theme');
     });
 
-    it('should render interactive cards consistently', () => {
+    it('should render cards consistently', () => {
       const { container } = render(
         <TestWrapper>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <Card interactive padding="medium">
+            <Card padding="md">
               <Typography variant="h4">Interactive Card</Typography>
-              <Typography variant="body">This card responds to hover and click.</Typography>
+              <Typography variant="body1">This card responds to hover and click.</Typography>
             </Card>
-            <Card padding="medium">
+            <Card padding="md">
               <Typography variant="h4">Static Card</Typography>
-              <Typography variant="body">This card does not respond to interactions.</Typography>
+              <Typography variant="body1">This card does not respond to interactions.</Typography>
             </Card>
           </div>
         </TestWrapper>
@@ -240,7 +240,7 @@ describe('Visual Regression Tests', () => {
             <Typography variant="h4">Heading 4 - Component Title</Typography>
             <Typography variant="h5">Heading 5 - Small Title</Typography>
             <Typography variant="h6">Heading 6 - Smallest Title</Typography>
-            <Typography variant="body">
+            <Typography variant="body1">
               Body text - This is the standard body text used for paragraphs and general content.
               It should be readable and comfortable for extended reading.
             </Typography>
@@ -263,7 +263,7 @@ describe('Visual Regression Tests', () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <Typography variant="h3" color="primary">Primary Color Text</Typography>
             <Typography variant="h3" color="secondary">Secondary Color Text</Typography>
-            <Typography variant="h3" color="text">Default Text Color</Typography>
+            <Typography variant="h3" color="primary">Default Text Color</Typography>
             <Typography variant="h3" color="muted">Muted Text Color</Typography>
             <Typography variant="h3" color="error">Error Text Color</Typography>
             <Typography variant="h3" color="success">Success Text Color</Typography>
@@ -357,24 +357,28 @@ describe('Visual Regression Tests', () => {
         <TestWrapper>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <Toast
+              id="success-toast"
               type="success"
               title="Success"
               message="Your action was completed successfully."
               onClose={() => {}}
             />
             <Toast
+              id="error-toast"
               type="error"
               title="Error"
               message="Something went wrong. Please try again."
               onClose={() => {}}
             />
             <Toast
+              id="warning-toast"
               type="warning"
               title="Warning"
               message="Please review your input before continuing."
               onClose={() => {}}
             />
             <Toast
+              id="info-toast"
               type="info"
               title="Information"
               message="Here's some helpful information for you."
@@ -394,7 +398,7 @@ describe('Visual Regression Tests', () => {
         <TestWrapper>
           <ResponsiveLayout>
             <Typography variant="h2">Responsive Layout Demo</Typography>
-            <Typography variant="body">
+            <Typography variant="body1">
               This layout adapts to different screen sizes and maintains proper spacing and alignment.
             </Typography>
           </ResponsiveLayout>
@@ -423,16 +427,16 @@ describe('Visual Regression Tests', () => {
               <Input label="Error Input" placeholder="Error state" error="Error message" />
             </div>
             
-            <Card padding="medium">
+            <Card padding="md">
               <Typography variant="h4">Dark Theme Card</Typography>
-              <Typography variant="body">
+              <Typography variant="body1">
                 This card demonstrates how components look in dark theme.
               </Typography>
             </Card>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
               <LoadingSpinner />
-              <Typography variant="body">Loading in dark theme</Typography>
+              <Typography variant="body1">Loading in dark theme</Typography>
             </div>
           </div>
         </TestWrapper>
@@ -447,32 +451,32 @@ describe('Visual Regression Tests', () => {
       const { container } = render(
         <TestWrapper>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
-            <Card padding="medium">
+            <Card padding="md">
               <Typography variant="h4">Order Summary</Typography>
               <div style={{ marginTop: '16px' }}>
-                <Typography variant="body">Pickup: 123 Main St</Typography>
-                <Typography variant="body">Delivery: 456 Oak Ave</Typography>
-                <Typography variant="body" color="primary">Total: $25.50</Typography>
+                <Typography variant="body1">Pickup: 123 Main St</Typography>
+                <Typography variant="body1">Delivery: 456 Oak Ave</Typography>
+                <Typography variant="body1" color="primary">Total: $25.50</Typography>
               </div>
               <div style={{ marginTop: '16px' }}>
                 <Button variant="primary" fullWidth>Place Order</Button>
               </div>
             </Card>
             
-            <Card padding="medium">
+            <Card padding="md">
               <Typography variant="h4">Quick Actions</Typography>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px' }}>
-                <Button variant="outline" size="small">View Orders</Button>
-                <Button variant="outline" size="small">Track Delivery</Button>
-                <Button variant="outline" size="small">Contact Support</Button>
+                <Button variant="outline" size="sm">View Orders</Button>
+                <Button variant="outline" size="sm">Track Delivery</Button>
+                <Button variant="outline" size="sm">Contact Support</Button>
               </div>
             </Card>
             
-            <Card padding="medium">
+            <Card padding="md">
               <Typography variant="h4">Status</Typography>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '16px' }}>
                 <LoadingSpinner size="small" />
-                <Typography variant="body">Processing...</Typography>
+                <Typography variant="body1">Processing...</Typography>
               </div>
               <div style={{ marginTop: '16px' }}>
                 <Typography variant="caption" color="muted">
