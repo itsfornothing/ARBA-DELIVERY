@@ -76,7 +76,8 @@
     "cache:optimize": "node scripts/cache-optimization-manager.js",
     "cache:clean": ".typescript-cache/cleanup-cache.sh",
     "validate:fast": "npm run type-check:fast && npm run lint:fast",
-    "validate:quick": "npm run type-check:quick && npm run lint:quick"
+    "validate:quick": "npm run type-check:quick && npm run lint:quick",
+    "debug:modules": "node scripts/debug-module-resolution.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

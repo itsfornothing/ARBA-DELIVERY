@@ -86,6 +86,10 @@ const nextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': require('path').resolve(__dirname, 'src'),
+      '@/components': require('path').resolve(__dirname, 'src/components'),
+      '@/lib': require('path').resolve(__dirname, 'src/lib'),
+      '@/types': require('path').resolve(__dirname, 'src/types'),
+      '@/app': require('path').resolve(__dirname, 'src/app'),
     };
 
     // Ensure proper module resolution for utilities
@@ -93,6 +97,24 @@ const nextConfig = {
       require('path').resolve(__dirname, 'src'),
       'node_modules',
       ...config.resolve.modules,
+    ];
+
+    // Add fallbacks for better module resolution
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      path: false,
+      os: false,
+    };
+
+    // Ensure proper file extensions are resolved
+    config.resolve.extensions = [
+      '.tsx',
+      '.ts',
+      '.jsx',
+      '.js',
+      '.json',
+      ...config.resolve.extensions,
     ];
 
     // Optimize bundle splitting
