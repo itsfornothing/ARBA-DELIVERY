@@ -83,18 +83,25 @@ const nextConfig = {
     }
 
     // Enhanced module resolution for better path mapping
+    const path = require('path');
+    const srcPath = path.resolve(__dirname, 'src');
+    
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': require('path').resolve(__dirname, 'src'),
-      '@/components': require('path').resolve(__dirname, 'src/components'),
-      '@/lib': require('path').resolve(__dirname, 'src/lib'),
-      '@/types': require('path').resolve(__dirname, 'src/types'),
-      '@/app': require('path').resolve(__dirname, 'src/app'),
+      '@': srcPath,
+      '@/components': path.resolve(srcPath, 'components'),
+      '@/lib': path.resolve(srcPath, 'lib'),
+      '@/lib/utils': path.resolve(srcPath, 'lib/utils.ts'),
+      '@/lib/validation': path.resolve(srcPath, 'lib/validation.ts'),
+      '@/lib/theme': path.resolve(srcPath, 'lib/theme.ts'),
+      '@/types': path.resolve(srcPath, 'types'),
+      '@/app': path.resolve(srcPath, 'app'),
     };
 
     // Ensure proper module resolution for utilities
     config.resolve.modules = [
-      require('path').resolve(__dirname, 'src'),
+      srcPath,
+      path.resolve(__dirname, 'src/lib'),
       'node_modules',
       ...config.resolve.modules,
     ];
@@ -116,6 +123,10 @@ const nextConfig = {
       '.json',
       ...config.resolve.extensions,
     ];
+
+    // Add specific resolution for problematic modules
+    config.resolve.symlinks = false;
+    config.resolve.cacheWithContext = false;
 
     // Optimize bundle splitting
     if (!dev && !isServer) {

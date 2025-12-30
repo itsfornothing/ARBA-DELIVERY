@@ -40,6 +40,15 @@
       "@/lib/*": [
         "./src/lib/*"
       ],
+      "@/lib/utils": [
+        "./src/lib/utils.ts"
+      ],
+      "@/lib/validation": [
+        "./src/lib/validation.ts"
+      ],
+      "@/lib/theme": [
+        "./src/lib/theme.ts"
+      ],
       "@/types/*": [
         "./src/types/*"
       ],
@@ -47,7 +56,7 @@
         "./src/app/*"
       ]
     },
-    "tsBuildInfoFile": "/Users/user/Desktop/fiver_project/Mohamedo/frontend/.typescript-cache/tsconfig.tsbuildinfo",
+    "tsBuildInfoFile": "./.typescript-cache/tsconfig.tsbuildinfo",
     "composite": true
   },
   "include": [

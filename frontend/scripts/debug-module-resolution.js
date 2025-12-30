@@ -120,6 +120,33 @@ console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
 console.log(`NODE_VERSION: ${process.version}`);
 console.log(`CI: ${process.env.CI}`);
 console.log(`RENDER: ${process.env.RENDER}`);
+console.log(`RENDER_SERVICE_NAME: ${process.env.RENDER_SERVICE_NAME}`);
+console.log(`PWD: ${process.env.PWD}`);
+
+// Check if we're in Render environment
+const isRender = process.env.RENDER === 'true' || process.env.RENDER_SERVICE_NAME;
+if (isRender) {
+  console.log('\n🚀 RENDER ENVIRONMENT DETECTED');
+  console.log('Performing additional Render-specific checks...');
+  
+  // Check if paths are absolute vs relative
+  const absoluteSrcPath = path.resolve(process.cwd(), 'src');
+  console.log(`Absolute src path: ${absoluteSrcPath}`);
+  console.log(`Absolute src exists: ${fs.existsSync(absoluteSrcPath)}`);
+  
+  // Check working directory structure
+  console.log('\nWorking directory contents:');
+  try {
+    const contents = fs.readdirSync(process.cwd());
+    contents.forEach(item => {
+      const itemPath = path.join(process.cwd(), item);
+      const stats = fs.statSync(itemPath);
+      console.log(`  ${stats.isDirectory() ? '📁' : '📄'} ${item}`);
+    });
+  } catch (error) {
+    console.log(`Error reading directory: ${error.message}`);
+  }
+}
 
 // Package.json check
 const packagePath = path.join(process.cwd(), 'package.json');
